@@ -4,7 +4,7 @@ import Mission from "./components/Mission";
 import Contributors from "./components/Contributors";
 import Projects from "./components/Projects";
 import Guidelines from "./components/Guidelines";
-import JoinCTA from "./components/JoinCTA";
+import Founder from "./components/Founder";
 import Footer from "./components/Footer";
 
 export default function Home() {
@@ -16,8 +16,10 @@ export default function Home() {
       <Contributors />
       <Projects />
       <Guidelines />
-      <JoinCTA />
+      <Founder />
       <Footer />
     </main>
   );
 }
+
+
