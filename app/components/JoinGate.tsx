@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { ArrowLeft, CheckCircle2, MessageCircle, ChevronRight, XCircle, Loader2, Send } from "lucide-react";
 import { whatsappGateTaskList, majorStates } from "../data/whatsappGate";
@@ -48,6 +48,17 @@ export default function JoinGate({ onStatusChange }: JoinGateProps) {
   const [inviteLink, setInviteLink] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [resultPopup, setResultPopup] = useState<"success" | "failure" | null>(null);
+  const [telegramLink, setTelegramLink] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchTelegramLink = async () => {
+      const res = await getCommunityInvite("Global");
+      if ("link" in res) {
+        setTelegramLink(res.link || "https://t.me/keralacoderscafe");
+      }
+    };
+    fetchTelegramLink();
+  }, []);
 
   const startTask = (task: LanguageTask) => {
     setSelectedTask(task);
@@ -215,6 +226,21 @@ export default function JoinGate({ onStatusChange }: JoinGateProps) {
               </button>
             ))}
           </div>
+
+          <div className="mt-8 border-t-2 border-dashed border-black/10 pt-6 text-center">
+            <p className="font-bold text-black/60 text-sm">
+              Not from Kerala, or prefer Telegram?
+            </p>
+            <Link
+              href={telegramLink || "https://t.me/keralacoderscafe"}
+              target="_blank"
+              rel="noopener"
+              className="mt-3 inline-flex items-center gap-2 border-2 border-black bg-[#22A7F0] text-white px-5 py-2 text-xs font-black uppercase shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all"
+            >
+              <Send className="h-4 w-4" />
+              Join KCC Telegram 🚀
+            </Link>
+          </div>
         </div>
       </div>
     );
@@ -316,15 +342,33 @@ export default function JoinGate({ onStatusChange }: JoinGateProps) {
                   You&apos;re in! Join our verified Kerala WhatsApp community below.
                 </p>
 
-                <Link
-                  href={inviteLink || "#"}
-                  target="_blank"
-                  rel="noopener"
-                  className="mt-8 inline-flex h-16 w-full items-center justify-center gap-3 border-3 border-black bg-black px-8 text-lg font-black uppercase text-white shadow-[6px_6px_0px_0px_rgba(37,211,102,1)] transition-all hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[8px_8px_0px_0px_rgba(37,211,102,1)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
-                >
-                  <MessageCircle className="h-5 w-5 stroke-[3]" />
-                  Join (WhatsApp)
-                </Link>
+                <div className="mt-8 flex flex-col gap-4">
+                  <Link
+                    href={inviteLink || "#"}
+                    target="_blank"
+                    rel="noopener"
+                    className="inline-flex h-16 w-full items-center justify-center gap-3 border-3 border-black bg-black px-8 text-lg font-black uppercase text-white shadow-[6px_6px_0px_0px_rgba(37,211,102,1)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[8px_8px_0px_0px_rgba(37,211,102,1)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
+                  >
+                    <MessageCircle className="h-5 w-5 stroke-[3]" />
+                    Join WhatsApp Group
+                  </Link>
+
+                  <div className="flex items-center my-2">
+                    <div className="flex-grow border-t-2 border-black/15" />
+                    <span className="mx-3 text-xs font-black uppercase text-black/50">AND / OR</span>
+                    <div className="flex-grow border-t-2 border-black/15" />
+                  </div>
+
+                  <Link
+                    href={telegramLink || "https://t.me/keralacoderscafe"}
+                    target="_blank"
+                    rel="noopener"
+                    className="inline-flex h-14 w-full items-center justify-center gap-3 border-3 border-black bg-white px-8 text-base font-black uppercase text-[#22A7F0] shadow-[4px_4px_0px_0px_rgba(0,136,204,1)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_rgba(0,136,204,1)] transition-all"
+                  >
+                    <Send className="h-5 w-5" />
+                    Join Telegram Channel
+                  </Link>
+                </div>
               </>
             ) : (
               <>
