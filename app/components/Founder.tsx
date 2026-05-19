@@ -108,7 +108,7 @@ export default function Founder() {
             <div className="relative w-full max-w-[680px] mt-6 border-3 border-black bg-[#FDFBF7] p-6 md:p-10 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] rotate-[-0.5deg] hover:rotate-0 transition-transform duration-300 overflow-hidden">
               {/* Vertical red margin line */}
               <div className="absolute left-8 md:left-12 top-0 bottom-0 w-[2px] bg-red-200" />
-
+              
               {/* Paper hole punches / spiral markers for notebook realism */}
               <div className="absolute left-2 top-0 bottom-0 flex flex-col justify-around py-4 pointer-events-none opacity-40">
                 <div className="w-2.5 h-2.5 rounded-full bg-[#E5E5E5] border border-black/20 shadow-inner" />
@@ -118,7 +118,7 @@ export default function Founder() {
               </div>
 
               {/* Lined paper content area */}
-              <div
+              <div 
                 className="pl-8 md:pl-10"
                 style={{
                   backgroundImage: "repeating-linear-gradient(transparent, transparent 31px, rgba(59, 130, 246, 0.12) 31px, rgba(59, 130, 246, 0.12) 32px)",
@@ -142,7 +142,7 @@ export default function Founder() {
                   <p className="pb-4">
                     That’s how KCC started — built through the connections and experiences from that journey. Today, it’s no longer just a group; it has become an active learning hub for developers across Kerala.”
                   </p>
-
+                  
                   {/* Elegant cursive signature aligned right */}
                   <div className="text-right font-hand text-2xl md:text-3xl text-[#1D3557] font-bold mt-6 tracking-wide italic pr-4">
                     — Akhil, Founder, KCC
@@ -182,7 +182,7 @@ export default function Founder() {
                 className="inline-flex h-14 items-center gap-3 border-3 border-black bg-kcc-green px-6 text-sm font-black text-black shadow-[5px_5px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[7px_7px_0px_0px_rgba(0,0,0,1)] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all lowercase"
               >
                 <Mail className="h-5 w-5 stroke-[3]" />
-                keralacoderscafe@gmail.com
+                keralacodercafe@gmail.com
                 <ArrowUpRight className="h-4 w-4 stroke-[3] shrink-0" />
               </Link>
 
