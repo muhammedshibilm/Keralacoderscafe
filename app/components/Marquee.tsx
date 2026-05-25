@@ -39,11 +39,11 @@ const Marquee: React.FC<MarqueeProps> = ({ quotes = communityQuotes }) => {
         ref={skillsElementRef}
       >
         {[1, 2].map((set) => (
-          <div key={set} className="flex gap-12 items-center">
+          <div key={set} className="flex gap-4 md:gap-12 items-center">
             {quotes.map((quote, index) => (
               <span
                 key={`${set}-${index}`}
-                className="flex items-center gap-12 text-3xl md:text-5xl font-black tracking-tighter text-kcc-green uppercase px-6"
+                className="flex items-center gap-4 md:gap-12 text-3xl md:text-5xl font-black tracking-tighter text-kcc-green uppercase px-2 md:px-6"
               >
                 {quote}
                 <Star className="w-8 h-8 md:w-12 md:h-12 fill-kcc-green text-kcc-green" />

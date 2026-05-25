@@ -73,7 +73,7 @@ export const PROJECT_DETAILS: Record<number, ProjectContent> = {
     ],
     glbModel: "/models/toddy.glb",
     coverImg: "/toddy-cover.jpg",
-    prototypeLink: "https://reference-toddy.vercel.app/",
+    prototypeLink: "https://www.figma.com/design/AShJkeAG40bf9u01P3rHPr/Toddy?node-id=0-1&t=I7UM7JAy3NvB8Zm1-1",
     github: "https://github.com/KERALACODERSCAFE/Kerala-toddy-finder",
   },
 };
