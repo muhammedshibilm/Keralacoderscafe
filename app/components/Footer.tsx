@@ -9,6 +9,7 @@ const quickLinks = [
   { label: "Contributors", href: "#contributors" },
   { label: "Projects", href: "#projects" },
   { label: "Guidelines", href: "#guidelines" },
+  { label: "Join", href: "/join" },
 ];
 
 const resources = [
@@ -18,8 +19,8 @@ const resources = [
     icon: <Github className="h-4 w-4" />,
   },
   {
-    label: "WhatsApp",
-    href: "https://chat.whatsapp.com/GisLp4Xp2Y8BkK8XlP2Xp2",
+    label: "WhatsApp Community",
+    href: "/join",
     icon: <MessageCircle className="h-4 w-4" />,
   },
   {
@@ -41,8 +42,10 @@ export default function Footer() {
     e: React.MouseEvent<HTMLAnchorElement>,
     href: string
   ) => {
-    e.preventDefault();
-    lenis?.scrollTo(href, { duration: 1.5 });
+    if (href.startsWith("#")) {
+      e.preventDefault();
+      lenis?.scrollTo(href, { duration: 1.5 });
+    }
   };
 
   return (
@@ -94,8 +97,8 @@ export default function Footer() {
                 <Link
                   key={link.label}
                   href={link.href}
-                  target="_blank"
-                  rel="noopener"
+                  target={link.href.startsWith("http") ? "_blank" : undefined}
+                  rel={link.href.startsWith("http") ? "noopener" : undefined}
                   className="flex items-center gap-3 text-[1.1rem] font-black uppercase text-black hover:text-kcc-accent transition-all hover:translate-x-2"
                 >
                   <span className="p-2 border-2 border-black bg-white group-hover:bg-kcc-gold shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]">

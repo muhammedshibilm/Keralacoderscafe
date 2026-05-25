@@ -154,7 +154,7 @@ export default function NavBar() {
             {/* Join Button */}
             <Link
               href="/join"
-              className="inline-flex h-8 sm:h-10 items-center gap-1.5 sm:gap-2 border-2 border-black bg-[#FFD600] px-3 sm:px-5 rounded-full text-[10px] sm:text-xs font-black uppercase text-black hover:bg-black hover:text-white transition-all shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] shrink-0 order-2 lg:order-3"
+              className="inline-flex h-8 sm:h-10 items-center gap-1.5 sm:gap-2 border-2 border-black bg-kcc-green px-3 sm:px-5 rounded-full text-[10px] sm:text-xs font-black uppercase text-black hover:bg-black hover:text-white transition-all shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] shrink-0 order-2 lg:order-3"
             >
               <span className="hidden sm:inline">Join the Community</span>
               <span className="sm:hidden">Join</span>

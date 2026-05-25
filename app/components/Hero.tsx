@@ -91,7 +91,7 @@ export default function Hero() {
   }, [isAnimating, fastAvatars.length]);
 
   return (
-    <header className="relative overflow-clip px-6 pb-28 pt-44 md:px-12 lg:pb-36 lg:pt-56 bg-white border-b-4 border-black">
+    <header className="relative overflow-clip px-6 pb-28 pt-12 md:px-12 lg:pb-36 lg:pt-20 bg-white border-b-4 border-black">
       {/* Geometric Background Elements */}
       <div className="absolute top-20 left-10 h-32 w-32 border-4 border-black bg-kcc-gold -z-10 rotate-12 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hidden lg:block" />
       <div className="absolute bottom-20 right-20 h-40 w-40 border-4 border-black bg-kcc-green -z-10 -rotate-6 shadow-[10px_10px_0px_0px_rgba(0,0,0,1)] hidden lg:block" />
