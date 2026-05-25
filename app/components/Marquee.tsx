@@ -32,7 +32,7 @@ const Marquee: React.FC<MarqueeProps> = ({ quotes = communityQuotes }) => {
   }, [quotes]);
 
   return (
-    <div className="relative overflow-hidden bg-black border-y-4 border-black py-2 md:py-4 z-20 mt-[84px] sm:mt-[66px] mb-6 shadow-[0_8px_0_0_#000]">
+    <div className="relative overflow-hidden bg-black border-y-4 border-black py-2 md:py-4 z-20 mt-[96px] sm:mt-[68px] mb-6 shadow-[0_8px_0_0_#000]">
       <div
         id="quotes"
         className="w-max whitespace-nowrap flex will-change-transform"
