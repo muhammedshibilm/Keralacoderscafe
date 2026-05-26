@@ -433,4 +433,13 @@ html.lenis body {
   from { transform: rotate(2deg); }
   to { transform: rotate(-2deg); }
 }
+
+@keyframes marquee-footer {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee-footer {
+  animation: marquee-footer 50s linear infinite;
+}
 

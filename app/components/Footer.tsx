@@ -4,35 +4,22 @@ import Link from "next/link";
 import { Github, MessageCircle, Mail, Twitter } from "lucide-react";
 import { useLenis } from "lenis/react";
 
-const quickLinks = [
+const exploreLinks = [
+  { label: "Home", href: "/" },
   { label: "About", href: "#about" },
-  { label: "Contributors", href: "#contributors" },
   { label: "Projects", href: "#projects" },
+];
+
+const communityLinks = [
+  { label: "Contributors", href: "#contributors" },
   { label: "Guidelines", href: "#guidelines" },
   { label: "Join", href: "/join" },
 ];
 
-const resources = [
-  {
-    label: "GitHub",
-    href: "https://github.com/KERALACODERSCAFE/Keralacoderscafe",
-    icon: <Github className="h-4 w-4" />,
-  },
-  {
-    label: "WhatsApp Community",
-    href: "/join",
-    icon: <MessageCircle className="h-4 w-4" />,
-  },
-  {
-    label: "Email",
-    href: "mailto:keralacoderscafe@gmail.com",
-    icon: <Mail className="h-4 w-4" />,
-  },
-  {
-    label: "X",
-    href: "https://x.com/Keralacoders",
-    icon: <Twitter className="h-4 w-4" />,
-  },
+const resourcesLinks = [
+  { label: "GitHub", href: "https://github.com/KERALACODERSCAFE/Keralacoderscafe" },
+  { label: "WhatsApp", href: "/join" },
+  { label: "X", href: "https://x.com/Keralacoders" },
 ];
 
 export default function Footer() {
@@ -49,77 +36,133 @@ export default function Footer() {
   };
 
   return (
-    <footer id="footer" className="px-6 pb-20 pt-10 md:px-12 bg-white">
-      <div className="mx-auto max-w-[1280px] border-4 border-black bg-white px-8 py-16 shadow-[10px_10px_0px_0px_rgba(0,0,0,1)] md:px-16">
-        <div className="grid gap-16 lg:grid-cols-[minmax(0,1.5fr)_minmax(180px,0.7fr)_minmax(180px,0.7fr)]">
-          <div>
-            <div className="text-[clamp(2.6rem,6vw,5rem)] font-black leading-[0.92] tracking-[-0.05em] text-black uppercase">
-              Kerala <br />
-              Coders
-              <span className="ml-3 bg-kcc-gold border-3 border-black px-4 py-1 shadow-[5px_5px_0px_0px_rgba(0,0,0,1)] inline-block -rotate-2">
-                Cafe
-              </span>
-            </div>
-            <p className="mt-8 max-w-[520px] text-lg font-bold leading-relaxed text-black/70">
-              A Kerala-first community for developers, designers, contributors,
-              and curious people who want to learn in public and build with
-              others.
-            </p>
-            <p className="mt-8 font-black uppercase text-2xl text-black">
-              BUILT SLOWLY • SHARED OPENLY
-            </p>
-          </div>
+    <footer id="footer" className="bg-black text-white">
 
-          <div>
-            <div className="text-xs font-black uppercase tracking-[0.25em] text-black/40 border-b-2 border-black pb-2 mb-6 inline-block">
-              EXPLORE
-            </div>
-            <div className="flex flex-col gap-4">
-              {quickLinks.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  onClick={(e) => handleQuickLinkClick(e, link.href)}
-                  className="text-[1.1rem] font-black uppercase text-black hover:text-kcc-accent transition-all hover:translate-x-2 cursor-pointer"
-                >
-                  {link.label}
-                </a>
-              ))}
-            </div>
-          </div>
-
-          <div>
-            <div className="text-xs font-black uppercase tracking-[0.25em] text-black/40 border-b-2 border-black pb-2 mb-6 inline-block">
-              CONNECT
-            </div>
-            <div className="flex flex-col gap-4">
-              {resources.map((link) => (
-                <Link
-                  key={link.label}
-                  href={link.href}
-                  target={link.href.startsWith("http") ? "_blank" : undefined}
-                  rel={link.href.startsWith("http") ? "noopener" : undefined}
-                  className="flex items-center gap-3 text-[1.1rem] font-black uppercase text-black hover:text-kcc-accent transition-all hover:translate-x-2"
-                >
-                  <span className="p-2 border-2 border-black bg-white group-hover:bg-kcc-gold shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]">
-                    {link.icon}
-                  </span>
-                  {link.label}
-                </Link>
-              ))}
-            </div>
-          </div>
+      {/* Slanted Cyan Marquee Banner — skewY parallelogram matching reference */}
+      <div className="relative w-full overflow-hidden bg-black" style={{ height: "110px" }}>
+        <div
+          className="absolute bg-[#00D9C0] flex items-center overflow-hidden"
+          style={{
+            inset: "-40px -5% -40px -5%",
+            transform: "skewY(3deg)",
+            transformOrigin: "center",
+          }}
+        >
+          <FooterMarquee />
         </div>
+      </div>
 
-        <div className="mt-20 border-t-4 border-black pt-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 text-sm font-black uppercase">
-          <div>
-            © {new Date().getFullYear()} Kerala Coders Cafe.
+      {/* Footer Body */}
+      <div className="px-6 py-20 md:px-12 lg:px-24">
+        <div className="mx-auto max-w-[1280px]">
+          <div className="grid gap-16 lg:gap-8 lg:grid-cols-[1.5fr_1fr_1fr_1fr]">
+
+            {/* Column 1: Brand */}
+            <div>
+              <h2 className="text-2xl font-black uppercase tracking-tight mb-4">
+                Kerala Coders Cafe
+              </h2>
+              <p className="text-white/70 text-sm mb-10 max-w-sm font-medium leading-relaxed">
+                A Kerala-first community for developers, designers, contributors,
+                and curious people who want to learn in public and build with others.
+              </p>
+              <div className="flex gap-4">
+                <Link href="https://github.com/KERALACODERSCAFE/Keralacoderscafe" target="_blank" rel="noopener"
+                  className="flex items-center justify-center w-10 h-10 rounded-full bg-[#F5A524] text-black hover:scale-110 transition-transform" aria-label="GitHub">
+                  <Github className="w-5 h-5 fill-black" />
+                </Link>
+                <Link href="/join"
+                  className="flex items-center justify-center w-10 h-10 rounded-full bg-[#F5A524] text-black hover:scale-110 transition-transform" aria-label="WhatsApp Community">
+                  <MessageCircle className="w-5 h-5 fill-black" />
+                </Link>
+                <Link href="mailto:keralacoderscafe@gmail.com"
+                  className="flex items-center justify-center w-10 h-10 rounded-full bg-[#F5A524] text-black hover:scale-110 transition-transform" aria-label="Email">
+                  <Mail className="w-5 h-5 fill-black" />
+                </Link>
+                <Link href="https://x.com/Keralacoders" target="_blank" rel="noopener"
+                  className="flex items-center justify-center w-10 h-10 rounded-full bg-[#F5A524] text-black hover:scale-110 transition-transform" aria-label="X (Twitter)">
+                  <Twitter className="w-5 h-5 fill-black" />
+                </Link>
+              </div>
+            </div>
+
+            {/* Column 2: Explore */}
+            <div className="lg:ml-auto">
+              <h3 className="text-xs font-black uppercase tracking-[0.2em] text-white/50 mb-6">Explore</h3>
+              <div className="flex flex-col gap-4">
+                {exploreLinks.map((link) => (
+                  <Link key={link.label} href={link.href}
+                    onClick={(e) => handleQuickLinkClick(e as any, link.href)}
+                    className="text-sm font-bold text-white/70 hover:text-white transition-colors">
+                    {link.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            {/* Column 3: Community */}
+            <div className="lg:ml-auto">
+              <h3 className="text-xs font-black uppercase tracking-[0.2em] text-white/50 mb-6">Community</h3>
+              <div className="flex flex-col gap-4">
+                {communityLinks.map((link) => (
+                  <Link key={link.label} href={link.href}
+                    onClick={(e) => handleQuickLinkClick(e as any, link.href)}
+                    className="text-sm font-bold text-white/70 hover:text-white transition-colors">
+                    {link.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            {/* Column 4: Resources */}
+            <div className="lg:ml-auto">
+              <h3 className="text-xs font-black uppercase tracking-[0.2em] text-white/50 mb-6">Resources</h3>
+              <div className="flex flex-col gap-4">
+                {resourcesLinks.map((link) => (
+                  <Link key={link.label} href={link.href}
+                    target={link.href.startsWith("http") ? "_blank" : undefined}
+                    rel={link.href.startsWith("http") ? "noopener" : undefined}
+                    className="text-sm font-bold text-white/70 hover:text-white transition-colors">
+                    {link.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
+
           </div>
-          <div className="bg-kcc-green border-2 border-black px-4 py-2 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-            Built in Kerala for people who build.
+
+          {/* Bottom Bar */}
+          <div className="mt-20 pt-8 border-t border-white/20 flex flex-col sm:flex-row sm:items-center justify-between gap-6 text-xs font-bold text-white/50 uppercase tracking-widest">
+            <div>© {new Date().getFullYear()} Kerala Coders Cafe.</div>
+            <div>Built in Kerala for people who build.</div>
           </div>
         </div>
       </div>
     </footer>
+  );
+}
+
+const footerQuotes = [
+  "BUILD WITH PASSION",
+  "SHIP IT TODAY",
+  "DEBUG YOUR DREAMS",
+  "CODE IN PUBLIC",
+  "LEARN TOGETHER",
+  "OPEN SOURCE KERALA",
+];
+
+function FooterMarquee() {
+  const repeated = [...footerQuotes, ...footerQuotes, ...footerQuotes];
+  return (
+    <div className="flex items-center overflow-hidden w-full" style={{ transform: "skewY(-3deg)" }}>
+      <div className="flex gap-8 items-center whitespace-nowrap animate-marquee-footer">
+        {repeated.map((q, i) => (
+          <span key={i} className="flex items-center gap-6 text-5xl md:text-7xl font-black tracking-tight text-black uppercase px-2">
+            {q}
+            <span className="text-4xl font-black">✱</span>
+          </span>
+        ))}
+      </div>
+    </div>
   );
 }
