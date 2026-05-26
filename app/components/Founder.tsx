@@ -10,7 +10,7 @@ export default function Founder() {
   return (
     <section
       id="founder"
-      className="scroll-mt-24 px-6 py-28 md:px-12 bg-[#F9F6F0] border-t-4 border-b-4 border-black relative overflow-hidden"
+      className="scroll-mt-24 px-6 py-28 md:px-12 bg-[#F9F6F0] border-t-4 border-black relative overflow-hidden"
     >
       {/* Brutalist Background Grid Pattern & Shapes */}
       <GridPattern

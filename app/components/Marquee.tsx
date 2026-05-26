@@ -33,8 +33,8 @@ const Marquee: React.FC<MarqueeProps> = ({
   quotes = communityQuotes,
   className,
   theme = "dark",
-  mt = "36px",
-  mb = "50px",
+  mt = "mt-[100px] lg:mt-[72px]",
+  mb = "mb-[100px]",
   variant = "default",
   slantedHeight = "100px",
   clipPath = "polygon(0 0, 200% 30%, 100% 75%, 0 45%)",
@@ -70,37 +70,13 @@ const Marquee: React.FC<MarqueeProps> = ({
   const textClass = isCyan ? "text-black" : "text-kcc-green";
   const iconClass = isCyan ? "fill-black text-black" : "fill-kcc-green text-kcc-green";
 
-  const isSlanted = variant === "slanted";
-
-  // For slanted variant, override margins
-  const topMargin = isSlanted ? "0" : mt;
-  const bottomMargin = isSlanted ? "0" : mb;
-
-  // Wrapper styles for slanted variant
-  const wrapperStyle = isSlanted
-    ? {
-      height: slantedHeight,
-      clipPath: clipPath,
-      ...(rotate ? { transform: `rotate(${rotate})` } : {}),
-    }
-    : {
-      ...(rotate ? { transform: `rotate(${rotate})` } : {}),
-    };
-
-  const innerClasses = isSlanted
-    ? "flex items-center w-full h-full"
-    : "py-1 md:py-2";
-
   return (
     <div
-      className={twMerge(`relative overflow-hidden z-20 ${bgClass}`, className)}
-      style={{
-        marginTop: topMargin,
-        marginBottom: bottomMargin,
-        ...wrapperStyle,
-      }}
+      className={twMerge(`relative w-full overflow-hidden ${mt} ${mb}`)}
     >
-      <div className={innerClasses}>
+      <div
+        className={twMerge(`relative z-20 ${bgClass} py-2 md:py-3 flex items-center`, className)}
+      >
         <div
           id="quotes"
           className="w-max whitespace-nowrap flex will-change-transform"

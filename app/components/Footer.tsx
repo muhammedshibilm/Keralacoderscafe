@@ -36,24 +36,34 @@ export default function Footer() {
   };
 
   return (
-    <footer id="footer" className="bg-black text-white">
+    <footer id="footer" className="relative w-full overflow-x-clip mt-16 pt-16">
+      
+      {/* Black Background - normal horizontal block that fills the bottom */}
+      <div className="absolute top-[80px] left-0 right-0 bottom-0 bg-black z-0" />
 
-      {/* Slanted Cyan Marquee Banner — skewY parallelogram matching reference */}
-      <div className="relative w-full overflow-hidden bg-black" style={{ height: "110px" }}>
-        <div
-          className="absolute bg-[#00D9C0] flex items-center overflow-hidden"
-          style={{
-            inset: "-40px -5% -40px -5%",
-            transform: "skewY(3deg)",
-            transformOrigin: "center",
-          }}
-        >
-          <FooterMarquee />
-        </div>
+      {/* Slanted shape that covers the transition */}
+      <div 
+        className="absolute top-0 left-0 w-full h-[150px] bg-black z-0"
+        style={{
+          transform: "skewY(-4deg)",
+          transformOrigin: "center",
+        }}
+      />
+
+      {/* Cyan Banner - skewed perfectly parallel to the black background's slanted top */}
+      <div 
+        className="absolute top-[-20px] left-[-5%] w-[110%] bg-[#00D9C0] flex items-center z-10"
+        style={{
+          height: "110px",
+          transform: "skewY(-4deg)",
+          transformOrigin: "center",
+        }}
+      >
+        <FooterMarquee />
       </div>
 
-      {/* Footer Body */}
-      <div className="px-6 py-20 md:px-12 lg:px-24">
+      {/* Horizontal Footer Content */}
+      <div className="relative z-20 px-6 pt-32 pb-20 md:px-12 lg:px-24">
         <div className="mx-auto max-w-[1280px]">
           <div className="grid gap-16 lg:gap-8 lg:grid-cols-[1.5fr_1fr_1fr_1fr]">
 
@@ -154,7 +164,7 @@ const footerQuotes = [
 function FooterMarquee() {
   const repeated = [...footerQuotes, ...footerQuotes, ...footerQuotes];
   return (
-    <div className="flex items-center overflow-hidden w-full" style={{ transform: "skewY(-3deg)" }}>
+    <div className="flex items-center overflow-hidden w-full">
       <div className="flex gap-8 items-center whitespace-nowrap animate-marquee-footer">
         {repeated.map((q, i) => (
           <span key={i} className="flex items-center gap-6 text-5xl md:text-7xl font-black tracking-tight text-black uppercase px-2">
