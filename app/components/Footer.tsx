@@ -20,6 +20,7 @@ const resourcesLinks = [
   { label: "GitHub", href: "https://github.com/KERALACODERSCAFE/Keralacoderscafe" },
   { label: "WhatsApp", href: "/join" },
   { label: "X", href: "https://x.com/Keralacoders" },
+  { label: "Freelance Enquiries", href: "mailto:keralacoderscafe@gmail.com?subject=Freelance%20Enquiry", highlight: true },
 ];
 
 export default function Footer() {
@@ -132,8 +133,17 @@ export default function Footer() {
                   <Link key={link.label} href={link.href}
                     target={link.href.startsWith("http") ? "_blank" : undefined}
                     rel={link.href.startsWith("http") ? "noopener" : undefined}
-                    className="text-sm font-bold text-white/70 hover:text-white transition-colors">
+                    className={`text-sm font-bold transition-colors flex items-center gap-2 ${
+                      (link as any).highlight 
+                        ? "text-[#00D9C0] hover:text-[#00D9C0]/80" 
+                        : "text-white/70 hover:text-white"
+                    }`}>
                     {link.label}
+                    {(link as any).highlight && (
+                      <span className="px-1.5 py-0.5 rounded bg-[#00D9C0] text-black text-[10px] font-black uppercase tracking-wider leading-none shadow-[2px_2px_0px_0px_rgba(255,255,255,0.2)]">
+                        Hire Us
+                      </span>
+                    )}
                   </Link>
                 ))}
               </div>
