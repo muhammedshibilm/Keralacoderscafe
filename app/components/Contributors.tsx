@@ -31,6 +31,7 @@ export default function Contributors() {
       try {
         const REPOS_TO_FETCH = [
           "/api/github?endpoint=repos/KERALACODERSCAFE/Keralacoderscafe/contributors?per_page=50",
+          "/api/github?endpoint=repos/KERALACODERSCAFE/Kerala-toddy-finder/contributors?per_page=50",
         ];
 
         const results = await Promise.allSettled(
@@ -69,7 +70,7 @@ export default function Contributors() {
   }, []);
 
   return (
-    <section id="contributors" className="scroll-mt-24 px-6 py-28 md:px-12 bg-white border-t-4 border-black">
+    <section id="contributors" className="scroll-mt-24 px-6 py-28 md:px-12 border-t-4 border-black">
       <div className="mx-auto max-w-[1280px]">
         <div className="flex flex-col gap-12 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-[750px]">
@@ -106,7 +107,7 @@ export default function Contributors() {
 
         <div className="mt-16 grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
           {loading
-            ? Array.from({ length: 6 }).map((_, index) => (
+            ? Array.from({ length: 3 }).map((_, index) => (
                 <div
                   key={index}
                   className="border-4 border-black bg-white p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]"
@@ -116,7 +117,7 @@ export default function Contributors() {
                   <div className="mt-3 h-5 w-1/2 animate-pulse border-2 border-black bg-black/5" />
                 </div>
               ))
-            : contributors.slice(0, 6).map((contributor, index) => (
+            : contributors.slice(0, 3).map((contributor, index) => (
                 <Link
                   key={contributor.id}
                   href={contributor.html_url}
@@ -129,7 +130,7 @@ export default function Contributors() {
                   <div className="flex items-start justify-between gap-3">
                     <div className="relative h-16 w-16 shrink-0 overflow-hidden border-3 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
                       <Image
-                        src={contributor.avatar_url}
+                         src={contributor.avatar_url}
                         alt={contributor.login}
                         fill
                         className="object-cover transition duration-300 group-hover:scale-110"
@@ -146,9 +147,14 @@ export default function Contributors() {
                     <h3 className="text-[1.2rem] sm:text-[1.4rem] font-black uppercase tracking-[-0.04em] text-black truncate">
                       {contributor.login}
                     </h3>
-                    <p className="mt-2 text-xs font-bold leading-relaxed text-black/70 uppercase">
-                      {contributor.contributions} CONTRIBS
-                    </p>
+                    <div className="mt-3 flex flex-wrap gap-2">
+                      <span className="inline-flex items-center gap-1 border-2 border-black bg-white px-2 py-1 text-[10px] font-black uppercase tracking-widest shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] text-black">
+                        {contributor.contributions} <span className="opacity-60">COMMITS</span>
+                      </span>
+                      <span className="inline-flex items-center gap-1 border-2 border-black bg-kcc-green px-2 py-1 text-[10px] font-black uppercase tracking-widest shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] text-black">
+                        {contributor.contributions * 15} <span className="opacity-60">IMPACT</span>
+                      </span>
+                    </div>
                   </div>
 
                   <div className="mt-5 inline-flex items-center gap-2 border-b-2 border-black text-xs font-black uppercase text-black">
@@ -167,9 +173,7 @@ export default function Contributors() {
 
         <div className="mt-14">
           <Link
-            href="https://github.com/KERALACODERSCAFE/Keralacoderscafe/graphs/contributors"
-            target="_blank"
-            rel="noopener"
+            href="/contributors"
             className="inline-flex h-14 items-center gap-3 border-3 border-black bg-kcc-gold px-8 text-sm font-black uppercase text-black shadow-[5px_5px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[7px_7px_0px_0px_rgba(0,0,0,1)] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all"
           >
             View all contributors
