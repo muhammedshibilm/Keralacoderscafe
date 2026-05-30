@@ -96,109 +96,83 @@ export default function MemberProjects() {
         </div>
 
         {/* Project Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-5 gap-y-10 max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {isLoading ? (
             // Skeleton Loaders
-            Array.from({ length: 4 }).map((_, i) => (
-              <div
-                key={i}
-                className="group bg-white border-[3px] border-black rounded-xl overflow-visible flex flex-col h-full shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]"
-              >
-                {/* Window Title Bar Skeleton */}
-                <div className="w-full h-8 border-b-[3px] border-black bg-gray-200 flex items-center px-3 gap-1.5 rounded-t-lg">
-                  <div className="w-2.5 h-2.5 rounded-full border-[2px] border-black bg-gray-300"></div>
-                  <div className="w-2.5 h-2.5 rounded-full border-[2px] border-black bg-gray-300"></div>
-                  <div className="w-2.5 h-2.5 rounded-full border-[2px] border-black bg-gray-300"></div>
-                </div>
-
-                {/* Bottom Half Skeleton */}
-                <div className="p-3 md:p-4 flex flex-col flex-grow bg-[#FDFBF7] rounded-b-lg animate-pulse">
-                  {/* Image Skeleton */}
-                  <div className="relative w-full aspect-[4/3] border-[3px] border-black mb-8 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] rounded-md bg-gray-300">
-                    <div className="absolute -bottom-3 right-3 bg-gray-400 border-[2px] border-black px-6 py-3 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] rounded-md z-10"></div>
-                  </div>
-
-                  {/* Title Skeleton */}
-                  <div className="h-6 bg-gray-300 rounded mb-4 w-3/4"></div>
-
-                  {/* Description Skeleton */}
-                  <div className="space-y-2 mb-5 flex-grow">
-                    <div className="h-3 bg-gray-200 rounded w-full"></div>
-                    <div className="h-3 bg-gray-200 rounded w-full"></div>
-                    <div className="h-3 bg-gray-200 rounded w-5/6"></div>
-                  </div>
-
-                  {/* Bottom Row Skeleton */}
-                  <div className="flex items-center justify-between mt-auto pt-3 border-t-[2px] border-black/10">
-                    <div className="flex gap-2">
-                      <div className="h-4 w-8 bg-gray-300 rounded"></div>
-                      <div className="h-4 w-8 bg-gray-300 rounded"></div>
-                    </div>
-                    <div className="w-7 h-7 rounded-full border-[2px] border-black bg-gray-300"></div>
-                  </div>
-                </div>
+            Array.from({ length: 3 }).map((_, i) => (
+              <div key={i} className="bg-concrete shadow-concrete rounded-sm p-4 h-[400px] animate-pulse">
+                <div className="w-full h-full bg-black/10 rounded-sm"></div>
               </div>
             ))
           ) : (
             mockProjects.map((project) => (
               <div
                 key={project.id}
-                className="group bg-white border-[3px] border-black rounded-xl overflow-visible flex flex-col h-full hover:-translate-y-2 hover:shadow-[10px_10px_0px_0px_rgba(0,0,0,1)] shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] transition-all duration-300"
+                className="group relative bg-concrete p-5 rounded-sm shadow-[10px_10px_20px_rgba(0,0,0,0.5)] border-2 border-white/20 transition-all duration-300 hover:-translate-y-1 hover:shadow-[12px_12px_25px_rgba(0,0,0,0.6)] flex flex-col h-full"
               >
-                {/* Window Title Bar */}
-                <div className={`w-full h-8 border-b-[3px] border-black ${project.windowColor} flex items-center px-3 gap-1.5 rounded-t-lg`}>
-                  <div className="w-2.5 h-2.5 rounded-full border-[2px] border-black bg-[#FF595E]"></div>
-                  <div className="w-2.5 h-2.5 rounded-full border-[2px] border-black bg-[#FFD166]"></div>
-                  <div className="w-2.5 h-2.5 rounded-full border-[2px] border-black bg-[#8AC926]"></div>
-                </div>
+                {/* Rivets on outer concrete shell */}
+                <div className="rivet top-2 left-2"></div>
+                <div className="rivet top-2 right-2"></div>
+                <div className="rivet bottom-2 left-2"></div>
+                <div className="rivet bottom-2 right-2"></div>
 
-                {/* Bottom Half (Content Area) */}
-                <div className="p-3 md:p-4 flex flex-col flex-grow bg-[#FDFBF7] rounded-b-lg">
-
-                  {/* Image Container with Floating Pill */}
-                  <div className="relative w-full aspect-[4/3] border-[3px] border-black mb-8 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] rounded-md bg-white">
+                {/* Inner Screen Bevel */}
+                <div className="relative w-full aspect-[4/3] bg-black p-1 rounded-sm shadow-[inset_0px_5px_15px_rgba(0,0,0,0.9)] mb-6 border-b-2 border-r-2 border-white/20">
+                  <div className="relative w-full h-full overflow-hidden border border-black/50">
                     <Image
                       src={project.image}
                       alt={project.name}
                       fill
-                      className="object-cover rounded-sm"
+                      className="object-cover opacity-80 mix-blend-luminosity group-hover:mix-blend-normal transition-all duration-500"
                       sizes="(max-w-768px) 100vw, (max-w-1200px) 50vw, 33vw"
                     />
-                    {/* Overlapping Author Pill */}
-                    <div className={`absolute -bottom-3 right-3 ${project.pillColor} border-[2px] border-black px-3 py-1 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] rounded-md z-10 flex flex-col`}>
-                      <span className="font-black text-black text-xs leading-none">{project.author}</span>
-                      <span className="font-bold text-black/70 text-[8px] uppercase tracking-wider mt-0.5">Community Dev</span>
-                    </div>
+                    {/* Scanline overlay */}
+                    <div className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.1)_50%,rgba(0,0,0,0.2)_50%)] bg-[length:100%_4px] pointer-events-none opacity-50"></div>
                   </div>
+                </div>
 
-                  <h3 className="text-lg font-black text-black leading-tight tracking-tight mb-2 mt-2">
-                    {project.name}
+                {/* Metal Nameplate */}
+                <div className="relative bg-metal shadow-metal p-3 rounded-sm border border-black/30 mb-4 flex-grow flex flex-col">
+                  {/* Small plate rivets */}
+                  <div className="rivet top-1 left-1 scale-75"></div>
+                  <div className="rivet top-1 right-1 scale-75"></div>
+                  <div className="rivet bottom-1 left-1 scale-75"></div>
+                  <div className="rivet bottom-1 right-1 scale-75"></div>
+
+                  <h3 className="text-lg font-black text-black/80 text-stamped leading-tight tracking-tight mt-1 text-center">
+                    {project.name.toUpperCase()}
                   </h3>
+                  
+                  <div className="w-full h-px bg-black/20 my-2 shadow-[0_1px_0_rgba(255,255,255,0.5)]"></div>
 
-                  <p className="text-black/70 text-xs font-bold leading-relaxed mb-5 flex-grow">
+                  <p className="text-black/70 text-xs font-bold leading-relaxed flex-grow text-center">
                     {project.description}
                   </p>
 
-                  {/* Bottom Row: Stats & Action */}
-                  <div className="flex items-center justify-between mt-auto pt-3 border-t-[2px] border-black/10">
-                    <div className="flex items-center gap-2 text-black text-[10px] font-black">
-                      <div className="flex items-center gap-1">
-                        <Star className="w-3.5 h-3.5 fill-black" />
-                        <span>{project.stats.stars}</span>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <GitFork className="w-3.5 h-3.5" />
-                        <span>{project.stats.forks}</span>
-                      </div>
-                    </div>
-
-                    <Link
-                      href={project.link}
-                      className="flex items-center justify-center w-7 h-7 rounded-full border-[2px] border-black bg-black text-white hover:bg-[#A18CE5] hover:text-black transition-colors shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
-                    >
-                      <ArrowRight className="w-3.5 h-3.5 stroke-[3]" />
-                    </Link>
+                  <div className="mt-3 inline-block bg-black/80 text-[#FFD166] px-2 py-1 text-[10px] font-black uppercase tracking-widest shadow-[inset_1px_1px_3px_rgba(0,0,0,0.8)] border border-white/10 self-center">
+                    DEV: {project.author}
                   </div>
+                </div>
+
+                {/* Bottom Stats/Link Row (Metal Bar) */}
+                <div className="relative bg-metal shadow-metal h-10 w-full rounded-sm border border-black/30 flex items-center justify-between px-4 mt-auto">
+                  <div className="flex items-center gap-4 text-black/80 text-[10px] font-black text-stamped">
+                    <div className="flex items-center gap-1">
+                      <Star className="w-3.5 h-3.5" />
+                      <span>{project.stats.stars}</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <GitFork className="w-3.5 h-3.5" />
+                      <span>{project.stats.forks}</span>
+                    </div>
+                  </div>
+
+                  <Link
+                    href={project.link}
+                    className="flex items-center justify-center w-6 h-6 rounded-sm bg-black/80 text-[#8AC926] shadow-[inset_1px_1px_3px_rgba(0,0,0,0.8)] border border-white/10 hover:text-white hover:bg-black transition-colors"
+                  >
+                    <ExternalLink className="w-3.5 h-3.5 stroke-[3]" />
+                  </Link>
                 </div>
               </div>
             ))

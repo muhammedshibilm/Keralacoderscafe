@@ -118,48 +118,58 @@ export default function Contributors() {
                 </div>
               ))
             : contributors.slice(0, 3).map((contributor, index) => (
-                <Link
+                  <Link
                   key={contributor.id}
                   href={contributor.html_url}
                   target="_blank"
                   rel="noopener"
-                  className={`group border-4 border-black p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[-4px] hover:translate-y-[-4px] hover:shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] overflow-hidden ${
-                    accentClasses[index % accentClasses.length]
-                  }`}
+                  className="group relative bg-concrete p-5 rounded-sm shadow-[10px_10px_20px_rgba(0,0,0,0.5)] border-2 border-white/20 transition-all duration-300 hover:-translate-y-1 hover:shadow-[12px_12px_25px_rgba(0,0,0,0.6)] flex flex-col h-full overflow-hidden"
                 >
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="relative h-16 w-16 shrink-0 overflow-hidden border-3 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-                      <Image
-                         src={contributor.avatar_url}
-                        alt={contributor.login}
-                        fill
-                        className="object-cover transition duration-300 group-hover:scale-110"
-                        sizes="64px"
-                      />
+                  {/* Rivets on outer concrete shell */}
+                  <div className="rivet top-2 left-2"></div>
+                  <div className="rivet top-2 right-2"></div>
+                  <div className="rivet bottom-2 left-2"></div>
+                  <div className="rivet bottom-2 right-2"></div>
+
+                  <div className="flex items-start justify-between gap-3 mb-4">
+                    {/* Metal Frame for Avatar */}
+                    <div className="relative bg-metal shadow-metal p-1 rounded-sm border border-black/30">
+                      <div className="rivet -top-1 -left-1 scale-[0.6]"></div>
+                      <div className="rivet -top-1 -right-1 scale-[0.6]"></div>
+                      <div className="rivet -bottom-1 -left-1 scale-[0.6]"></div>
+                      <div className="rivet -bottom-1 -right-1 scale-[0.6]"></div>
+                      <div className="relative h-16 w-16 shrink-0 overflow-hidden shadow-[inset_0px_2px_5px_rgba(0,0,0,0.9)] bg-black/80">
+                        <Image
+                          src={contributor.avatar_url}
+                          alt={contributor.login}
+                          fill
+                          className="object-cover opacity-90 mix-blend-luminosity group-hover:mix-blend-normal transition duration-300"
+                          sizes="64px"
+                        />
+                      </div>
                     </div>
 
-                    <div className="shrink-0 border-2 border-black bg-white px-3 py-1 text-xs font-black uppercase tracking-widest shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]">
+                    <div className="shrink-0 bg-metal border border-black/30 shadow-metal px-3 py-1 text-xs font-black uppercase tracking-widest text-stamped text-black/80 rounded-sm">
                       #{String(index + 1).padStart(2, "0")}
                     </div>
                   </div>
 
-                  <div className="mt-5 min-w-0">
-                    <h3 className="text-[1.2rem] sm:text-[1.4rem] font-black uppercase tracking-[-0.04em] text-black truncate">
+                  <div className="mt-2 min-w-0 flex-grow">
+                    <h3 className="text-[1.2rem] sm:text-[1.4rem] font-black uppercase tracking-[-0.04em] text-black/80 text-stamped truncate">
                       {contributor.login}
                     </h3>
-                    <div className="mt-3 flex flex-wrap gap-2">
-                      <span className="inline-flex items-center gap-1 border-2 border-black bg-white px-2 py-1 text-[10px] font-black uppercase tracking-widest shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] text-black">
-                        {contributor.contributions} <span className="opacity-60">COMMITS</span>
-                      </span>
-                      <span className="inline-flex items-center gap-1 border-2 border-black bg-kcc-green px-2 py-1 text-[10px] font-black uppercase tracking-widest shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] text-black">
-                        {contributor.contributions * 15} <span className="opacity-60">IMPACT</span>
-                      </span>
-                    </div>
                   </div>
 
-                  <div className="mt-5 inline-flex items-center gap-2 border-b-2 border-black text-xs font-black uppercase text-black">
-                    GITHUB PROFILE
-                    <ArrowUpRight className="h-4 w-4 stroke-[3]" />
+                  {/* Metal Bar for Stats */}
+                  <div className="relative bg-metal shadow-metal w-full rounded-sm border border-black/30 flex flex-col gap-0 mt-4 overflow-hidden">
+                    <div className="flex items-center justify-between px-3 py-2 border-b border-black/20 bg-white/10">
+                      <span className="text-[10px] font-black uppercase text-black/50 text-stamped tracking-widest">Commits</span>
+                      <span className="text-sm font-black text-black/80 text-stamped">{contributor.contributions}</span>
+                    </div>
+                    <div className="flex items-center justify-between px-3 py-2 bg-black/5">
+                      <span className="text-[10px] font-black uppercase text-black/50 text-stamped tracking-widest">Impact</span>
+                      <span className="text-sm font-black text-[#931515] text-stamped">{contributor.contributions * 15}</span>
+                    </div>
                   </div>
                 </Link>
               ))}
