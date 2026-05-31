@@ -2,50 +2,20 @@
 
 import { useState, useEffect } from "react";
 
-import Image from "next/image";
 import Link from "next/link";
-import { Star, GitFork, ArrowRight, ExternalLink } from "lucide-react";
+import { ExternalLink } from "lucide-react";
+import ProjectCard from "./ProjectCard";
 import { GridPattern } from "./GridPattern";
 import { cn } from "@/lib/utils";
-
-const mockProjects = [
-  {
-    id: 1,
-    name: "KCC Next.js Starter",
-    author: "Akhil",
-    description: "A highly optimized, brutalist Next.js boilerplate tailored for KCC community projects.",
-    stats: { stars: 312, forks: 48 },
-    image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=600&h=750",
-    windowColor: "bg-[#A18CE5]", // Purple
-    pillColor: "bg-[#FF8C42]", // Orange
-    link: "#"
-  },
-  {
-    id: 2,
-    name: "Kerala Transit API",
-    author: "Rahul S.",
-    description: "An open-source JSON API aggregating public transport schedules across Kerala districts.",
-    stats: { stars: 842, forks: 124 },
-    image: "https://images.unsplash.com/photo-1555949963-aa79dcee57d5?auto=format&fit=crop&q=80&w=600&h=750",
-    windowColor: "bg-[#42A5F5]", // Blue
-    pillColor: "bg-[#FFD166]", // Yellow
-    link: "#"
-  },
-  {
-    id: 3,
-    name: "Malayalam NLP Toolkit",
-    author: "Sneha V.",
-    description: "A Python library providing advanced tokenization and sentiment analysis for Malayalam text.",
-    stats: { stars: 215, forks: 34 },
-    image: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&q=80&w=600&h=750",
-    windowColor: "bg-[#FFD166]", // Yellow
-    pillColor: "bg-[#8AC926]", // Green
-    link: "#"
-  }
-];
+import { memberProjectsData } from "@/lib/member-projects-data";
 
 export default function MemberProjects() {
-  const [isLoading] = useState(true);
+
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setIsLoading(false);
+  }, []);
 
   return (
     <section id="community-projects" className="scroll-mt-24 px-6 py-28 md:px-12 bg-[#FDFBF7] border-t-[3px] border-black relative overflow-hidden">
@@ -105,76 +75,8 @@ export default function MemberProjects() {
               </div>
             ))
           ) : (
-            mockProjects.map((project) => (
-              <div
-                key={project.id}
-                className="group relative bg-concrete p-5 rounded-sm shadow-[10px_10px_20px_rgba(0,0,0,0.5)] border-2 border-white/20 transition-all duration-300 hover:-translate-y-1 hover:shadow-[12px_12px_25px_rgba(0,0,0,0.6)] flex flex-col h-full"
-              >
-                {/* Rivets on outer concrete shell */}
-                <div className="rivet top-2 left-2"></div>
-                <div className="rivet top-2 right-2"></div>
-                <div className="rivet bottom-2 left-2"></div>
-                <div className="rivet bottom-2 right-2"></div>
-
-                {/* Inner Screen Bevel */}
-                <div className="relative w-full aspect-[4/3] bg-black p-1 rounded-sm shadow-[inset_0px_5px_15px_rgba(0,0,0,0.9)] mb-6 border-b-2 border-r-2 border-white/20">
-                  <div className="relative w-full h-full overflow-hidden border border-black/50">
-                    <Image
-                      src={project.image}
-                      alt={project.name}
-                      fill
-                      className="object-cover opacity-80 mix-blend-luminosity group-hover:mix-blend-normal transition-all duration-500"
-                      sizes="(max-w-768px) 100vw, (max-w-1200px) 50vw, 33vw"
-                    />
-                    {/* Scanline overlay */}
-                    <div className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.1)_50%,rgba(0,0,0,0.2)_50%)] bg-[length:100%_4px] pointer-events-none opacity-50"></div>
-                  </div>
-                </div>
-
-                {/* Metal Nameplate */}
-                <div className="relative bg-metal shadow-metal p-3 rounded-sm border border-black/30 mb-4 flex-grow flex flex-col">
-                  {/* Small plate rivets */}
-                  <div className="rivet top-1 left-1 scale-75"></div>
-                  <div className="rivet top-1 right-1 scale-75"></div>
-                  <div className="rivet bottom-1 left-1 scale-75"></div>
-                  <div className="rivet bottom-1 right-1 scale-75"></div>
-
-                  <h3 className="text-lg font-black text-black/80 text-stamped leading-tight tracking-tight mt-1 text-center">
-                    {project.name.toUpperCase()}
-                  </h3>
-                  
-                  <div className="w-full h-px bg-black/20 my-2 shadow-[0_1px_0_rgba(255,255,255,0.5)]"></div>
-
-                  <p className="text-black/70 text-xs font-bold leading-relaxed flex-grow text-center">
-                    {project.description}
-                  </p>
-
-                  <div className="mt-3 inline-block bg-black/80 text-[#FFD166] px-2 py-1 text-[10px] font-black uppercase tracking-widest shadow-[inset_1px_1px_3px_rgba(0,0,0,0.8)] border border-white/10 self-center">
-                    DEV: {project.author}
-                  </div>
-                </div>
-
-                {/* Bottom Stats/Link Row (Metal Bar) */}
-                <div className="relative bg-metal shadow-metal h-10 w-full rounded-sm border border-black/30 flex items-center justify-between px-4 mt-auto">
-                  <div className="flex items-center gap-4 text-black/80 text-[10px] font-black text-stamped">
-                    <div className="flex items-center gap-1">
-                      <Star className="w-3.5 h-3.5" />
-                      <span>{project.stats.stars}</span>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <GitFork className="w-3.5 h-3.5" />
-                      <span>{project.stats.forks}</span>
-                    </div>
-                  </div>
-
-                  <Link
-                    href={project.link}
-                    className="flex items-center justify-center w-6 h-6 rounded-sm bg-black/80 text-[#8AC926] shadow-[inset_1px_1px_3px_rgba(0,0,0,0.8)] border border-white/10 hover:text-white hover:bg-black transition-colors"
-                  >
-                    <ExternalLink className="w-3.5 h-3.5 stroke-[3]" />
-                  </Link>
-                </div>
-              </div>
+            memberProjectsData.map((project) => (
+              <ProjectCard key={project.id} project={project} />
             ))
           )}
         </div>

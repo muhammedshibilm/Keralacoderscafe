@@ -1,0 +1,29 @@
+import { Store, MessageSquare } from "lucide-react";
+
+export const memberProjectsData = [
+  {
+    id: 4,
+    name: "RationUndo",
+    author: "Jithin JZ",
+    description: "A free website to easily check stock details in Kerala ration shops using pincode, place name, or shop number.",
+    stats: { stars: 0, forks: 0 },
+    icon: Store,
+    windowColor: "bg-[#FF8C42]", // Orange
+    pillColor: "bg-[#42A5F5]", // Blue
+    link: "https://rationundo.onrender.com",
+    github: "https://github.com/jithin-jz",
+    email: "jithinjzx@gmail.com"
+  },
+  {
+    id: 5,
+    name: "Parathipetty",
+    author: "Muhammed Roshan",
+    description: "Kerala's public complaint box, on WhatsApp",
+    stats: { stars: 0, forks: 0 },
+    icon: MessageSquare,
+    windowColor: "bg-[#A18CE5]", // Purple
+    pillColor: "bg-[#FFD166]", // Yellow
+    link: "https://Parathipetty.com",
+    email: "muhammedroshanps@gmail.com"
+  }
+];
