@@ -24,9 +24,18 @@ export default function ProjectCard({ project }: { project: any }) {
         
         {/* Info */}
         <div className="flex flex-col flex-grow min-w-0">
-          <h3 className="text-xl font-black tracking-tight text-black text-wrap" title={project.name}>
-            {project.name}
-          </h3>
+          {project.name.length > 14 ? (
+            <div className="w-full overflow-hidden flex whitespace-nowrap relative [mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)]">
+              <div className="animate-marquee-fast flex shrink-0 min-w-full hover:[animation-play-state:paused]">
+                <h3 className="text-xl font-black tracking-tight text-black pr-8">{project.name}</h3>
+                <h3 className="text-xl font-black tracking-tight text-black pr-8">{project.name}</h3>
+              </div>
+            </div>
+          ) : (
+            <h3 className="text-xl font-black tracking-tight text-black truncate" title={project.name}>
+              {project.name}
+            </h3>
+          )}
           <p className="text-black/80 font-bold text-xs truncate">
             by {project.author}
           </p>
@@ -49,9 +58,18 @@ export default function ProjectCard({ project }: { project: any }) {
 
       {/* DESKTOP CARD VIEW */}
       <div className="hidden sm:flex flex-col flex-grow relative z-10 p-6">
-        <h3 className="text-2xl font-black tracking-tight text-black leading-tight mb-4 pr-20 text-left text-wrap" title={project.name}>
-          {project.name}
-        </h3>
+        {project.name.length > 14 ? (
+          <div className="w-full overflow-hidden flex whitespace-nowrap mb-4 relative [mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)]">
+            <div className="animate-marquee-fast flex shrink-0 min-w-full hover:[animation-play-state:paused]">
+              <h3 className="text-2xl font-black tracking-tight text-black leading-tight pr-12">{project.name}</h3>
+              <h3 className="text-2xl font-black tracking-tight text-black leading-tight pr-12">{project.name}</h3>
+            </div>
+          </div>
+        ) : (
+          <h3 className="text-2xl font-black tracking-tight text-black leading-tight mb-4 pr-20 text-left truncate" title={project.name}>
+            {project.name}
+          </h3>
+        )}
 
         {/* Icon Section */}
         <div className={`relative w-full h-40 border-[4px] border-black rounded-xl overflow-hidden bg-white mb-6 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] flex items-center justify-center transition-all duration-500`}>

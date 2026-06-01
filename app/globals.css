@@ -480,4 +480,8 @@ html.lenis body {
 .animate-marquee-footer {
   animation: marquee-footer 50s linear infinite;
 }
+
+.animate-marquee-fast {
+  animation: marquee-footer 6s linear infinite;
+}
 
