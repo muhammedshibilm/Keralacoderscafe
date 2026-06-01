@@ -8,7 +8,7 @@ export const memberProjectsData = [
     description: "A free website to easily check stock details in Kerala ration shops using pincode, place name, or shop number.",
     stats: { stars: 0, forks: 0 },
     icon: Store,
-    animationClass: "animate-icon-swing",
+    animationClass: "group-hover:animate-icon-swing",
     windowColor: "bg-[#FF8C42]", // Orange
     pillColor: "bg-[#42A5F5]", // Blue
     link: "https://rationundo.onrender.com",
@@ -22,7 +22,7 @@ export const memberProjectsData = [
     description: "Kerala's public complaint box, on WhatsApp",
     stats: { stars: 0, forks: 0 },
     icon: MessageSquare,
-    animationClass: "animate-icon-wiggle",
+    animationClass: "group-hover:animate-icon-wiggle",
     windowColor: "bg-[#A18CE5]", // Purple
     pillColor: "bg-[#FFD166]", // Yellow
     link: "https://Parathipetty.com",
@@ -35,7 +35,7 @@ export const memberProjectsData = [
     description: "A web-based election opinion poll for Kerala.",
     stats: { stars: 0, forks: 0 },
     icon: BarChart,
-    animationClass: "animate-icon-heartbeat",
+    animationClass: "group-hover:animate-icon-heartbeat",
     windowColor: "bg-[#4CAF50]", // Green
     pillColor: "bg-[#E91E63]", // Pink
     link: "https://kerala-polling.rishnu.xyz/",
@@ -48,7 +48,7 @@ export const memberProjectsData = [
     description: "A crowdsourced pothole tracker app",
     stats: { stars: 0, forks: 0 },
     icon: MapPin,
-    animationClass: "animate-icon-float",
+    animationClass: "group-hover:animate-icon-float",
     windowColor: "bg-[#FF5722]", // Deep Orange
     pillColor: "bg-[#03A9F4]", // Light Blue
     link: "https://kuzhiyundo.com",
@@ -62,7 +62,7 @@ export const memberProjectsData = [
     description: "An AI mock interview SaaS platform",
     stats: { stars: 0, forks: 0 },
     icon: Bot,
-    animationClass: "animate-icon-wiggle",
+    animationClass: "group-hover:animate-icon-wiggle",
     windowColor: "bg-[#9C27B0]", // Purple
     pillColor: "bg-[#FFEB3B]", // Yellow
     link: "https://github.com/modamaan/Ai-mock-Interview",
@@ -76,7 +76,7 @@ export const memberProjectsData = [
     description: "Modern smooth portfolio showcasing my works",
     stats: { stars: 0, forks: 0 },
     icon: Briefcase,
-    animationClass: "animate-icon-swing",
+    animationClass: "group-hover:animate-icon-swing",
     windowColor: "bg-[#2196F3]", // Blue
     pillColor: "bg-[#FF5722]", // Deep Orange
     link: "https://alen-james.vercel.app/",
