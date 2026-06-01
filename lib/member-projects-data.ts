@@ -7,7 +7,7 @@ export const memberProjectsData = [
     author: "Jithin JZ",
     description: "A free website to easily check stock details in Kerala ration shops using pincode, place name, or shop number.",
     stats: { stars: 0, forks: 0 },
-    category: "Tools",
+    category: "Govt",
     icon: Store,
     animationClass: "group-hover:animate-icon-swing",
     windowColor: "bg-[#FF8C42]", // Orange
@@ -22,7 +22,7 @@ export const memberProjectsData = [
     author: "Muhammed Roshan",
     description: "Kerala's public complaint box, on WhatsApp",
     stats: { stars: 0, forks: 0 },
-    category: "Tools",
+    category: "Govt",
     icon: MessageSquare,
     animationClass: "group-hover:animate-icon-wiggle",
     windowColor: "bg-[#A18CE5]", // Purple
@@ -36,7 +36,7 @@ export const memberProjectsData = [
     author: "Rishnu",
     description: "A web-based election opinion poll for Kerala.",
     stats: { stars: 0, forks: 0 },
-    category: "Web Apps",
+    category: "Community",
     icon: BarChart,
     animationClass: "group-hover:animate-icon-heartbeat",
     windowColor: "bg-[#4CAF50]", // Green

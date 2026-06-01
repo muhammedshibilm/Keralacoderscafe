@@ -12,12 +12,7 @@ export default function ProjectCard({ project }: { project: any }) {
         </span>
       </div>
 
-      {/* Category Tag */}
-      {project.category && (
-        <div className="absolute top-3 right-4 sm:top-4 sm:left-4 sm:right-auto z-20 bg-white border-[2px] border-black px-2.5 py-0.5 rounded shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] text-[9px] font-black uppercase tracking-wider text-black -rotate-2">
-          {project.category}
-        </div>
-      )}
+
 
       {/* MOBILE LIST VIEW */}
       <div className="flex sm:hidden items-center p-4 gap-4 relative z-10 w-full h-full">
@@ -49,6 +44,11 @@ export default function ProjectCard({ project }: { project: any }) {
           <p className="text-black font-semibold text-sm leading-snug mt-1 line-clamp-2">
             {project.description}
           </p>
+          {project.category && (
+            <div className="mt-2 self-start bg-white border-[2px] border-black px-2 py-0.5 rounded shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] text-[9px] font-black uppercase tracking-wider text-black -rotate-2">
+              {project.category}
+            </div>
+          )}
         </div>
 
         {/* Action Link (Just External Link for space saving on mobile list) */}
@@ -98,7 +98,12 @@ export default function ProjectCard({ project }: { project: any }) {
       </div>
 
       {/* DESKTOP Bottom Link Row */}
-      <div className="hidden sm:flex items-center justify-end px-6 pb-6 mt-auto z-10">
+      <div className="hidden sm:flex items-center justify-between px-6 pb-6 mt-auto z-10 w-full">
+        {project.category && (
+          <div className="bg-white border-[2px] border-black px-3 py-1 rounded shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] text-[10px] font-black uppercase tracking-wider text-black -rotate-2">
+            {project.category}
+          </div>
+        )}
         <div className="flex items-center gap-2">
           {project.email && (
             <Link
