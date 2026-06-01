@@ -1,4 +1,4 @@
-import { Store, MessageSquare, BarChart, MapPin } from "lucide-react";
+import { Store, MessageSquare, BarChart, MapPin, Bot } from "lucide-react";
 
 export const memberProjectsData = [
   {
@@ -50,5 +50,18 @@ export const memberProjectsData = [
     link: "https://kuzhiyundo.com",
     github: "https://github.com/sajithlaldev/kuzhiyundo",
     email: "sajithlal65@gmail.com"
+  },
+  {
+    id: 8,
+    name: "AI Mock Interview",
+    author: "Mohamed Amaan",
+    description: "An AI mock interview SaaS platform",
+    stats: { stars: 0, forks: 0 },
+    icon: Bot,
+    windowColor: "bg-[#9C27B0]", // Purple
+    pillColor: "bg-[#FFEB3B]", // Yellow
+    link: "https://github.com/modamaan/Ai-mock-Interview",
+    github: "https://github.com/modamaan/Ai-mock-Interview",
+    email: "mohamedamaan319@gmail.com"
   }
 ];
