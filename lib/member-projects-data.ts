@@ -1,4 +1,4 @@
-import { Store, MessageSquare, BarChart, MapPin, Bot } from "lucide-react";
+import { Store, MessageSquare, BarChart, MapPin, Bot, Briefcase } from "lucide-react";
 
 export const memberProjectsData = [
   {
@@ -63,5 +63,18 @@ export const memberProjectsData = [
     link: "https://github.com/modamaan/Ai-mock-Interview",
     github: "https://github.com/modamaan/Ai-mock-Interview",
     email: "mohamedamaan319@gmail.com"
+  },
+  {
+    id: 9,
+    name: "Alen dev portfolio",
+    author: "Alen James",
+    description: "Modern smooth portfolio showcasing my works",
+    stats: { stars: 0, forks: 0 },
+    icon: Briefcase,
+    windowColor: "bg-[#2196F3]", // Blue
+    pillColor: "bg-[#FF5722]", // Deep Orange
+    link: "https://alen-james.vercel.app/",
+    github: "https://github.com/alen899-my",
+    email: "alenjames899@gmail.com"
   }
 ];
