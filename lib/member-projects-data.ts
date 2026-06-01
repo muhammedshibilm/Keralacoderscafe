@@ -1,4 +1,4 @@
-import { Store, MessageSquare, BarChart, MapPin, Bot, Briefcase, FileText } from "lucide-react";
+import { Store, MessageSquare, BarChart, MapPin, Bot, Briefcase, FileText, Receipt, Users } from "lucide-react";
 
 export const memberProjectsData = [
   {
@@ -103,5 +103,35 @@ export const memberProjectsData = [
     link: "https://enteprofile.com",
     github: "https://github.com/Roshan-Here/",
     email: "muhammedroshanps@gmail.com"
+  },
+  {
+    id: 11,
+    name: "Invoice Generator",
+    author: "Shihab Rahman",
+    description: "Create beautiful, branded PDF invoices and estimates directly from your browser. No sign-up required. Secure & Offline-first.",
+    stats: { stars: 0, forks: 0 },
+    category: "Tools",
+    icon: Receipt,
+    animationClass: "group-hover:animate-icon-wiggle",
+    windowColor: "bg-[#8BC34A]", // Light Green
+    pillColor: "bg-[#03A9F4]", // Light Blue
+    link: "https://invoice.shihabsaleem.site/",
+    github: "https://github.com/shihabsaleem/invoice-landing",
+    email: "hello@shihabsaleem.site"
+  },
+  {
+    id: 12,
+    name: "Collabifi",
+    author: "Arjun Anoop",
+    description: "Collaboration discovery platform: people post ideas, find the missing collaborator, connect directly, and build together.",
+    stats: { stars: 0, forks: 0 },
+    category: "Community",
+    icon: Users,
+    animationClass: "group-hover:animate-icon-float",
+    windowColor: "bg-[#FF5252]", // Red
+    pillColor: "bg-[#FFEB3B]", // Yellow
+    link: "http://collabifi.vercel.app",
+    github: "https://github.com/aarjjun/Collabify",
+    email: "arjunanoop.codes@gmail.com"
   }
 ];
