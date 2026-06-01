@@ -18,7 +18,7 @@ export default function ProjectCard({ project }: { project: any }) {
         <div className={`shrink-0 w-16 h-16 border-[3px] border-black rounded-xl overflow-hidden bg-white shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] flex items-center justify-center relative`}>
            <div className={`absolute w-12 h-12 rounded-full ${project.pillColor} blur-md opacity-80`} />
            {project.icon && (
-             <project.icon className="w-8 h-8 text-black relative z-10 drop-shadow-[2px_2px_0_rgba(0,0,0,0.2)]" strokeWidth={2} />
+             <project.icon className={`w-8 h-8 text-black relative z-10 drop-shadow-[2px_2px_0_rgba(0,0,0,0.2)] ${project.animationClass || ""}`} strokeWidth={2} />
            )}
         </div>
         
@@ -76,7 +76,7 @@ export default function ProjectCard({ project }: { project: any }) {
           <div className={`absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-black to-transparent bg-[length:10px_10px]`} />
           <div className={`absolute w-24 h-24 rounded-full ${project.pillColor} blur-xl opacity-80 group-hover:scale-150 transition-transform duration-700`} />
           {project.icon && (
-            <project.icon className="w-20 h-20 text-black relative z-10 group-hover:scale-110 group-hover:-rotate-6 transition-all duration-500 drop-shadow-[4px_4px_0_rgba(0,0,0,0.2)]" strokeWidth={2} />
+            <project.icon className={`w-20 h-20 text-black relative z-10 drop-shadow-[4px_4px_0_rgba(0,0,0,0.2)] ${project.animationClass || ""}`} strokeWidth={2} />
           )}
         </div>
 
