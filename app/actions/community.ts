@@ -45,11 +45,11 @@ export async function getCommunityInvite(
     // Perfect score! Reveal WhatsApp Link
     return {
       type: "whatsapp",
-      link: process.env.WHATSAPP_INVITE_LINK || "",
+      link: process.env.WHATSAPP_INVITE_LINK || "https://chat.whatsapp.com/HFGRN6W39Nl9zPujdIjIih?s=cl&p=a&mlu=4",
     };
   }
 
-  return { 
+  return {
     error: "Verification failed. Please try again.",
     score: correctCount
   };
