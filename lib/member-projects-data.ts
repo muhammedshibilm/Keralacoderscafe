@@ -1,4 +1,4 @@
-import { Store, MessageSquare, BarChart, MapPin, Bot, Briefcase } from "lucide-react";
+import { Store, MessageSquare, BarChart, MapPin, Bot, Briefcase, FileText } from "lucide-react";
 
 export const memberProjectsData = [
   {
@@ -88,5 +88,20 @@ export const memberProjectsData = [
     link: "https://alen-james.vercel.app/",
     github: "https://github.com/alen899-my",
     email: "alenjames899@gmail.com"
+  },
+  {
+    id: 10,
+    name: "EnteProfile",
+    author: "Muhammed Roshan",
+    description: "Professional Portfolio + Resumes within 5 minutes",
+    stats: { stars: 0, forks: 0 },
+    category: "Tools",
+    icon: FileText,
+    animationClass: "group-hover:animate-icon-float",
+    windowColor: "bg-[#00BCD4]", // Cyan
+    pillColor: "bg-[#FF9800]", // Orange
+    link: "https://enteprofile.com",
+    github: "https://github.com/Roshan-Here/",
+    email: "muhammedroshanps@gmail.com"
   }
 ];
