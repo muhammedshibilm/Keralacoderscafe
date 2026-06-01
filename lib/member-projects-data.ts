@@ -1,4 +1,4 @@
-import { Store, MessageSquare, BarChart, MapPin, Bot, Briefcase, FileText, Receipt, Users } from "lucide-react";
+import { Store, MessageSquare, BarChart, MapPin, Bot, Briefcase, FileText, Receipt, Users, Cloud } from "lucide-react";
 
 export const memberProjectsData = [
   {
@@ -133,5 +133,20 @@ export const memberProjectsData = [
     link: "http://collabifi.vercel.app",
     github: "https://github.com/aarjjun/Collabify",
     email: "arjunanoop.codes@gmail.com"
+  },
+  {
+    id: 13,
+    name: "N-Drive",
+    author: "Aflah PP",
+    description: "Cloud file management platform. Securely upload, organize, share, and download files with AI-assisted features.",
+    stats: { stars: 0, forks: 0 },
+    category: "SaaS",
+    icon: Cloud,
+    animationClass: "group-hover:animate-icon-heartbeat",
+    windowColor: "bg-[#009688]", // Teal
+    pillColor: "bg-[#FF5722]", // Deep Orange
+    link: "https://n-drive-app.netlify.app/",
+    github: "https://github.com/aflah-pp/N-Drive",
+    email: "aflahpp777@gmail.com"
   }
 ];
