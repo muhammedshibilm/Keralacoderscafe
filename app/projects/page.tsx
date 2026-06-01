@@ -28,9 +28,9 @@ export default function ProjectsPage() {
           Projects Directory
         </span>
         <h1 className="text-[clamp(3.5rem,8vw,7rem)] font-black uppercase tracking-[-0.05em] text-black mb-8 leading-[0.9]">
-          Community
-          <span className="ml-4 inline-flex items-center gap-3 bg-[#FFD166] border-[4px] border-black px-4 py-2 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] -rotate-2 rounded-md">
-            Projects
+          Projects By
+          <span className="ml-4 inline-flex items-center gap-3 bg-[#FFD166] border-[4px] border-black px-4 py-2 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] -rotate-2 rounded-md text-[clamp(2rem,4vw,4rem)]">
+            Community Members
             <span className="relative flex h-5 w-5 mt-1">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-5 w-5 bg-red-500 border-2 border-black"></span>

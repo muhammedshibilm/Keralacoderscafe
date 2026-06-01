@@ -44,14 +44,14 @@ export default function MemberProjects() {
 
           <div>
             <div className="inline-block border-[3px] border-black bg-[#A18CE5] px-4 py-1 text-xs font-black uppercase tracking-widest text-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] mb-8 rounded-full">
-              Community Showcase
+              MEMBER SHOWCASE
             </div>
             <h2 className="text-[clamp(3rem,6vw,5.5rem)] font-black uppercase tracking-tight text-black leading-[0.9]">
-              Members
+              Projects By
               <br />
               <span className="relative inline-block mt-3">
-                <span className="relative z-10 bg-[#FFD166] border-[4px] border-black px-6 py-2 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] rounded-md inline-block -rotate-2">
-                  Self Projects
+                <span className="relative z-10 bg-[#FFD166] border-[4px] border-black px-6 py-2 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] rounded-md inline-block -rotate-2 text-[clamp(1.5rem,4vw,3.5rem)]">
+                  Community Members
                 </span>
                 {/* Decorative purple arrow behind text */}
                 <svg className="absolute -bottom-6 -right-12 w-16 h-16 text-[#A18CE5] z-0 -rotate-12" viewBox="0 0 100 100" fill="currentColor" stroke="black" strokeWidth="4">
@@ -62,6 +62,8 @@ export default function MemberProjects() {
           </div>
           <p className="max-w-md text-black/80 font-bold text-lg border-l-4 border-black pl-4">
             Discover the amazing open-source tools, libraries, and self projects shipped by developers in the KCC community.
+            <br className="mb-2" />
+            <span className="text-black font-extrabold underline decoration-[#FFD166] decoration-4">Add your project too, and get featured here!</span>
           </p>
         </div>
 

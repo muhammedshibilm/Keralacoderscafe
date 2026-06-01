@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, Github, Code, Mail, Linkedin } from "lucide-react";
+import { ArrowUpRight, Github, Code, Mail, Linkedin, User } from "lucide-react";
 import { GridPattern } from "./GridPattern";
 import { cn } from "@/lib/utils";
 
@@ -35,14 +35,9 @@ export default function Teams() {
             <div className="absolute inset-0 border-4 border-black bg-kcc-gold rotate-[3deg] shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]" />
             <div className="relative border-4 border-black bg-white p-4 transition-all duration-300 hover:rotate-0 rotate-[-1deg] shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] group">
               <div className="relative aspect-square overflow-hidden border-3 border-black bg-neutral-100">
-                <Image
-                  src="/founder.jpg"
-                  alt="Akhil - Founder of Kerala Coders Cafe"
-                  fill
-                  priority
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  sizes="(max-w-md) 100vw, 400px"
-                />
+                <div className="flex h-full w-full items-center justify-center bg-[#A2D2FF] transition-transform duration-500 group-hover:scale-105">
+                  <User className="h-40 w-40 stroke-[1.5] text-black" />
+                </div>
                 <div className="absolute top-4 left-4 -rotate-6 border-2 border-black bg-kcc-accent text-white font-black uppercase text-[10px] tracking-wider px-3 py-1.5 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]">
                   FOUNDER 🚀
                 </div>
