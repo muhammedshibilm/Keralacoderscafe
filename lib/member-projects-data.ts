@@ -1,4 +1,4 @@
-import { Store, MessageSquare, BarChart } from "lucide-react";
+import { Store, MessageSquare, BarChart, MapPin } from "lucide-react";
 
 export const memberProjectsData = [
   {
@@ -37,5 +37,18 @@ export const memberProjectsData = [
     pillColor: "bg-[#E91E63]", // Pink
     link: "https://kerala-polling.rishnu.xyz/",
     email: "rishnudev@gmail.com"
+  },
+  {
+    id: 7,
+    name: "Kuzhiyundo",
+    author: "Sajith Lal",
+    description: "A crowdsourced pothole tracker app",
+    stats: { stars: 0, forks: 0 },
+    icon: MapPin,
+    windowColor: "bg-[#FF5722]", // Deep Orange
+    pillColor: "bg-[#03A9F4]", // Light Blue
+    link: "https://kuzhiyundo.com",
+    github: "https://github.com/sajithlaldev/kuzhiyundo",
+    email: "sajithlal65@gmail.com"
   }
 ];
