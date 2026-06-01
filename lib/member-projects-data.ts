@@ -1,4 +1,4 @@
-import { Store, MessageSquare } from "lucide-react";
+import { Store, MessageSquare, BarChart } from "lucide-react";
 
 export const memberProjectsData = [
   {
@@ -25,5 +25,17 @@ export const memberProjectsData = [
     pillColor: "bg-[#FFD166]", // Yellow
     link: "https://Parathipetty.com",
     email: "muhammedroshanps@gmail.com"
+  },
+  {
+    id: 6,
+    name: "Kerala Polling",
+    author: "Rishnu",
+    description: "A web-based election opinion poll for Kerala.",
+    stats: { stars: 0, forks: 0 },
+    icon: BarChart,
+    windowColor: "bg-[#4CAF50]", // Green
+    pillColor: "bg-[#E91E63]", // Pink
+    link: "https://kerala-polling.rishnu.xyz/",
+    email: "rishnudev@gmail.com"
   }
 ];
