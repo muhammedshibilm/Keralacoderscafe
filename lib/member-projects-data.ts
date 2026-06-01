@@ -7,6 +7,7 @@ export const memberProjectsData = [
     author: "Jithin JZ",
     description: "A free website to easily check stock details in Kerala ration shops using pincode, place name, or shop number.",
     stats: { stars: 0, forks: 0 },
+    category: "Tools",
     icon: Store,
     animationClass: "group-hover:animate-icon-swing",
     windowColor: "bg-[#FF8C42]", // Orange
@@ -21,6 +22,7 @@ export const memberProjectsData = [
     author: "Muhammed Roshan",
     description: "Kerala's public complaint box, on WhatsApp",
     stats: { stars: 0, forks: 0 },
+    category: "Tools",
     icon: MessageSquare,
     animationClass: "group-hover:animate-icon-wiggle",
     windowColor: "bg-[#A18CE5]", // Purple
@@ -34,6 +36,7 @@ export const memberProjectsData = [
     author: "Rishnu",
     description: "A web-based election opinion poll for Kerala.",
     stats: { stars: 0, forks: 0 },
+    category: "Web Apps",
     icon: BarChart,
     animationClass: "group-hover:animate-icon-heartbeat",
     windowColor: "bg-[#4CAF50]", // Green
@@ -47,6 +50,7 @@ export const memberProjectsData = [
     author: "Sajith Lal",
     description: "A crowdsourced pothole tracker app",
     stats: { stars: 0, forks: 0 },
+    category: "Community",
     icon: MapPin,
     animationClass: "group-hover:animate-icon-float",
     windowColor: "bg-[#FF5722]", // Deep Orange
@@ -61,6 +65,7 @@ export const memberProjectsData = [
     author: "Mohamed Amaan",
     description: "An AI mock interview SaaS platform",
     stats: { stars: 0, forks: 0 },
+    category: "SaaS",
     icon: Bot,
     animationClass: "group-hover:animate-icon-wiggle",
     windowColor: "bg-[#9C27B0]", // Purple
@@ -75,6 +80,7 @@ export const memberProjectsData = [
     author: "Alen James",
     description: "Modern smooth portfolio showcasing my works",
     stats: { stars: 0, forks: 0 },
+    category: "Portfolios",
     icon: Briefcase,
     animationClass: "group-hover:animate-icon-swing",
     windowColor: "bg-[#2196F3]", // Blue

@@ -12,6 +12,13 @@ export default function ProjectCard({ project }: { project: any }) {
         </span>
       </div>
 
+      {/* Category Tag */}
+      {project.category && (
+        <div className="absolute top-3 right-4 sm:top-4 sm:left-4 sm:right-auto z-20 bg-white border-[2px] border-black px-2.5 py-0.5 rounded shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] text-[9px] font-black uppercase tracking-wider text-black -rotate-2">
+          {project.category}
+        </div>
+      )}
+
       {/* MOBILE LIST VIEW */}
       <div className="flex sm:hidden items-center p-4 gap-4 relative z-10 w-full h-full">
         {/* Small Icon */}

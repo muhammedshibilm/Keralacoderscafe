@@ -1,3 +1,6 @@
+"use client";
+
+import { useState, useMemo } from "react";
 import type { Metadata } from "next";
 import Footer from "../components/Footer";
 import ProjectCard from "../components/ProjectCard";
@@ -5,12 +8,22 @@ import { memberProjectsData } from "@/lib/member-projects-data";
 import { GridPattern } from "../components/GridPattern";
 import { cn } from "@/lib/utils";
 
-export const metadata: Metadata = {
-  title: "Community Projects",
-  description: "Explore all open-source projects and ideas from the KCC community.",
-};
+// Metadata cannot be exported from a Client Component directly if we need standard next.js behavior.
+// We'll leave it out or move it to a layout if required, but for now we'll just omit it since it's a client page.
 
 export default function ProjectsPage() {
+  const [selectedCategory, setSelectedCategory] = useState("All");
+
+  const categories = useMemo(() => {
+    const cats = new Set(memberProjectsData.map(p => p.category).filter(Boolean));
+    return ["All", ...Array.from(cats)];
+  }, []);
+
+  const filteredProjects = useMemo(() => {
+    if (selectedCategory === "All") return memberProjectsData;
+    return memberProjectsData.filter(p => p.category === selectedCategory);
+  }, [selectedCategory]);
+
   return (
     <main className="relative z-10 flex flex-col min-h-screen bg-[#FDFBF7]">
       <div
@@ -41,8 +54,26 @@ export default function ProjectsPage() {
           Discover the amazing open-source tools, libraries, and self projects shipped by developers in the KCC community.
         </p>
 
+        {/* Category Filters */}
+        <div className="flex flex-wrap items-center justify-center gap-3 mb-12">
+          {categories.map((cat) => (
+            <button
+              key={cat as string}
+              onClick={() => setSelectedCategory(cat as string)}
+              className={cn(
+                "px-5 py-2 text-sm font-black uppercase tracking-wider border-[3px] border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:-translate-y-1 hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:shadow-none",
+                selectedCategory === cat 
+                  ? "bg-[#FFD166] text-black" 
+                  : "bg-white text-black"
+              )}
+            >
+              {cat as string}
+            </button>
+          ))}
+        </div>
+
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 w-full max-w-6xl mx-auto mb-20">
-          {memberProjectsData.map((project) => (
+          {filteredProjects.map((project) => (
             <ProjectCard key={project.id} project={project} />
           ))}
         </div>
