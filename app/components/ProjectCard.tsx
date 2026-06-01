@@ -24,7 +24,7 @@ export default function ProjectCard({ project }: { project: any }) {
         
         {/* Info */}
         <div className="flex flex-col flex-grow min-w-0">
-          <h3 className="text-xl font-black tracking-tight text-black truncate">
+          <h3 className="text-xl font-black tracking-tight text-black truncate" title={project.name}>
             {project.name}
           </h3>
           <p className="text-black/80 font-bold text-xs truncate">
@@ -49,7 +49,7 @@ export default function ProjectCard({ project }: { project: any }) {
 
       {/* DESKTOP CARD VIEW */}
       <div className="hidden sm:flex flex-col flex-grow relative z-10 p-6">
-        <h3 className="text-2xl font-black tracking-tight text-black leading-tight mb-4 pr-20 text-left">
+        <h3 className="text-2xl font-black tracking-tight text-black leading-tight mb-4 pr-20 text-left truncate" title={project.name}>
           {project.name}
         </h3>
 
