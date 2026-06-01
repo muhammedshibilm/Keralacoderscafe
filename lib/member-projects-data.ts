@@ -1,4 +1,4 @@
-import { Store, MessageSquare, BarChart, MapPin, Bot, Briefcase, FileText, Receipt, Users, Cloud } from "lucide-react";
+import { Store, MessageSquare, BarChart, MapPin, Bot, Briefcase, FileText, Receipt, Users, Cloud, Heart } from "lucide-react";
 
 export const memberProjectsData = [
   {
@@ -148,5 +148,20 @@ export const memberProjectsData = [
     link: "https://n-drive-app.netlify.app/",
     github: "https://github.com/aflah-pp/N-Drive",
     email: "aflahpp777@gmail.com"
+  },
+  {
+    id: 14,
+    name: "Kerala Blood Connect",
+    author: "Abhijith Sachu",
+    description: "A public service web platform connecting donors, patients, and hospitals to find blood and nearby blood banks during emergencies.",
+    stats: { stars: 0, forks: 0 },
+    category: "Community",
+    icon: Heart,
+    animationClass: "group-hover:animate-icon-heartbeat",
+    windowColor: "bg-[#E91E63]", // Pink/Red
+    pillColor: "bg-[#FFFFFF]", // White
+    link: "https://kerala-blood-connect.vercel.app",
+    github: "https://github.com/Abhijithsachu/Kerala-Blood-Connect",
+    email: "abhijith007sachu@gmail.com"
   }
 ];
