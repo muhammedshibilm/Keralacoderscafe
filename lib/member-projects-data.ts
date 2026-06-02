@@ -1,4 +1,4 @@
-import { Store, MessageSquare, BarChart, MapPin, Bot, Briefcase, FileText, Receipt, Users, Cloud, Heart } from "lucide-react";
+import { Store, MessageSquare, BarChart, MapPin, Bot, Briefcase, FileText, Receipt, Users, Cloud, Heart, Monitor, BookOpen, Wallet } from "lucide-react";
 
 export const memberProjectsData = [
   {
@@ -163,5 +163,65 @@ export const memberProjectsData = [
     link: "https://kerala-blood-connect.vercel.app",
     github: "https://github.com/Abhijithsachu/Kerala-Blood-Connect",
     email: "abhijith007sachu@gmail.com"
+  },
+  {
+    id: 15,
+    name: "GlobalThozhil",
+    author: "Jojin John",
+    description: "GlobalThozhil is a free job-search web app built for India-to-global job discovery, with a special focus on Kerala users. It combines live job aggregation, AI career help, profile-based matching, employer job posting, admin approval, and optional CMS editing.",
+    stats: { stars: 0, forks: 0 },
+    category: "Tools",
+    icon: Briefcase,
+    animationClass: "group-hover:animate-icon-swing",
+    windowColor: "bg-[#3F51B5]", // Indigo
+    pillColor: "bg-[#00BCD4]", // Cyan
+    link: "https://globalthozhil.onrender.com/",
+    github: "https://github.com/jojin1709/-GlobalThozhil",
+    email: "jojinjohn1709@gmail.com"
+  },
+  {
+    id: 16,
+    name: "Sparq",
+    author: "Jithu Biju",
+    description: "The anonymous web is broken. It's either 99% bots or spam. So I built Sparq: a localized, 100% bot-free stranger chat alternative. Match nearby first (City -> State -> Global) Face-check verification = Zero bots Guest Mode: Chat instantly in 1 click",
+    stats: { stars: 0, forks: 0 },
+    category: "Community",
+    icon: MessageSquare,
+    animationClass: "group-hover:animate-icon-wiggle",
+    windowColor: "bg-[#FF9800]", // Orange
+    pillColor: "bg-[#FF5722]", // Deep Orange
+    link: "https://sparq-flax.vercel.app/",
+    github: "https://github.com/arjunkr303/sparq",
+    email: "jithubiju124@gmail.com"
+  },
+  {
+    id: 17,
+    name: "Genxlink",
+    author: "Lalu James",
+    description: "Privacy-Focused Remote Desktop Solution",
+    stats: { stars: 0, forks: 0 },
+    category: "Tools",
+    icon: Monitor,
+    animationClass: "group-hover:animate-icon-float",
+    windowColor: "bg-[#607D8B]", // Blue Grey
+    pillColor: "bg-[#9E9E9E]", // Grey
+    link: "",
+    github: "https://github.com/lalupj07/GenXlink",
+    email: "lalujames560@gmail.com"
+  },
+  {
+    id: 18,
+    name: "InterviewKit",
+    author: "Aby Varghese",
+    description: "Your ultimate dev dojo! Master algorithms, crush system design, and level up your career.",
+    stats: { stars: 0, forks: 0 },
+    category: "EdTech",
+    icon: BookOpen,
+    animationClass: "group-hover:animate-icon-float",
+    windowColor: "bg-[#0F172A]", // Dark Slate (Stylish Dark Mode)
+    pillColor: "bg-[#38BDF8]", // Neon Sky Blue
+    link: "https://interviewkit.online/",
+    github: "https://github.com/AbyvargheseMandapathel/",
+    email: "abyvarghesemandapathel@gmail.com"
   }
 ];

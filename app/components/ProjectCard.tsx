@@ -52,15 +52,17 @@ export default function ProjectCard({ project }: { project: any }) {
         </div>
 
         {/* Action Link (Just External Link for space saving on mobile list) */}
-        <div className="shrink-0">
-           <Link
-             href={project.link}
-             target="_blank" rel="noopener noreferrer"
-             className="flex items-center justify-center w-10 h-10 bg-[#FFD166] border-[3px] border-black rounded-full shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all text-black"
-           >
-             <ExternalLink className="w-4 h-4 stroke-[3]" />
-           </Link>
-        </div>
+        {project.link && (
+          <div className="shrink-0">
+             <Link
+               href={project.link}
+               target="_blank" rel="noopener noreferrer"
+               className="flex items-center justify-center w-10 h-10 bg-[#FFD166] border-[3px] border-black rounded-full shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all text-black"
+             >
+               <ExternalLink className="w-4 h-4 stroke-[3]" />
+             </Link>
+          </div>
+        )}
       </div>
 
       {/* DESKTOP CARD VIEW */}
@@ -91,7 +93,7 @@ export default function ProjectCard({ project }: { project: any }) {
           <div className="w-10 h-10 shrink-0 flex items-center justify-center bg-white border-[3px] border-black rounded-full shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] mt-0.5">
              <span className="text-black font-bold text-xl">😎</span>
           </div>
-          <p className="text-black font-bold text-sm leading-relaxed text-left">
+          <p className="text-black font-bold text-sm leading-relaxed text-left line-clamp-4">
             {project.description}
           </p>
         </div>
@@ -122,13 +124,15 @@ export default function ProjectCard({ project }: { project: any }) {
               <Github className="w-5 h-5" />
             </Link>
           )}
-          <Link
-            href={project.link}
-            target="_blank" rel="noopener noreferrer"
-            className="flex items-center justify-center w-10 h-10 bg-[#FFD166] border-[3px] border-black rounded-full shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all text-black"
-          >
-            <ExternalLink className="w-5 h-5 stroke-[3]" />
-          </Link>
+          {project.link && (
+            <Link
+              href={project.link}
+              target="_blank" rel="noopener noreferrer"
+              className="flex items-center justify-center w-10 h-10 bg-[#FFD166] border-[3px] border-black rounded-full shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all text-black"
+            >
+              <ExternalLink className="w-5 h-5 stroke-[3]" />
+            </Link>
+          )}
         </div>
       </div>
     </div>
