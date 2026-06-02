@@ -223,5 +223,35 @@ export const memberProjectsData = [
     link: "https://interviewkit.online/",
     github: "https://github.com/AbyvargheseMandapathel/",
     email: "abyvarghesemandapathel@gmail.com"
+  },
+  {
+    id: 19,
+    name: "PixlSheet",
+    author: "Nijil Khan",
+    description: "Turn any photo or illustration into a printable pixel-art color-by-number worksheet — entirely in your browser. Nothing is uploaded; all image processing happens locally.",
+    stats: { stars: 0, forks: 0 },
+    category: "Tools",
+    icon: FileText,
+    animationClass: "group-hover:animate-icon-wiggle",
+    windowColor: "bg-[#9C27B0]", // Purple
+    pillColor: "bg-[#FFEB3B]", // Yellow
+    link: "https://pixlsheet.vercel.app/",
+    github: "https://github.com/nijil71/PixlSheet",
+    email: "nmnijilkhan@gmail.com"
+  },
+  {
+    id: 20,
+    name: "My Portfolio",
+    author: "Evin Jacob Subin",
+    description: "My little portfolio",
+    stats: { stars: 0, forks: 0 },
+    category: "Portfolios",
+    icon: Briefcase,
+    animationClass: "group-hover:animate-icon-swing",
+    windowColor: "bg-[#2196F3]", // Blue
+    pillColor: "bg-[#FF5722]", // Deep Orange
+    link: "https://evin-jacob-subin.vercel.app/",
+    github: "https://github.com/EVINJSUBIN",
+    email: "youridertech@gmail.com"
   }
 ];
