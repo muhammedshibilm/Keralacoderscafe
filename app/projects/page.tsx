@@ -35,9 +35,11 @@ export default function ProjectsPage() {
   }, []);
 
   const filteredProjects = useMemo(() => {
-    if (selectedCategory === "All") return memberProjectsData;
-    return memberProjectsData.filter(p => p.category === selectedCategory);
-  }, [selectedCategory]);
+    const projects = selectedCategory === "All" 
+      ? [...memberProjectsData]
+      : memberProjectsData.filter(p => p.category === selectedCategory);
+    return projects.sort((a, b) => (votesMap[b.id] || 0) - (votesMap[a.id] || 0));
+  }, [selectedCategory, votesMap]);
 
   return (
     <main className="relative z-10 flex flex-col min-h-screen bg-[#FDFBF7]">

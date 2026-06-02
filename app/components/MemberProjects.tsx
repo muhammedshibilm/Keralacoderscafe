@@ -90,7 +90,9 @@ export default function MemberProjects() {
               </div>
             ))
           ) : (
-            memberProjectsData.map((project) => (
+            [...memberProjectsData]
+              .sort((a, b) => (votesMap[b.id] || 0) - (votesMap[a.id] || 0))
+              .map((project) => (
               <ProjectCard 
                 key={project.id} 
                 project={project} 
