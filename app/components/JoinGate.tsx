@@ -325,14 +325,6 @@ export default function JoinGate({ onStatusChange }: JoinGateProps) {
             aria-modal="true"
             aria-labelledby="join-result-title"
           >
-            <button
-              onClick={() => setResultPopup(null)}
-              className="absolute -top-4 -right-4 flex h-10 w-10 items-center justify-center rounded-full border-[3px] border-black bg-red-500 text-white shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all z-10"
-              aria-label="Close modal"
-            >
-              <X className="h-5 w-5" strokeWidth={3} />
-            </button>
-
             <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full border-4 border-black bg-white shadow-[4px_4px_0px_0px_rgba(0,0,0,0.1)]">
               {resultPopup === "success" ? (
                 <CheckCircle2 className="h-10 w-10 text-black" />
@@ -376,6 +368,12 @@ export default function JoinGate({ onStatusChange }: JoinGateProps) {
                     <Send className="h-5 w-5" />
                     Join Telegram Channel
                   </Link>
+
+                  <div className="mt-4 text-center">
+                    <Link href="/" className="inline-flex items-center gap-2 text-sm font-black uppercase text-black/60 hover:text-black hover:underline transition-colors">
+                      <ArrowLeft className="h-4 w-4" /> Back to Home
+                    </Link>
+                  </div>
                 </div>
               </>
             ) : (
@@ -393,6 +391,12 @@ export default function JoinGate({ onStatusChange }: JoinGateProps) {
                 >
                   Try Again
                 </button>
+
+                <div className="mt-6 text-center">
+                  <Link href="/" className="inline-flex items-center gap-2 text-sm font-black uppercase text-black/60 hover:text-black hover:underline transition-colors">
+                    <ArrowLeft className="h-4 w-4" /> Back to Home
+                  </Link>
+                </div>
               </>
             )}
           </div>
