@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { ArrowLeft, CheckCircle2, MessageCircle, ChevronRight, XCircle, Loader2, Send } from "lucide-react";
+import { ArrowLeft, CheckCircle2, MessageCircle, ChevronRight, XCircle, Loader2, Send, X } from "lucide-react";
 import { whatsappGateTaskList, majorStates } from "../data/whatsappGate";
 import type { LanguageQuestion, LanguageTask } from "../data/whatsappGate";
 import { getCommunityInvite } from "../actions/community";
@@ -318,13 +318,21 @@ export default function JoinGate({ onStatusChange }: JoinGateProps) {
       {resultPopup && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 px-5">
           <div
-            className={`w-full max-w-xl border-4 border-black p-8 text-center shadow-[10px_10px_0px_0px_rgba(0,0,0,1)] ${
+            className={`relative w-full max-w-xl border-4 border-black p-8 text-center shadow-[10px_10px_0px_0px_rgba(0,0,0,1)] ${
               resultPopup === "success" ? "bg-kcc-green" : "bg-white"
             }`}
             role="dialog"
             aria-modal="true"
             aria-labelledby="join-result-title"
           >
+            <button
+              onClick={() => setResultPopup(null)}
+              className="absolute -top-4 -right-4 flex h-10 w-10 items-center justify-center rounded-full border-[3px] border-black bg-red-500 text-white shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all z-10"
+              aria-label="Close modal"
+            >
+              <X className="h-5 w-5" strokeWidth={3} />
+            </button>
+
             <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full border-4 border-black bg-white shadow-[4px_4px_0px_0px_rgba(0,0,0,0.1)]">
               {resultPopup === "success" ? (
                 <CheckCircle2 className="h-10 w-10 text-black" />
