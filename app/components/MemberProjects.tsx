@@ -8,13 +8,26 @@ import ProjectCard from "./ProjectCard";
 import { GridPattern } from "./GridPattern";
 import { cn } from "@/lib/utils";
 import { memberProjectsData } from "@/lib/member-projects-data";
+import { getProjectVotes } from "@/app/actions/upvote";
 
 export default function MemberProjects() {
 
   const [isLoading, setIsLoading] = useState(true);
+  const [votesMap, setVotesMap] = useState<Record<number, number>>({});
 
   useEffect(() => {
-    setIsLoading(false);
+    async function loadVotes() {
+      try {
+        const votes = await getProjectVotes();
+        setVotesMap(votes);
+      } catch (error) {
+        console.error("Failed to load votes", error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    
+    loadVotes();
   }, []);
 
   return (
@@ -78,7 +91,11 @@ export default function MemberProjects() {
             ))
           ) : (
             memberProjectsData.map((project) => (
-              <ProjectCard key={project.id} project={project} />
+              <ProjectCard 
+                key={project.id} 
+                project={project} 
+                initialVotes={votesMap[project.id] || 0} 
+              />
             ))
           )}
         </div>

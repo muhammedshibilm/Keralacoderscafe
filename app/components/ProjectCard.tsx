@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { ExternalLink, Github, Mail } from "lucide-react";
+import UpvoteButton from "./UpvoteButton";
 
-export default function ProjectCard({ project }: { project: any }) {
+export default function ProjectCard({ project, initialVotes = 0 }: { project: any, initialVotes?: number }) {
   return (
     <div className="group relative flex flex-col h-full bg-[#F2E8D9] border-[3px] sm:border-[4px] border-black rounded-2xl sm:rounded-3xl shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] sm:shadow-[10px_10px_0px_0px_rgba(0,0,0,1)] transition-all duration-300 hover:-translate-y-1 sm:hover:-translate-y-2 hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] sm:hover:shadow-[14px_14px_0px_0px_rgba(0,0,0,1)] overflow-hidden">
       
@@ -52,17 +53,18 @@ export default function ProjectCard({ project }: { project: any }) {
         </div>
 
         {/* Action Link (Just External Link for space saving on mobile list) */}
-        {project.link && (
-          <div className="shrink-0">
-             <Link
-               href={project.link}
-               target="_blank" rel="noopener noreferrer"
-               className="flex items-center justify-center w-10 h-10 bg-[#FFD166] border-[3px] border-black rounded-full shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all text-black"
-             >
-               <ExternalLink className="w-4 h-4 stroke-[3]" />
-             </Link>
-          </div>
-        )}
+        <div className="shrink-0 flex flex-col gap-2">
+          {project.link && (
+            <Link
+              href={project.link}
+              target="_blank" rel="noopener noreferrer"
+              className="flex items-center justify-center w-10 h-10 bg-[#FFD166] border-[3px] border-black rounded-full shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all text-black"
+            >
+              <ExternalLink className="w-4 h-4 stroke-[3]" />
+            </Link>
+          )}
+          <UpvoteButton projectId={project.id} initialVotes={initialVotes} />
+        </div>
       </div>
 
       {/* DESKTOP CARD VIEW */}
@@ -133,6 +135,7 @@ export default function ProjectCard({ project }: { project: any }) {
               <ExternalLink className="w-5 h-5 stroke-[3]" />
             </Link>
           )}
+          <UpvoteButton projectId={project.id} initialVotes={initialVotes} />
         </div>
       </div>
     </div>

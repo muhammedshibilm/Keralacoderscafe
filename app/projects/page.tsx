@@ -1,18 +1,33 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import type { Metadata } from "next";
 import Footer from "../components/Footer";
 import ProjectCard from "../components/ProjectCard";
 import { memberProjectsData } from "@/lib/member-projects-data";
 import { GridPattern } from "../components/GridPattern";
 import { cn } from "@/lib/utils";
+import { getProjectVotes } from "@/app/actions/upvote";
 
 // Metadata cannot be exported from a Client Component directly if we need standard next.js behavior.
 // We'll leave it out or move it to a layout if required, but for now we'll just omit it since it's a client page.
 
 export default function ProjectsPage() {
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [votesMap, setVotesMap] = useState<Record<number, number>>({});
+
+  useEffect(() => {
+    async function loadVotes() {
+      try {
+        const votes = await getProjectVotes();
+        setVotesMap(votes);
+      } catch (error) {
+        console.error("Failed to load votes", error);
+      }
+    }
+    
+    loadVotes();
+  }, []);
 
   const categories = useMemo(() => {
     const cats = new Set(memberProjectsData.map(p => p.category).filter(Boolean));
@@ -74,7 +89,11 @@ export default function ProjectsPage() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 w-full max-w-6xl mx-auto mb-20">
           {filteredProjects.map((project) => (
-            <ProjectCard key={project.id} project={project} />
+            <ProjectCard 
+              key={project.id} 
+              project={project} 
+              initialVotes={votesMap[project.id] || 0} 
+            />
           ))}
         </div>
 
