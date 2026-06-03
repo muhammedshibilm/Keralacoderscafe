@@ -253,5 +253,50 @@ export const memberProjectsData = [
     link: "https://evin-jacob-subin.vercel.app/",
     github: "https://github.com/EVINJSUBIN",
     email: "youridertech@gmail.com"
+  },
+  {
+    id: 21,
+    name: "Flame AI",
+    author: "Nafan",
+    description: "Flame AI is a personal AI assistant project built in Python, designed to handle tasks like automation, intelligent conversation, image generation, and real-time web search. It brings together multiple AI APIs and Python libraries to offer a smart, speech-driven assistant experience ran on your computer.",
+    stats: { stars: 0, forks: 0 },
+    category: "AI",
+    icon: Bot,
+    animationClass: "group-hover:animate-icon-wiggle",
+    windowColor: "bg-[#F44336]", // Red
+    pillColor: "bg-[#FFC107]", // Amber
+    link: "https://github.com/nafanpe/Flame-AI",
+    github: "https://github.com/nafanpe",
+    email: "nafan.official@gmail.com"
+  },
+  {
+    id: 22,
+    name: "Notes.undo",
+    author: "Ansil Muhammed",
+    description: "It's a notes sharing platform with multiple file format. Students,admin can upload notes,admin verfies and other students can download files according to their preferences",
+    stats: { stars: 0, forks: 0 },
+    category: "EdTech",
+    icon: BookOpen,
+    animationClass: "group-hover:animate-icon-float",
+    windowColor: "bg-[#4CAF50]", // Green
+    pillColor: "bg-[#FF9800]", // Orange
+    link: "https://notes-undo.onrender.com",
+    github: "https://www.github.com/ClashLex/notes.undo",
+    email: "ansilmuhammed919@gmail.com"
+  },
+  {
+    id: 23,
+    name: "Sola",
+    author: "Aksa Susan",
+    description: "Sola is a GIS-based platform that helps identify suitable locations for large-scale solar projects. It analyses geospatial data such as land suitability, terrain, solar potential, and proximity to infrastructure, and displays the results through an interactive map.",
+    stats: { stars: 0, forks: 0 },
+    category: "Tools",
+    icon: MapPin,
+    animationClass: "group-hover:animate-icon-swing",
+    windowColor: "bg-[#FFEB3B]", // Yellow
+    pillColor: "bg-[#4CAF50]", // Green
+    link: "https://solaa.vercel.app/",
+    github: "https://github.com/Githubdiaries/Sola",
+    email: "aksasusan1904@gmail.com"
   }
 ];
