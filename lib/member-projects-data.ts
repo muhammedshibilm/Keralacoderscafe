@@ -298,5 +298,21 @@ export const memberProjectsData = [
     link: "https://solaa.vercel.app/",
     github: "https://github.com/Githubdiaries/Sola",
     email: "aksasusan1904@gmail.com"
+  },
+  {
+    id: 24,
+    name: "MindCare AI",
+    author: "Hashmil Muhammed",
+    description: "MindCare AI is an AI-powered mental health support platform designed to detect stress levels and provide personalized counselling assistance. The system integrates NLP-based conversational AI, facial emotion recognition, voice emotion detection, and machine learning-based behavioral risk assessment to identify emotional distress. It offers supportive conversations, stress analysis and emotion detection to help users better understand their mental well-being.",
+    stats: { stars: 0, forks: 0 },
+    category: "AI",
+    icon: Bot,
+    animationClass: "group-hover:animate-icon-float",
+    windowColor: "bg-[#00BCD4]", // Cyan
+    pillColor: "bg-[#FF9800]", // Orange
+    link: "https://smart-mental-health-counselling-sys.vercel.app/",
+    github: "https://github.com/Hashmil-Muhammed/MindCareAI-Smart_Mental_Health_Counselling_SystemUsing_Multimodal_AI",
+    email: "hashmilmuhammedparammal@gmail.com"
   }
 ];
+

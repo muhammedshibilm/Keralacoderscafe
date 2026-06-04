@@ -89,12 +89,13 @@ export default function ProjectsPage() {
           ))}
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 w-full max-w-6xl mx-auto mb-20">
-          {filteredProjects.map((project) => (
+        <div className="flex flex-col gap-6 w-full max-w-4xl mx-auto mb-20">
+          {filteredProjects.map((project, index) => (
             <ProjectCard 
               key={project.id} 
               project={project} 
               initialVotes={votesMap[project.id] || 0} 
+              isTopProject={index < 3}
             />
           ))}
         </div>

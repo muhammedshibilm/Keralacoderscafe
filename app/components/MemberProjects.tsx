@@ -81,22 +81,23 @@ export default function MemberProjects() {
         </div>
 
         {/* Project Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div className="flex flex-col gap-6 w-full max-w-4xl mx-auto">
           {isLoading ? (
             // Skeleton Loaders
             Array.from({ length: 3 }).map((_, i) => (
-              <div key={i} className="bg-concrete shadow-concrete rounded-sm p-4 h-[400px] animate-pulse">
-                <div className="w-full h-full bg-black/10 rounded-sm"></div>
+              <div key={i} className="bg-concrete shadow-concrete rounded-2xl p-4 h-[120px] w-full animate-pulse">
+                <div className="w-full h-full bg-black/10 rounded-xl"></div>
               </div>
             ))
           ) : (
             [...memberProjectsData]
               .sort((a, b) => (votesMap[b.id] || 0) - (votesMap[a.id] || 0))
-              .map((project) => (
+              .map((project, index) => (
               <ProjectCard 
                 key={project.id} 
                 project={project} 
                 initialVotes={votesMap[project.id] || 0} 
+                isTopProject={index < 3}
               />
             ))
           )}

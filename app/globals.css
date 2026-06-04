@@ -517,4 +517,32 @@ html.lenis body {
 .animate-icon-swing {
   animation: icon-swing 2.5s ease-in-out infinite;
 }
+
+@keyframes bounce-gap {
+  0%, 20%, 100% {
+    transform: translateY(0);
+  }
+  10% {
+    transform: translateY(-6px);
+  }
+}
+.animate-bounce-gap {
+  animation: bounce-gap 3s cubic-bezier(0.28, 0.84, 0.42, 1) infinite;
+}
+
+@keyframes soul-up {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+}
+.animate-soul-up {
+  animation: soul-up 0.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+
 
