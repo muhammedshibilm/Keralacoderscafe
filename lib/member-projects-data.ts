@@ -313,6 +313,80 @@ export const memberProjectsData = [
     link: "https://smart-mental-health-counselling-sys.vercel.app/",
     github: "https://github.com/Hashmil-Muhammed/MindCareAI-Smart_Mental_Health_Counselling_SystemUsing_Multimodal_AI",
     email: "hashmilmuhammedparammal@gmail.com"
+  },
+  {
+    id: 25,
+    name: "Just Split Bill",
+    author: "Just Split Bill",
+    description: "Just Split Bill helps friends and groups split bills fast in the browser. No sign up, no app, easy sharing, smart payback, and flexible split tools.",
+    stats: { stars: 0, forks: 0 },
+    category: "FinTech",
+    icon: Wallet,
+    animationClass: "group-hover:animate-icon-float",
+    windowColor: "bg-[#4CAF50]", // Green
+    pillColor: "bg-[#FFC107]", // Amber
+    link: "https://www.justsplitbill.com/",
+    email: "hello@justsplitbill.com"
+  },
+  {
+    id: 26,
+    name: "salt-text",
+    author: "Abhijith Baby",
+    description: "A secure, offline-first text editor that encrypts your files entirely in the browser.",
+    stats: { stars: 0, forks: 0 },
+    category: "Tools",
+    icon: FileText,
+    animationClass: "group-hover:animate-icon-wiggle",
+    windowColor: "bg-[#607D8B]", // Blue Grey
+    pillColor: "bg-[#03A9F4]", // Light Blue
+    link: "https://abhijithbaby.github.io/Salt-Text/",
+    github: "https://github.com/AbhijithBaby/Salt-Text",
+    email: "abhijithbaby2005@gmail.com"
+  },
+  {
+    id: 27,
+    name: "Devtasks",
+    author: "Shamil",
+    description: "DevTasks is a high-performance, minimalist, and monochrome developer dashboard and task manager. It is designed to act as an offline-first workspace for developers to track engineering roadmaps and manage code snippets with minimal friction",
+    stats: { stars: 0, forks: 0 },
+    category: "Tools",
+    icon: Monitor,
+    animationClass: "group-hover:animate-icon-swing",
+    windowColor: "bg-[#212121]", // Grey
+    pillColor: "bg-[#FFFFFF]", // White
+    link: "https://dev-tasks-beta.vercel.app/",
+    github: "https://github.com/shamilahmdt/devtasks",
+    email: "shamilahmd12@gmail.com"
+  },
+  {
+    id: 28,
+    name: "Deep Face Net",
+    author: "Midhun G Raj",
+    description: "Real-time face swapping application with GUI and CLI support. Built with Python, PyQt6, OpenCV, and ONNX Runtime using InsightFace and GFPGAN models for face detection, swapping, and enhancement.",
+    stats: { stars: 0, forks: 0 },
+    category: "AI",
+    icon: Bot,
+    animationClass: "group-hover:animate-icon-heartbeat",
+    windowColor: "bg-[#9C27B0]", // Purple
+    pillColor: "bg-[#FFEB3B]", // Yellow
+    link: "https://github.com/polynet-org/Deep-Face-Net",
+    github: "https://github.com/MIDHUNGRAJ",
+    email: "neurobyte.ml@gmail.com"
+  },
+  {
+    id: 29,
+    name: "Makeitforthem",
+    author: "BR Govind",
+    description: "Started as a small token of love to my gf,pinne i though let's make it better and added a bit more features",
+    stats: { stars: 0, forks: 0 },
+    category: "Entertainment",
+    icon: Heart,
+    animationClass: "group-hover:animate-icon-float",
+    windowColor: "bg-[#E91E63]", // Pink
+    pillColor: "bg-[#FFFFFF]", // White
+    link: "https://makeitforthem.vercel.app/",
+    github: "https://github.com/BRGOVIND",
+    email: "brg"
   }
 ];
 
