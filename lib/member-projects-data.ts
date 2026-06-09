@@ -387,6 +387,21 @@ export const memberProjectsData = [
     link: "https://makeitforthem.vercel.app/",
     github: "https://github.com/BRGOVIND",
     email: "brg"
+  },
+  {
+    id: 30,
+    name: "Zyncview vision therapy",
+    author: "Zyncview",
+    description: "Zyncview is a platform for treatment of amblyopia (lazy eye), by playing dichoptic games on your computer or phone.",
+    stats: { stars: 0, forks: 0 },
+    category: "HealthTech",
+    icon: Heart,
+    animationClass: "group-hover:animate-icon-heartbeat",
+    windowColor: "bg-[#00BCD4]", // Cyan
+    pillColor: "bg-[#FF9800]", // Orange
+    link: "https://zyncview.com",
+    github: "https://github.com/notopensource",
+    email: "Nospam@gmail.com"
   }
 ];
 

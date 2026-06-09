@@ -5,6 +5,7 @@ import Contributors from "./components/Contributors";
 import Projects from "./components/Projects";
 import Guidelines from "./components/Guidelines";
 import MemberProjects from "./components/MemberProjects";
+import Testimonials from "./components/Testimonials";
 import Footer from "./components/Footer";
 
 export default function Home() {
@@ -17,6 +18,7 @@ export default function Home() {
       <Projects />
       <Guidelines />
       <MemberProjects />
+      <Testimonials />
       <Footer />
     </main>
   );
