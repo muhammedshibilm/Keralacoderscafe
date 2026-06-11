@@ -129,7 +129,7 @@ const organizationLd = {
   },
   sameAs: [
     "https://github.com/atomrobic/keralacoderscafe-saas",
-    "https://chat.whatsapp.com/HFGRN6W39Nl9zPujdIjIih?s=cl&p=a&mlu=4",
+    process.env.NEXT_PUBLIC_WHATSAPP_LINK || "",
   ],
 };
 
