@@ -120,7 +120,7 @@ export default function NavBar() {
               className="flex items-center gap-2 group shrink-0 order-1"
             >
 
-              <svg viewBox="0 0 720 250" className="h-4 sm:h-5 w-auto shrink-0 group-hover:scale-105 transition-transform origin-left">
+              <svg viewBox="0 0 720 250" className="h-8 sm:h-10 md:h-12 w-auto shrink-0 group-hover:scale-105 transition-transform origin-left">
                 <defs>
                   <style>{`
                     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap');
