@@ -39,13 +39,8 @@ const chilanka = Chilanka({
 export const metadata: Metadata = {
   metadataBase: new URL("https://kcc.sh"),
 
-  title: {
-    default: "Kerala Coders Cafe | Developer Community Kerala",
-    template: "%s | Kerala Coders Cafe",
-  },
-
-  description:
-    "Kerala Coders Cafe is a growing developer community from Kerala. Join to learn coding, contribute to open source, and build projects together.",
+  title: "Kerala Coders Cafe | Kerala's Top Developer Community",
+  description: "A vibrant community of developers from Kerala",
 
   keywords: [
     "Kerala Coders Cafe",
@@ -63,6 +58,10 @@ export const metadata: Metadata = {
 
   alternates: {
     canonical: "/",
+    languages: {
+      "en-IN": "https://kcc.sh",
+      "en-US": "https://kcc.sh",
+    },
   },
 
   robots: {
@@ -85,14 +84,7 @@ export const metadata: Metadata = {
     description:
       "A vibrant community of developers from Kerala. Build, learn, and grow together.",
     siteName: "Kerala Coders Cafe",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Kerala Coders Cafe",
-      },
-    ],
+    images: ["https://www.keralacoderscafe.in/og-image.png"],
   },
 
   twitter: {
@@ -101,7 +93,7 @@ export const metadata: Metadata = {
     description:
       "Join Kerala's fastest growing developer community.",
     creator: "@KeralaCodersCafe",
-    images: ["/og-image.png"],
+    images: ["https://www.keralacoderscafe.in/og-image.png"],
   },
 
   icons: {

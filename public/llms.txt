@@ -1,0 +1,19 @@
+# Kerala Coders Cafe
+
+Kerala Coders Cafe is a vibrant community of developers, builders, and learners from Kerala. 
+
+## About Us
+Our mission is to foster a local ecosystem where developers can learn, build side projects, and contribute to open-source software. We support local chapters across major Kerala cities such as Kochi, Thiruvananthapuram, and Kozhikode.
+
+## Useful Links
+- Official Website: https://kcc.sh
+- GitHub: https://github.com/KERALACODERSCAFE
+- Projects: https://kcc.sh/projects
+- Teams: https://kcc.sh/teams
+- Events: https://kcc.sh/events
+
+## Focus Areas
+- Open Source Contribution
+- Networking and Mentorship
+- Building Real-World Projects
+- Hackathons and Tech Meetups
