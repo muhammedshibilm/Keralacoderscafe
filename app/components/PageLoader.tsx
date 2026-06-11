@@ -2,12 +2,13 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
+import { Loader2 } from 'lucide-react';
 
 const CONFIG = {
   apiKey: process.env.NEXT_PUBLIC_TMDB_API_KEY || '',
   apiUrl: 'https://api.themoviedb.org/3',
   cacheDuration: 86400000, // 24 hours
-  loaderTimeout: 12000,
+  loaderTimeout: 3000,
   minLoadTime: 2000,
 };
 
@@ -30,12 +31,34 @@ const fetchWithCache = async (key: string, url: string) => {
   } catch { return { results: [] }; }
 };
 
+const DEV_TIPS = [
+  "> Initializing dev environment...",
+  "> Fetching coffee from /dev/null...",
+  "> Resolving dependencies...",
+  "Tip: Use Ctrl+R to reverse search terminal history",
+  "Tip: Commit early, push often",
+  "Tip: Reading docs saves hours of debugging",
+  "Tip: console.log('here') is the best debugger",
+  "> Bypassing the mainframe...",
+  "> Compiling next-generation web...",
+  "> rm -rf node_modules && npm i",
+];
+
 const PageLoader: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [progress, setProgress] = useState(0);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [tipIndex, setTipIndex] = useState(0);
+
+  useEffect(() => {
+    setTipIndex(Math.floor(Math.random() * DEV_TIPS.length));
+    const interval = setInterval(() => {
+      setTipIndex(prev => (prev + 1) % DEV_TIPS.length);
+    }, 1200);
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     if (typeof window === 'undefined' || window.location.hash || localStorage.getItem('kcc_loader_seen')) return;
@@ -228,8 +251,11 @@ const PageLoader: React.FC = () => {
             <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.1) 10px, rgba(255,255,255,0.1) 20px)' }} />
           </div>
           <div className="mt-3 flex items-center justify-between text-xs sm:text-sm">
-            <span className="font-bold uppercase tracking-widest text-white/90">{errorMsg ? '⚠️ ' : ''}{errorMsg || 'Loading Experience'}</span>
-            <span className="text-white/70 font-mono">{progress}%</span>
+            <span className="flex items-center gap-2 font-mono text-[10px] sm:text-xs text-white/90 tracking-tight">
+              {!errorMsg && <Loader2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 animate-spin opacity-50 shrink-0" />}
+              <span className="truncate max-w-[200px] sm:max-w-xs">{errorMsg ? '⚠️ ' + errorMsg : DEV_TIPS[tipIndex]}</span>
+            </span>
+            <span className="text-white/70 font-mono ml-2 shrink-0">{progress}%</span>
           </div>
           <p className="mt-2 text-center text-[10px] text-white/50 animate-pulse">
             <span className="hidden sm:inline">Press <kbd className="px-1.5 py-0.5 bg-white/10 rounded border border-white/20">ESC</kbd> or <kbd className="px-1.5 py-0.5 bg-white/10 rounded border border-white/20">Space</kbd> to skip</span>
