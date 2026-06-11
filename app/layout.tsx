@@ -80,7 +80,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_IN",
     url: "/",
-    title: "Kerala Coders Cafe 🚀",
+    title: "Kerala Coders Cafe ",
     description:
       "A vibrant community of developers from Kerala. Build, learn, and grow together.",
     siteName: "Kerala Coders Cafe",
