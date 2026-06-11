@@ -45,7 +45,7 @@ export async function getCommunityInvite(
     // Perfect score! Reveal WhatsApp Link
     return {
       type: "whatsapp",
-      link: process.env.NEXT_PUBLIC_WHATSAPP_LINK || "",
+      link: process.env.WHATSAPP_INVITE_LINK || "",
     };
   }
 
