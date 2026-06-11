@@ -218,6 +218,65 @@ const PageLoader: React.FC = () => {
       onClick={handleTapToDismiss}
       className={`fixed inset-0 z-[100] flex flex-col items-center justify-center bg-black transition-opacity duration-800 ease-out cursor-pointer ${isLoading ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
     >
+      <style>{`
+        @keyframes badge-appear {
+          0%   { opacity: 0; transform: scale(0.4); }
+          60%  { opacity: 1; transform: scale(1.1); }
+          100% { opacity: 1; transform: scale(1); }
+        }
+        .svg-badge {
+          width: 44px;
+          height: 44px;
+          border-radius: 50%;
+          background: rgba(255,255,255,0.08);
+          border: 1.5px solid rgba(255,255,255,0.18);
+          backdrop-filter: blur(6px);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          box-shadow: 0 4px 18px rgba(0,0,0,0.5), inset 0 1px 1px rgba(255,255,255,0.15);
+          overflow: hidden;
+          padding: 5px;
+          opacity: 0;
+          animation: badge-appear 0.5s cubic-bezier(0.34,1.56,0.64,1) forwards;
+        }
+        .svg-badge img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+        }
+        .badge-wrap:nth-child(1) .svg-badge { animation-delay: 0.3s; }
+        .badge-wrap:nth-child(3) .svg-badge { animation-delay: 0.5s; }
+        .badge-wrap:nth-child(5) .svg-badge { animation-delay: 0.7s; }
+        .badge-row {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 16px;
+          margin-bottom: 10px;
+        }
+        .badge-label {
+          font-family: 'Montserrat', sans-serif;
+          font-size: 8px;
+          font-weight: 700;
+          letter-spacing: 1.5px;
+          color: rgba(255,255,255,0.45);
+          text-transform: uppercase;
+          margin-top: 4px;
+          text-align: center;
+        }
+        .badge-wrap {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+        .badge-divider {
+          width: 1px;
+          height: 28px;
+          background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.2), transparent);
+        }
+      `}</style>
+
       <div ref={containerRef} className="absolute bottom-0 left-0 w-full overflow-hidden" />
 
       <div className="relative z-10 flex flex-col items-center justify-center w-full h-full px-4 sm:px-6 pointer-events-none">
@@ -268,7 +327,31 @@ const PageLoader: React.FC = () => {
           </svg>
         </div>
 
-        <div className="mt-12 w-full max-w-xs sm:max-w-sm">
+        {/* Spinning SVG Badges */}
+        <div className="badge-row" style={{ marginTop: '-4px', marginBottom: '8px' }}>
+          <div className="badge-wrap">
+            <div className="svg-badge">
+              <img src="/proch.svg" alt="Porsche" draggable={false} />
+            </div>
+            <span className="badge-label">Porsche</span>
+          </div>
+          <div className="badge-divider" />
+          <div className="badge-wrap">
+            <div className="svg-badge">
+              <img src="/brazil.svg" alt="Brazil" draggable={false} />
+            </div>
+            <span className="badge-label">Brazil</span>
+          </div>
+          <div className="badge-divider" />
+          <div className="badge-wrap">
+            <div className="svg-badge">
+              <img src="/argie.svg" alt="Argentina" draggable={false} />
+            </div>
+            <span className="badge-label">Argentina</span>
+          </div>
+        </div>
+
+        <div className="mt-4 w-full max-w-xs sm:max-w-sm">
           <div className="relative h-3 sm:h-4 bg-white/10 rounded-full overflow-hidden border border-white/30 shadow-lg">
             <div className="absolute inset-y-0 left-0 bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 transition-all duration-300" style={{ width: `${progress}%` }}>
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-shimmer" />
