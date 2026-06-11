@@ -61,7 +61,10 @@ const PageLoader: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    if (typeof window === 'undefined' || window.location.hash || localStorage.getItem('kcc_loader_seen')) return;
+    if (typeof window === 'undefined' || window.location.hash) return;
+    const lastSeen = localStorage.getItem('kcc_loader_seen');
+    if (lastSeen && Date.now() - parseInt(lastSeen, 10) < 3600000) return; // 1 hour
+
     setIsVisible(true);
     const startTime = Date.now();
     let animId: number, scrollTimeout: NodeJS.Timeout, isScrolling = false;
@@ -165,7 +168,7 @@ const PageLoader: React.FC = () => {
     const handleDismiss = () => {
       setTimeout(() => {
         setIsLoading(false);
-        localStorage.setItem('kcc_loader_seen', 'true');
+        localStorage.setItem('kcc_loader_seen', Date.now().toString());
         window.dispatchEvent(new CustomEvent('kcc_loader_finished'));
         setTimeout(() => setIsVisible(false), 800);
       }, Math.max(0, CONFIG.minLoadTime - (Date.now() - startTime)));
@@ -203,7 +206,7 @@ const PageLoader: React.FC = () => {
   // Use the same handleDismiss logic inside the component scope for the onClick event
   const handleTapToDismiss = () => {
     setIsLoading(false);
-    localStorage.setItem('kcc_loader_seen', 'true');
+    localStorage.setItem('kcc_loader_seen', Date.now().toString());
     window.dispatchEvent(new CustomEvent('kcc_loader_finished'));
     setTimeout(() => setIsVisible(false), 800);
   };
