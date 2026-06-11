@@ -5,7 +5,6 @@ import { ArrowUpRight } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { useLenis } from "lenis/react";
-import KccCupMark from "./KccCupMark";
 
 const navLinks = [
   { name: "Home", href: "/", type: "scroll" },
@@ -120,12 +119,38 @@ export default function NavBar() {
               aria-label="Kerala Coders Cafe home"
               className="flex items-center gap-2 group shrink-0 order-1"
             >
-              <div className="h-8 w-8 sm:h-10 sm:w-10 shrink-0 group-hover:scale-105 transition-transform">
-                <KccCupMark className="h-full w-full" />
-              </div>
-              <div className="text-sm sm:text-base lg:text-[1.1rem] font-bold tracking-tight text-black whitespace-nowrap uppercase">
-                Kerala Coders Cafe
-              </div>
+
+              <svg viewBox="0 0 720 250" className="h-4 sm:h-5 w-auto shrink-0 group-hover:scale-105 transition-transform origin-left">
+                <defs>
+                  <style>{`
+                    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap');
+                    @import url('https://fonts.googleapis.com/css2?family=Playwrite+IE:wght@400&display=swap');
+                    .nav-text-kerala { font: 900 110px 'Montserrat', sans-serif; letter-spacing: 16px; fill: #111; }
+                    .nav-text-coders { font: 900 92px 'Montserrat', sans-serif; letter-spacing: 6px; fill: #111; opacity: 0.95; }
+                    .nav-text-cafe { 
+                      font: 400 85px 'Playwrite IE', cursive; 
+                      fill: #d95715; 
+                      animation: writeCafe 6s ease-in-out infinite;
+                    }
+                    @keyframes writeCafe {
+                      0%, 10% { clip-path: inset(-20% 120% -20% -20%); opacity: 0; }
+                      15% { opacity: 1; }
+                      35%, 85% { clip-path: inset(-20% -20% -20% -20%); opacity: 1; }
+                      95%, 100% { clip-path: inset(-20% -20% -20% -20%); opacity: 0; }
+                    }
+                  `}</style>
+                </defs>
+                <g>
+                  <text x="10" y="100" className="nav-text-kerala">KERALA</text>
+                  <text x="15" y="195" className="nav-text-coders">CODERS</text>
+                  <text x="450" y="195" className="nav-text-cafe" transform="rotate(-8, 450, 195)">Cafe</text>
+                </g>
+                <g transform="translate(680, 20)">
+                  {['#FCCC12', '#FF7112', '#EF1541', '#6E55DC', '#069DE0', '#05AC3F'].map((c, i) => (
+                    <circle key={i} cy={i * 32} r={12} fill={c} />
+                  ))}
+                </g>
+              </svg>
             </Link>
 
             {/* Navigation Links with Dots */}

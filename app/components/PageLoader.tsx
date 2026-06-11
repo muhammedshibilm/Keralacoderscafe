@@ -8,7 +8,7 @@ const CONFIG = {
   apiKey: process.env.NEXT_PUBLIC_TMDB_API_KEY || '',
   apiUrl: 'https://api.themoviedb.org/3',
   cacheDuration: 86400000, // 24 hours
-  loaderTimeout: 3000,
+  loaderTimeout: 6000,
   minLoadTime: 2000,
 };
 
@@ -227,9 +227,30 @@ const PageLoader: React.FC = () => {
               <style>{`
                 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap');
                 @import url('https://fonts.googleapis.com/css2?family=Playwrite+IE:wght@400&display=swap');
+                @import url('https://fonts.googleapis.com/css2?family=Chilanka&display=swap');
                 .text-kerala { font: 900 110px 'Montserrat', sans-serif; letter-spacing: 16px; fill: #FFF; }
                 .text-coders { font: 900 92px 'Montserrat', sans-serif; letter-spacing: 6px; fill: #FFF; opacity: 0.95; }
-                .text-cafe { font: 400 85px 'Playwrite IE', cursive; fill: #d95715; }
+                .text-cafe { 
+                  font: 400 85px 'Playwrite IE', cursive; 
+                  fill: #d95715; 
+                  animation: writeCafeLoader 3s ease-in-out forwards;
+                }
+                .text-chilanka {
+                  font-family: 'Chilanka', cursive;
+                  font-weight: 400;
+                  font-size: 32px;
+                  fill: #FFF;
+                  opacity: 0.9;
+                  letter-spacing: 2px;
+                  animation: writeCafeLoader 3s ease-in-out forwards;
+                  animation-delay: 0.5s;
+                  opacity: 0;
+                }
+                @keyframes writeCafeLoader {
+                  0%, 10% { clip-path: inset(-20% 120% -20% -20%); opacity: 0; }
+                  15% { opacity: 1; }
+                  100% { clip-path: inset(-20% -20% -20% -20%); opacity: 1; }
+                }
                 .shadow-group { filter: drop-shadow(0px 8px 12px rgba(0,0,0,0.5)); }
               `}</style>
             </defs>
@@ -237,6 +258,7 @@ const PageLoader: React.FC = () => {
               <text x="10" y="100" className="text-kerala">KERALA</text>
               <text x="15" y="195" className="text-coders">CODERS</text>
               <text x="450" y="195" className="text-cafe" transform="rotate(-8, 450, 195)">Cafe</text>
+              <text x="15" y="240" className="text-chilanka">ഞാൻ അല്ലാതെ ആര്</text>
             </g>
             <g transform="translate(680, 20)">
               {['#FCCC12', '#FF7112', '#EF1541', '#6E55DC', '#069DE0', '#05AC3F'].map((c, i) => (

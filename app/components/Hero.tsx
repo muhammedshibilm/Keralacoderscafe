@@ -385,18 +385,18 @@ export default function Hero() {
                   {isBulbOn && (
                     <>
                       {/* Left Quote */}
-                      <div className="absolute top-[30px] right-[110px] w-max z-50 animate-in fade-in slide-in-from-right-4 duration-500 pointer-events-none">
-                        <div className="relative bg-[#1a1a1a] text-[#FFE66D] px-4 py-2 border-2 border-[#FFE66D] font-black text-[0.6rem] uppercase tracking-widest shadow-[-4px_4px_0_0_#FFE66D] text-right leading-tight">
+                      <div className={`absolute top-[30px] right-[110px] w-max z-50 animate-in fade-in slide-in-from-right-4 duration-500 pointer-events-none ${heroMalayalam.className}`}>
+                        <div className="relative bg-[#1a1a1a] text-[#FFE66D] px-4 py-2 border-2 border-[#FFE66D] font-black text-[0.7rem] sm:text-[0.85rem] tracking-wider shadow-[-4px_4px_0_0_#FFE66D] text-right leading-relaxed">
                           <div className="absolute top-1/2 -right-2 -translate-y-1/2 w-4 h-4 bg-[#1a1a1a] border-t-2 border-r-2 border-[#FFE66D] rotate-45 transform origin-center"></div>
-                          "Competition alla….<br />collaboration aanu power"
+                          മത്സരമല്ല...<br />സഹകരണമാണ് പവർ
                         </div>
                       </div>
 
                       {/* Right Quote */}
-                      <div className="absolute top-[80px] left-[110px] w-max z-50 animate-in fade-in slide-in-from-left-4 duration-500 pointer-events-none hidden sm:block">
-                        <div className="relative bg-[#1a1a1a] text-[#FFE66D] px-4 py-2 border-2 border-[#FFE66D] font-black text-[0.6rem] uppercase tracking-widest shadow-[4px_4px_0_0_#FFE66D] text-left leading-tight">
+                      <div className={`absolute top-[80px] left-[110px] w-max z-50 animate-in fade-in slide-in-from-left-4 duration-500 pointer-events-none hidden sm:block ${heroMalayalam.className}`}>
+                        <div className="relative bg-[#1a1a1a] text-[#FFE66D] px-4 py-2 border-2 border-[#FFE66D] font-black text-[0.7rem] sm:text-[0.85rem] tracking-wider shadow-[4px_4px_0_0_#FFE66D] text-left leading-relaxed">
                           <div className="absolute top-1/2 -left-2 -translate-y-1/2 w-4 h-4 bg-[#1a1a1a] border-b-2 border-l-2 border-[#FFE66D] rotate-45 transform origin-center"></div>
-                          "Copy paste alla…<br />understand & build.”
+                          കോപ്പി പേസ്റ്റ് അല്ല...<br />പഠിച്ച് നിർമ്മിക്കുക
                         </div>
                       </div>
                     </>
