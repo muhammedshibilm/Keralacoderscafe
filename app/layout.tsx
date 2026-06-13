@@ -131,7 +131,6 @@ import SmoothScroll from "./components/SmoothScroll";
 import NavBar from "./components/NavBar";
 import PageLoader from "./components/PageLoader";
 import AnnouncementPopup from "./components/AnnouncementPopup";
-import ChatModal from "./components/ChatModal";
 import Script from "next/script";
 import { Suspense } from "react";
 
@@ -183,7 +182,6 @@ export default function RootLayout({
           {children}
           <FloatingCTA />
         </SmoothScroll>
-        <ChatModal />
       </body>
     </html>
   );
