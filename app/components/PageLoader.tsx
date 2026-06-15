@@ -3,32 +3,19 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { Loader2 } from 'lucide-react';
+import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
+import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
+import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js';
+import { AfterimagePass } from 'three/examples/jsm/postprocessing/AfterimagePass.js';
+import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
+import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+
 
 const CONFIG = {
-  apiKey: process.env.NEXT_PUBLIC_TMDB_API_KEY || '',
-  apiUrl: 'https://api.themoviedb.org/3',
-  cacheDuration: 86400000, // 24 hours
   loaderTimeout: 6000,
   minLoadTime: 2000,
-};
-
-const PS = { h: 40, w: 27, pad: 2, cols: 11, rows: 10, resIdx: 2 };
-const START_Y = -PS.h - PS.pad;
-
-const fetchWithCache = async (key: string, url: string) => {
-  if (typeof window === 'undefined') return { results: [] };
-  try {
-    const cached = localStorage.getItem(key);
-    if (cached) {
-      const { data, ts } = JSON.parse(cached);
-      if (Date.now() - ts < CONFIG.cacheDuration) return data;
-    }
-    const res = await fetch(url);
-    if (!res.ok) throw new Error();
-    const data = await res.json();
-    localStorage.setItem(key, JSON.stringify({ data, ts: Date.now() }));
-    return data;
-  } catch { return { results: [] }; }
 };
 
 const DEV_TIPS = [
@@ -67,104 +54,248 @@ const PageLoader: React.FC = () => {
 
     setIsVisible(true);
     const startTime = Date.now();
-    let animId: number, scrollTimeout: NodeJS.Timeout, isScrolling = false;
+    let animId: number;
+    let composer: EffectComposer;
 
     // 1. Scene Setup
     const scene = new THREE.Scene();
-    scene.fog = new THREE.Fog(0x000000, 200, 500);
 
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
+    const renderer = new THREE.WebGLRenderer({
+      antialias: true,
+      powerPreference: 'high-performance'
+    });
+    renderer.setClearColor(0x11151c);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.outputColorSpace = THREE.SRGBColorSpace;
+    renderer.setSize(window.innerWidth, window.innerHeight);
     containerRef.current?.appendChild(renderer.domElement);
 
-    const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
-    camera.rotation.x = 0.6;
-    camera.position.set(0, PS.h * 1.5, 100);
+    const camera = new THREE.PerspectiveCamera(
+      45,
+      window.innerWidth / window.innerHeight,
+      0.1,
+      1000
+    );
+    camera.position.set(0, 0, 10);
 
-    scene.add(new THREE.PointLight(0xffffff, 3000, 600).translateY(PS.h * 1.5).translateZ(50));
-    scene.add(new THREE.AmbientLight(0xffffff, 0.6));
+    // Orbit Controls
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.enabled = true;
+    controls.dampingFactor = 0.05;
+    controls.enablePan = false;
 
-    const assetGroup = new THREE.Group();
-    assetGroup.position.set(-((PS.w * PS.cols) + (PS.pad * (PS.cols - 1))) / 2, START_Y, 0);
-    scene.add(assetGroup);
+    // Limit the angle that the camera can move
+    const angleLimit = Math.PI / 7;
+    controls.minPolarAngle = Math.PI / 2 - angleLimit;
+    controls.maxPolarAngle = Math.PI / 2 + angleLimit;
 
+    // Loading Manager
+    const manager = new THREE.LoadingManager();
+    manager.onProgress = (url, itemsLoaded, itemsTotal) => {
+      setProgress(Math.round((itemsLoaded / itemsTotal) * 100));
+    };
+    manager.onLoad = () => {
+      setProgress(100);
+    };
+    manager.onError = (url) => {
+      console.error("Failed to load", url);
+      setErrorMsg("Failed to load 3D asset: " + url.split('/').pop());
+    };
+
+    // Load assets using manager
+    const hdrLoader = new RGBELoader(manager);
+    const textureLoader = new THREE.TextureLoader(manager);
+    const fbxloader = new FBXLoader(manager);
+
+    // Add a gradient HDR background
+    const hdrEquirect = hdrLoader
+      .setPath("https://miroleon.github.io/daily-assets/")
+      .load("GRADIENT_01_01_comp.hdr", function () {
+        hdrEquirect.mapping = THREE.EquirectangularReflectionMapping;
+      });
+
+    scene.environment = hdrEquirect;
+
+    // Add some fog to the scene for moodyness
+    scene.fog = new THREE.FogExp2(0x11151c, 0.4);
+
+    // Load a texture for the 3d model
+    const surfaceImperfection = textureLoader.load(
+      "https://miroleon.github.io/daily-assets/surf_imp_02.jpg"
+    );
+    surfaceImperfection.wrapT = THREE.RepeatWrapping;
+    surfaceImperfection.wrapS = THREE.RepeatWrapping;
+
+    // Create a new MeshPhysicalMaterial for the 3d model
+    const hands_mat = new THREE.MeshPhysicalMaterial({
+      color: 0x606060,
+      roughness: 0.2,
+      metalness: 1,
+      roughnessMap: surfaceImperfection,
+      envMap: hdrEquirect,
+      envMapIntensity: 1.5
+    });
+
+    // Load the 3d model as FBX
+    fbxloader.load(
+      "https://miroleon.github.io/daily-assets/two_hands_01.fbx",
+      function (object) {
+        object.traverse(function (child) {
+          if ((child as THREE.Mesh).isMesh) {
+            (child as THREE.Mesh).material = hands_mat;
+          }
+        });
+        object.position.set(0, 0, 0);
+        object.scale.setScalar(0.05);
+        scene.add(object);
+      }
+    );
+
+    // POST PROCESSING
+    const renderScene = new RenderPass(scene, camera);
+    const afterimagePass = new AfterimagePass();
+    afterimagePass.uniforms["damp"].value = 0.9;
+
+    const bloomPass = new UnrealBloomPass(
+      new THREE.Vector2(window.innerWidth, window.innerHeight),
+      1.75, // strength
+      1.0,  // radius
+      0.1   // threshold
+    );
+
+    // Create the displacement shader
+    const displacementShader = {
+      uniforms: {
+        tDiffuse: { value: null },
+        displacement: { value: null },
+        scale: { value: 0.025 },
+        tileFactor: { value: 2.0 }
+      },
+      vertexShader: `
+        varying vec2 vUv;
+        void main() {
+            vUv = uv;
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+        }
+      `,
+      fragmentShader: `
+        uniform sampler2D tDiffuse;
+        uniform sampler2D displacement;
+        uniform float scale;
+        uniform float tileFactor;
+        varying vec2 vUv;
+        void main() {
+            if (vUv.x < 0.75 && vUv.x > 0.25 && vUv.y < 0.75 && vUv.y > 0.25) {
+                vec2 tiledUv = mod(vUv * tileFactor, 1.0);
+                vec2 disp = texture2D(displacement, tiledUv).rg * scale;
+                vec2 distUv = vUv + disp;
+                gl_FragColor = texture2D(tDiffuse, distUv);
+            } else {
+                gl_FragColor = texture2D(tDiffuse, vUv);
+            }
+        }
+      `
+    };
+
+    // Load the displacement texture
+    const displacementTexture = textureLoader.load(
+      "https://raw.githubusercontent.com/miroleon/displacement_texture_freebie/main/assets/1K/jpeg/normal/ml-dpt-21-1K_normal.jpeg",
+      function (texture) {
+        texture.minFilter = THREE.NearestFilter;
+      }
+    );
+
+    const displacementPass = new ShaderPass(displacementShader);
+    displacementPass.uniforms["displacement"].value = displacementTexture;
+
+    composer = new EffectComposer(renderer);
+    composer.addPass(renderScene);
+    composer.addPass(afterimagePass);
+    composer.addPass(bloomPass);
+    composer.addPass(displacementPass);
+
+    // Camera script path transition controls
+    let isUserInteracting = false;
+    let transitionProgress = 0;
+    const transitionTime = 2; // Transition should complete over 2 seconds
+    const transitionIncrement = 1 / (60 * transitionTime); // Assuming 60 FPS
+    const transitionStartCameraPosition = new THREE.Vector3();
+    const transitionStartCameraQuaternion = new THREE.Quaternion();
+
+    function easeInOutCubic(x: number) {
+      return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+    }
+
+    let theta = 0;
+    const updateCamera = () => {
+      theta += 0.005;
+
+      const targetPosition = new THREE.Vector3(
+        Math.sin(theta) * 3,
+        Math.sin(theta),
+        Math.cos(theta) * 3
+      );
+
+      const targetQuaternion = new THREE.Quaternion().setFromEuler(
+        new THREE.Euler(0, -theta, 0)
+      );
+
+      if (isUserInteracting) {
+        if (transitionProgress > 0) {
+          transitionProgress = 0;
+        }
+        transitionStartCameraPosition.copy(camera.position);
+        transitionStartCameraQuaternion.copy(camera.quaternion);
+      } else {
+        if (transitionProgress < 1) {
+          transitionProgress += transitionIncrement;
+          const easedProgress = easeInOutCubic(transitionProgress);
+
+          camera.position.lerpVectors(
+            transitionStartCameraPosition,
+            targetPosition,
+            easedProgress
+          );
+          camera.quaternion.slerp(
+            transitionStartCameraQuaternion,
+            targetQuaternion,
+            easedProgress
+          );
+        } else {
+          camera.position.copy(targetPosition);
+          camera.quaternion.copy(targetQuaternion);
+        }
+      }
+
+      camera.lookAt(scene.position);
+    };
+
+    // OrbitControls Event Listeners
+    const onStartInteract = () => {
+      isUserInteracting = true;
+    };
+    const onEndInteract = () => {
+      isUserInteracting = false;
+      transitionStartCameraPosition.copy(camera.position);
+      transitionStartCameraQuaternion.copy(camera.quaternion);
+      transitionProgress = 0;
+    };
+
+    controls.addEventListener("start", onStartInteract);
+    controls.addEventListener("end", onEndInteract);
+
+    // Resize handler
     const handleResize = () => {
-      const w = window.innerWidth, h = w * (414 / 1075);
+      const w = window.innerWidth;
+      const h = window.innerHeight;
       camera.aspect = w / h;
       camera.updateProjectionMatrix();
       renderer.setSize(w, h);
+      composer.setSize(w, h);
     };
-    handleResize();
     window.addEventListener('resize', handleResize);
 
-    // 2. Data Loading
-    const loadContent = async () => {
-      try {
-        const config = await fetchWithCache('tmdb_config', `${CONFIG.apiUrl}/configuration?api_key=${CONFIG.apiKey}`);
-        const base = config.images?.secure_base_url || 'https://image.tmdb.org/t/p/';
-        const size = config.images?.poster_sizes[PS.resIdx] || 'w342';
-
-        const endpoints = ['tv/1', 'tv/2', 'movie/1', 'movie/2'];
-        const results = await Promise.all(endpoints.map((ep, i) =>
-          fetchWithCache(`tmdb_${ep.replace('/', '_')}`, `${CONFIG.apiUrl}/discover/${ep.split('/')[0]}?api_key=${CONFIG.apiKey}&page=${ep.split('/')[1]}`)
-            .then(d => { setProgress(Math.round(25 + (i + 1) * 18.75)); return d.results || []; })
-        ));
-
-        const assets = results.flat().filter((a: any) => a.poster_path).sort(() => 0.5 - Math.random()).slice(0, PS.cols * PS.rows);
-
-        // Single Geometry for all posters
-        const shape = new THREE.Shape();
-        const r = 3;
-        shape.moveTo(0, r); shape.lineTo(0, PS.h - r); shape.quadraticCurveTo(0, PS.h, r, PS.h);
-        shape.lineTo(PS.w - r, PS.h); shape.quadraticCurveTo(PS.w, PS.h, PS.w, PS.h - r);
-        shape.lineTo(PS.w, r); shape.quadraticCurveTo(PS.w, 0, PS.w - r, 0);
-        shape.lineTo(r, 0); shape.quadraticCurveTo(0, 0, 0, r);
-        const geo = new THREE.ShapeGeometry(shape);
-        const texLoader = new THREE.TextureLoader();
-
-        let rowGroup: THREE.Group;
-        assets.forEach((asset: any, i) => {
-          if (i % PS.cols === 0) {
-            rowGroup = new THREE.Group();
-            rowGroup.position.y = (i / PS.cols) * (PS.h + PS.pad);
-            rowGroup.userData = { baseY: rowGroup.position.y, offset: Math.random() * Math.PI * 2, speed: 0.001 + Math.random() * 0.002 };
-            assetGroup.add(rowGroup);
-          }
-          const tex = texLoader.load(`${base}${size}${asset.poster_path}`, () => setProgress(p => Math.min(p + 1, 100)));
-          tex.colorSpace = THREE.SRGBColorSpace;
-          const mesh = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ map: tex, side: THREE.DoubleSide, roughness: 0.8 }));
-          mesh.position.x = (i % PS.cols) * (PS.w + PS.pad);
-          rowGroup.add(mesh);
-        });
-        setProgress(100);
-      } catch { setErrorMsg('Unable to load posters.'); setProgress(100); }
-    };
-    loadContent();
-
-    // 3. Animation Loop
-    let lastTime = performance.now();
-    const animate = (time: number) => {
-      const delta = (time - lastTime) / 1000;
-      lastTime = time;
-
-      if (!isScrolling) {
-        assetGroup.position.y += 0.15 * delta * 60;
-        if (assetGroup.position.y > PS.pad) assetGroup.position.y = START_Y;
-      }
-
-      assetGroup.children.forEach(row => {
-        if (row.userData.baseY !== undefined) {
-          row.position.y = row.userData.baseY + Math.sin(time * row.userData.speed + row.userData.offset) * 0.5;
-        }
-      });
-
-      renderer.render(scene, camera);
-      animId = requestAnimationFrame(animate);
-    };
-    animId = requestAnimationFrame(animate);
-
-    // 4. Events & Cleanup
+    // Dismissal Logic
     const handleDismiss = () => {
       setTimeout(() => {
         setIsLoading(false);
@@ -174,49 +305,97 @@ const PageLoader: React.FC = () => {
       }, Math.max(0, CONFIG.minLoadTime - (Date.now() - startTime)));
     };
 
-    const onWheel = (e: WheelEvent) => {
-      e.preventDefault(); isScrolling = true;
-      assetGroup.position.y += e.deltaY * 0.05;
-      clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(() => isScrolling = false, 100);
+    // Drag-aware click detection for desktop
+    let dragStartX = 0;
+    let dragStartY = 0;
+    const onMouseDown = (e: MouseEvent) => {
+      dragStartX = e.clientX;
+      dragStartY = e.clientY;
     };
+    const onMouseUp = (e: MouseEvent) => {
+      const dist = Math.hypot(e.clientX - dragStartX, e.clientY - dragStartY);
+      if (dist < 5) {
+        handleDismiss();
+      }
+    };
+
+    // Touch support for drag-aware click detection on mobile
+    let touchStartX = 0;
+    let touchStartY = 0;
+    const onTouchStart = (e: TouchEvent) => {
+      if (e.touches.length > 0) {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+      }
+    };
+    const onTouchEnd = (e: TouchEvent) => {
+      if (e.changedTouches.length > 0) {
+        const dist = Math.hypot(e.changedTouches[0].clientX - touchStartX, e.changedTouches[0].clientY - touchStartY);
+        if (dist < 5) {
+          handleDismiss();
+        }
+      }
+    };
+
+    // Keyboard controls
     const onKey = (e: KeyboardEvent) => ['Escape', 'Enter', ' '].includes(e.key) && handleDismiss();
 
-    window.addEventListener('wheel', onWheel, { passive: false });
     window.addEventListener('keydown', onKey);
+    window.addEventListener('mousedown', onMouseDown);
+    window.addEventListener('mouseup', onMouseUp);
+    window.addEventListener('touchstart', onTouchStart, { passive: true });
+    window.addEventListener('touchend', onTouchEnd);
+
+    // Auto-dismiss timeout
     const timer = setTimeout(handleDismiss, CONFIG.loaderTimeout);
 
+    // Animation Loop
+    const animate = () => {
+      controls.update();
+      updateCamera();
+      composer.render();
+      animId = requestAnimationFrame(animate);
+    };
+    animId = requestAnimationFrame(animate);
+
     return () => {
-      clearTimeout(timer); clearTimeout(scrollTimeout); cancelAnimationFrame(animId);
+      clearTimeout(timer);
+      cancelAnimationFrame(animId);
       window.removeEventListener('resize', handleResize);
-      window.removeEventListener('wheel', onWheel); window.removeEventListener('keydown', onKey);
+      window.removeEventListener('keydown', onKey);
+      window.removeEventListener('mousedown', onMouseDown);
+      window.removeEventListener('mouseup', onMouseUp);
+      window.removeEventListener('touchstart', onTouchStart);
+      window.removeEventListener('touchend', onTouchEnd);
+      controls.removeEventListener("start", onStartInteract);
+      controls.removeEventListener("end", onEndInteract);
+      controls.dispose();
 
       scene.traverse((obj: any) => {
         if (obj.geometry) obj.geometry.dispose();
         if (obj.material) {
-          Array.isArray(obj.material) ? obj.material.forEach((m: any) => m.dispose()) : obj.material.dispose();
-          if (obj.material.map) obj.material.map.dispose();
+          if (Array.isArray(obj.material)) {
+            obj.material.forEach((m: any) => m.dispose());
+          } else {
+            obj.material.dispose();
+          }
         }
       });
+      displacementTexture.dispose();
+      surfaceImperfection.dispose();
+      hdrEquirect.dispose();
       renderer.dispose();
-      containerRef.current?.removeChild(renderer.domElement);
+      if (containerRef.current && renderer.domElement.parentNode === containerRef.current) {
+        containerRef.current.removeChild(renderer.domElement);
+      }
     };
   }, []);
-
-  // Use the same handleDismiss logic inside the component scope for the onClick event
-  const handleTapToDismiss = () => {
-    setIsLoading(false);
-    localStorage.setItem('kcc_loader_seen', Date.now().toString());
-    window.dispatchEvent(new CustomEvent('kcc_loader_finished'));
-    setTimeout(() => setIsVisible(false), 800);
-  };
 
   if (!isVisible) return null;
 
   return (
     <div
-      onClick={handleTapToDismiss}
-      className={`fixed inset-0 z-[100] flex flex-col items-center justify-center bg-black transition-opacity duration-800 ease-out cursor-pointer ${isLoading ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+      className={`fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#11151c] transition-opacity duration-800 ease-out cursor-pointer ${isLoading ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
     >
       <style>{`
         @keyframes badge-appear {
@@ -277,7 +456,7 @@ const PageLoader: React.FC = () => {
         }
       `}</style>
 
-      <div ref={containerRef} className="absolute bottom-0 left-0 w-full overflow-hidden" />
+      <div ref={containerRef} className="absolute inset-0 w-full h-full overflow-hidden z-0" />
 
       <div className="relative z-10 flex flex-col items-center justify-center w-full h-full px-4 sm:px-6 pointer-events-none">
         <div className="w-full max-w-[90vw] sm:max-w-[70vw] lg:max-w-[50vw]">
@@ -366,7 +545,7 @@ const PageLoader: React.FC = () => {
             <span className="text-white/70 font-mono ml-2 shrink-0">{progress}%</span>
           </div>
           <p className="mt-2 text-center text-[10px] text-white/50 animate-pulse">
-            <span className="hidden sm:inline">Press <kbd className="px-1.5 py-0.5 bg-white/10 rounded border border-white/20">ESC</kbd> or <kbd className="px-1.5 py-0.5 bg-white/10 rounded border border-white/20">Space</kbd> to skip</span>
+            <span className="hidden sm:inline font-mono">Press <kbd className="px-1.5 py-0.5 bg-white/10 rounded border border-white/20">ESC</kbd> or <kbd className="px-1.5 py-0.5 bg-white/10 rounded border border-white/20">Space</kbd> to skip</span>
             <span className="sm:hidden">Tap anywhere to skip</span>
           </p>
         </div>
