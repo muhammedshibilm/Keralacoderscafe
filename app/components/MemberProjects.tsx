@@ -14,7 +14,6 @@ export default function MemberProjects() {
 
   const [isLoading, setIsLoading] = useState(true);
   const [votesMap, setVotesMap] = useState<Record<number, number>>({});
-  const [visibleCount, setVisibleCount] = useState(5);
 
   useEffect(() => {
     async function loadVotes() {
@@ -93,7 +92,7 @@ export default function MemberProjects() {
           ) : (
             [...memberProjectsData]
               .sort((a, b) => (votesMap[b.id] || 0) - (votesMap[a.id] || 0))
-              .slice(0, visibleCount)
+              .slice(0, 7)
               .map((project, index) => (
               <ProjectCard 
                 key={project.id} 
@@ -107,14 +106,12 @@ export default function MemberProjects() {
 
         {/* Action Buttons Row */}
         <div className="mt-20 flex flex-col sm:flex-row items-center justify-center gap-6">
-          {visibleCount < memberProjectsData.length && (
-            <button
-              onClick={() => setVisibleCount((prev) => prev + 5)}
-              className="inline-flex h-16 items-center justify-center gap-3 border-[3px] border-black bg-[#A18CE5] px-8 text-lg font-black uppercase text-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all w-full sm:w-auto rounded-xl cursor-pointer"
-            >
-              See More Projects
-            </button>
-          )}
+          <Link
+            href="/projects"
+            className="inline-flex h-16 items-center justify-center gap-3 border-[3px] border-black bg-[#A18CE5] px-8 text-lg font-black uppercase text-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all w-full sm:w-auto rounded-xl cursor-pointer"
+          >
+            See More Projects
+          </Link>
           <Link
             href="https://docs.google.com/forms/d/e/1FAIpQLSeeHzA9LoWRRBOkqAYeXTNQnce6RSUi1uf1xZYVhIVKLBJz7Q/viewform"
             target="_blank"
