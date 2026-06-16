@@ -12,16 +12,16 @@ type ColourfulTextProps = Omit<React.ComponentProps<"span">, "children"> & {
 }
 
 const defaultColors = [
-  "#2ecc71", // Kerala green
-  "#27ae60", // Deep leaf green
-  "#e74c3c", // Kathakali red
-  "#f1c40f", // Temple yellow
-  "#e67e22", // Theyyam orange
-  "#3498db", // Backwater blue
-  "#f39c12", // Gold
-  "#d35400", // Mural brown
-  "#1abc9c", // Turquoise
-  "#e84393"  // Pink
+  "#131414ff", // Kerala green
+  "#171817ff", // Deep leaf green
+  "#050505ff", // Kathakali red
+  "#0f0f0eff", // Temple yellow
+  "#151514ff", // Theyyam orange
+  "#181919ff", // Backwater blue
+  "#101010ff", // Gold
+  "#100f0fff", // Mural brown
+  "#131414ff", // Soft gray
+  "#090909ff"  // Light text
 ]
 
 export default function ColourfulText({
