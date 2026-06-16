@@ -256,8 +256,7 @@ const PageLoader: React.FC = () => {
             targetPosition,
             easedProgress
           );
-          camera.quaternion.slerp(
-            transitionStartCameraQuaternion,
+          camera.quaternion.copy(transitionStartCameraQuaternion).slerp(
             targetQuaternion,
             easedProgress
           );
