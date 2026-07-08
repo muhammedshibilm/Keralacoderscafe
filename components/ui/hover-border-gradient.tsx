@@ -56,8 +56,10 @@ export function HoverBorderGradient({
     }
   }, [hovered, duration]);
 
+  const Component = Tag as any;
+
   return (
-    <Tag
+    <Component
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       className={cn(
@@ -93,6 +95,6 @@ export function HoverBorderGradient({
         transition={{ ease: "linear", duration: duration ?? 1 }}
       />
       <div className="bg-black absolute z-1 flex-none inset-[2px] rounded-[100px]" />
-    </Tag>
+    </Component>
   );
 }
