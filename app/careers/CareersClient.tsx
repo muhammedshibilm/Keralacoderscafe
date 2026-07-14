@@ -297,12 +297,7 @@ export default function CareersClient({ initialJobs }: CareersClientProps) {
                 >
                   I'm Hiring 👥
                 </a>
-                <Link
-                  href="/guidelines"
-                  className="no-underline inline-flex items-center gap-2 border border-gray-200 hover:bg-gray-50 px-5 py-3 font-bold text-slate-700 text-xs md:text-sm uppercase tracking-wider rounded-xl transition-all shadow-sm bg-white"
-                >
-                  Job Seeker Guide
-                </Link>
+
               </div>
             </div>
 
