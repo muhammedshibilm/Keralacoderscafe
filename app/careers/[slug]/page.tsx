@@ -153,7 +153,7 @@ export default async function CareerDetailPage({ params }: PageProps) {
     <>
       <NavBar />
       
-      <main className="min-h-screen bg-[#F8FAFC] text-black pt-32 pb-24 px-6 md:px-12 relative overflow-hidden isolate">
+      <main className="min-h-screen bg-[#F8FAFC] text-black pt-32 pb-24 px-6 md:px-12 relative isolate">
         {/* Background SVG Pattern */}
         <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
           <svg 
@@ -415,8 +415,8 @@ export default async function CareerDetailPage({ params }: PageProps) {
             />
           </div>
 
-          {/* Apply section banner */}
-          <div className="border border-[#B2F5EA] bg-[#E6F9F6] rounded-[2rem] p-6 shadow-sm flex flex-col md:flex-row items-center justify-between gap-6">
+          {/* Apply section banner (Hidden on mobile) */}
+          <div className="hidden md:flex border border-[#B2F5EA] bg-[#E6F9F6] rounded-[2rem] p-6 shadow-sm flex-col md:flex-row items-center justify-between gap-6 mt-6">
             <div className="flex items-center gap-4">
               <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-[#00B9A5] shadow-sm shrink-0">
                 <Send className="w-5 h-5 -rotate-45" />
@@ -438,6 +438,21 @@ export default async function CareerDetailPage({ params }: PageProps) {
               className="no-underline inline-flex items-center gap-2 bg-[#064E3B] hover:bg-[#022C22] text-white px-6 py-3.5 font-bold uppercase tracking-wider rounded-xl transition-all shadow-sm text-sm"
             >
               Apply Now <ExternalLink className="w-4 h-4 text-white" />
+            </a>
+          </div>
+
+          {/* Sticky Mobile Apply Button (Docks at the bottom of this container) */}
+          <div className="sticky bottom-0 -mx-6 md:hidden bg-white border-t border-gray-200 p-4 mt-6 shadow-[0_-4px_15px_rgba(0,0,0,0.05)] z-40">
+            <a
+              href={job.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex h-12 w-full items-center justify-center gap-2 bg-[#064E3B] hover:bg-[#022C22] text-white px-6 rounded-[1rem] no-underline transition-all shadow-sm"
+            >
+              <span className="font-black uppercase tracking-wider text-sm">
+                Apply Now
+              </span>
+              <ExternalLink className="h-4 w-4 text-white" />
             </a>
           </div>
 

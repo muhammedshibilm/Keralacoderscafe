@@ -23,8 +23,8 @@ export default function FloatingCTA() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Don't show on the join page
-  if (pathname === "/join") return null;
+  // Don't show on the join or careers pages
+  if (pathname === "/join" || pathname.startsWith("/careers")) return null;
 
   return (
     <div
