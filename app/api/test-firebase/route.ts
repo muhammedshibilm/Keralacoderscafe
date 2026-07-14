@@ -4,6 +4,13 @@ import { ref, set, get, child, push } from 'firebase/database';
 
 export async function GET() {
   try {
+    if (!database) {
+      return NextResponse.json({
+        success: false,
+        message: "Firebase is not configured. Please define the environment variables in .env.local"
+      }, { status: 500 });
+    }
+
     // 1. Write a test node
     const testRef = ref(database, 'test_collection');
     const newDocRef = push(testRef);

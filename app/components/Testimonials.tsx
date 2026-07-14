@@ -15,28 +15,108 @@ interface TestimonialItem {
 
 const fallbackTestimonials: TestimonialItem[] = [
   {
-    id: "fallback-1",
-    name: "timothy quano",
-    designation: "Designer",
-    company: "Symph",
-    quote: "This product really helped my brand expand in a very manageable way. Would really use this for any future expansion.",
-    src: "https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+    id: "fb-1",
+    name: "Abhishek ub",
+    designation: "Community Member",
+    company: "KCC",
+    quote: "Fast reply, always active.",
+    src: "https://ui-avatars.com/api/?name=Abhishek+ub&background=F4A261&color=000&size=150&font-size=0.4&bold=true"
   },
   {
-    id: "fallback-2",
-    name: "Jane Doe",
-    designation: "CEO",
-    company: "ANI",
-    quote: "Scalability will never be and issue now for my brand!",
-    src: "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+    id: "fb-2",
+    name: "Aljas",
+    designation: "Community Member",
+    company: "KCC",
+    quote: "Beginner friendly.",
+    src: "https://ui-avatars.com/api/?name=Aljas&background=E76F51&color=000&size=150&font-size=0.4&bold=true"
   },
   {
-    id: "fallback-3",
-    name: "rowen smith",
-    designation: "CEO",
-    company: "Golden Bowl",
-    quote: "The product is really easy to use that I didn't have to set a trainning for my employees.",
-    src: "https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+    id: "fb-3",
+    name: "Sameer Kongath",
+    designation: "Community Member",
+    company: "KCC",
+    quote: "Always up to date with new tech stacks and updates.",
+    src: "https://ui-avatars.com/api/?name=Sameer+Kongath&background=2A9D8F&color=000&size=150&font-size=0.4&bold=true"
+  },
+  {
+    id: "fb-4",
+    name: "Jomon Thomas Lobo",
+    designation: "Community Member",
+    company: "KCC",
+    quote: "The community-led projects are amazing to collaborate on.",
+    src: "https://ui-avatars.com/api/?name=Jomon+Thomas+Lobo&background=E9C46A&color=000&size=150&font-size=0.4&bold=true"
+  },
+  {
+    id: "fb-5",
+    name: "Anto Josu",
+    designation: "Community Member",
+    company: "KCC",
+    quote: "The online meet is my favourite, got a chance to listen to advice from experienced people.",
+    src: "https://ui-avatars.com/api/?name=Anto+Josu&background=FFB5A7&color=000&size=150&font-size=0.4&bold=true"
+  },
+  {
+    id: "fb-6",
+    name: "Jaykrishna T J",
+    designation: "Community Member",
+    company: "KCC",
+    quote: "Helping mentality of all the members in the group is top-notch.",
+    src: "https://ui-avatars.com/api/?name=Jaykrishna+T+J&background=A5FFD6&color=000&size=150&font-size=0.4&bold=true"
+  },
+  {
+    id: "fb-7",
+    name: "Hashmil Muhammed",
+    designation: "Community Member",
+    company: "KCC",
+    quote: "The job opportunities provided here are exactly what I liked the most. I look forward to more such opportunities.",
+    src: "https://ui-avatars.com/api/?name=Hashmil+Muhammed&background=F8AD9D&color=000&size=150&font-size=0.4&bold=true"
+  },
+  {
+    id: "fb-8",
+    name: "Aksa Susan Abraham",
+    designation: "Community Member",
+    company: "KCC",
+    quote: "I get exposed to tech stacks used by great developers here. Though I'm a newbie, I at least get to be familiar with new stacks from those dev conversations.",
+    src: "https://ui-avatars.com/api/?name=Aksa+Susan+Abraham&background=A2D2FF&color=000&size=150&font-size=0.4&bold=true"
+  },
+  {
+    id: "fb-9",
+    name: "Vijay",
+    designation: "Community Member",
+    company: "KCC",
+    quote: "Lots of new informative and learning stuff is shared, and there are so many active and supportive members.",
+    src: "https://ui-avatars.com/api/?name=Vijay&background=BDE0FE&color=000&size=150&font-size=0.4&bold=true"
+  },
+  {
+    id: "fb-10",
+    name: "Rasheeque Ahammed Rahim",
+    designation: "Community Member",
+    company: "KCC",
+    quote: "Doubt clearing and getting to learn more interesting topics.",
+    src: "https://ui-avatars.com/api/?name=Rasheeque+Ahammed+Rahim&background=C8B6FF&color=000&size=150&font-size=0.4&bold=true"
+  },
+  {
+    id: "fb-11",
+    name: "Muhammed Roshan",
+    designation: "Community Member",
+    company: "KCC",
+    quote: "Surrounded by creative mindset people.",
+    src: "https://ui-avatars.com/api/?name=Muhammed+Roshan&background=FFC6FF&color=000&size=150&font-size=0.4&bold=true"
+  },
+  {
+    id: "fb-12",
+    name: "Affan",
+    designation: "Community Member",
+    company: "KCC",
+    quote: "Fun, friendly, and highly supportive.",
+    src: "https://ui-avatars.com/api/?name=Affan&background=E8F0FE&color=000&size=150&font-size=0.4&bold=true"
+  },
+  {
+    id: "fb-13",
+    name: "Rayhaan",
+    designation: "Community Member",
+    company: "KCC",
+    quote: "I'm learning new stuff when people clear doubts of other people in the chat.",
+    src: "https://ui-avatars.com/api/?name=Rayhaan&background=CAFFBF&color=000&size=150&font-size=0.4&bold=true"
   }
 ];
 
@@ -45,6 +125,10 @@ export default function Testimonials() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (!database) {
+      setLoading(false);
+      return;
+    }
     const testimonialsRef = ref(database, '1');
     const unsubscribe = onValue(testimonialsRef, (snapshot) => {
       const data = snapshot.val();

@@ -6,7 +6,7 @@ import { X, ChevronLeft, ChevronRight } from "lucide-react";
 
 const ANIMATION_DURATION = 500;
 const CACHE_KEY = "kcc_announcement_seen";
-const CACHE_DURATION = 24 * 60 * 60 * 1000; // 24 hours
+const CACHE_DURATION = 15 * 24 * 60 * 60 * 1000; // 15 days
 
 export default function AnnouncementPopup() {
   const [isVisible, setIsVisible] = useState(false);
@@ -20,7 +20,7 @@ export default function AnnouncementPopup() {
 
     const startPopup = () => {
       setShouldRender(true);
-      const timer = setTimeout(() => setIsVisible(true), 1500);
+      const timer = setTimeout(() => setIsVisible(true), 15000); // 15 seconds delay
       return timer;
     };
 

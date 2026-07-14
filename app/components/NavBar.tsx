@@ -11,6 +11,7 @@ const navLinks = [
   { name: "Community", href: "/#about", type: "scroll" },
   { name: "Contributors", href: "/#contributors", type: "scroll" },
   { name: "Projects", href: "/#projects", type: "scroll" },
+  { name: "Careers", href: "/careers", type: "page" },
   { name: "Teams", href: "/teams", type: "page" },
   { name: "About", href: "/#footer", type: "scroll" },
 ];

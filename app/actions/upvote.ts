@@ -10,6 +10,9 @@ const REDIS_KEY = "project:votes";
  * Returns a dictionary mapping projectId to its vote count
  */
 export async function getProjectVotes(): Promise<Record<number, number>> {
+  if (!redis) {
+    return {};
+  }
   try {
     const votes = await redis.hgetall<Record<string, number>>(REDIS_KEY);
     
@@ -32,6 +35,9 @@ export async function getProjectVotes(): Promise<Record<number, number>> {
  * Increment a project's vote count by 1
  */
 export async function upvoteProject(projectId: number) {
+  if (!redis) {
+    return { success: false, error: "Redis is not configured." };
+  }
   try {
     const newVotes = await redis.hincrby(REDIS_KEY, projectId.toString(), 1);
     

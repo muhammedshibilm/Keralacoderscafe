@@ -143,6 +143,7 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${newsreader.variable} ${manrope.variable} ${instrumentSerif.variable} ${caveat.variable} ${chilanka.variable} h-full`}
+      suppressHydrationWarning
     >
       <head>
         {/* Schema JSON-LD */}
@@ -156,6 +157,38 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Playwrite+IE:wght@100..400&display=swap" rel="stylesheet" />
+        
+        {/* Pre-render Loader Script to prevent flash */}
+        <Script
+          id="kcc-pre-render"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                var lastSeen = localStorage.getItem('kcc_loader_seen');
+                var now = Date.now();
+                var isHash = window.location.hash;
+                if (!isHash && (!lastSeen || (now - parseInt(lastSeen, 10)) >= 3600000)) {
+                  document.documentElement.classList.add('kcc-loader-active');
+                }
+              } catch (e) {}
+            `
+          }}
+        />
+        <style
+          dangerouslySetInnerHTML={{
+            __html: `
+              .kcc-loader-wrapper {
+                opacity: 0;
+                pointer-events: none;
+              }
+              html.kcc-loader-active .kcc-loader-wrapper {
+                opacity: 1 !important;
+                pointer-events: auto !important;
+              }
+            `
+          }}
+        />
       </head>
 
       <body className="min-h-full bg-kcc-paper text-black antialiased">

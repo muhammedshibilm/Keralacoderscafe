@@ -13,17 +13,25 @@ const firebaseConfig = {
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
 };
 
+const isFirebaseConfigured = !!(
+  firebaseConfig.apiKey &&
+  firebaseConfig.databaseURL &&
+  firebaseConfig.databaseURL.startsWith("https://")
+);
+
 // Initialize Firebase
-const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+const app = isFirebaseConfigured
+  ? (!getApps().length ? initializeApp(firebaseConfig) : getApp())
+  : null;
 
 // Analytics is only available in the browser
 let analytics = null;
-if (typeof window !== "undefined") {
+if (app && typeof window !== "undefined") {
   isSupported().then((yes) => {
     if (yes) analytics = getAnalytics(app);
   });
 }
 
-const database = getDatabase(app);
+const database = app ? getDatabase(app) : null;
 
 export { app, analytics, database };

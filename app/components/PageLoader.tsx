@@ -9,7 +9,7 @@ const CONFIG = {
   apiUrl: 'https://api.themoviedb.org/3',
   cacheDuration: 86400000, // 24 hours
   loaderTimeout: 6000,
-  minLoadTime: 2000,
+  minLoadTime: 1000, // Reduced to 1s for snappier entry
 };
 
 const PS = { h: 40, w: 27, pad: 2, cols: 11, rows: 10, resIdx: 2 };
@@ -46,7 +46,7 @@ const DEV_TIPS = [
 
 const PageLoader: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
   const [progress, setProgress] = useState(0);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
@@ -61,13 +61,29 @@ const PageLoader: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    if (typeof window === 'undefined' || window.location.hash) return;
-    const lastSeen = localStorage.getItem('kcc_loader_seen');
-    if (lastSeen && Date.now() - parseInt(lastSeen, 10) < 3600000) return; // 1 hour
+    if (typeof window === 'undefined') return;
 
-    setIsVisible(true);
+    const active = document.documentElement.classList.contains('kcc-loader-active');
+    if (!active) {
+      setIsVisible(false);
+      return;
+    }
+
     const startTime = Date.now();
     let animId: number, scrollTimeout: NodeJS.Timeout, isScrolling = false;
+
+    // Define handleDismiss first so loadContent can call it safely
+    const handleDismiss = () => {
+      setTimeout(() => {
+        setIsLoading(false);
+        localStorage.setItem('kcc_loader_seen', Date.now().toString());
+        window.dispatchEvent(new CustomEvent('kcc_loader_finished'));
+        setTimeout(() => {
+          setIsVisible(false);
+          document.documentElement.classList.remove('kcc-loader-active');
+        }, 200);
+      }, Math.max(0, CONFIG.minLoadTime - (Date.now() - startTime)));
+    };
 
     // 1. Scene Setup
     const scene = new THREE.Scene();
@@ -138,7 +154,12 @@ const PageLoader: React.FC = () => {
           rowGroup.add(mesh);
         });
         setProgress(100);
-      } catch { setErrorMsg('Unable to load posters.'); setProgress(100); }
+        handleDismiss();
+      } catch {
+        setErrorMsg('Unable to load posters.');
+        setProgress(100);
+        handleDismiss();
+      }
     };
     loadContent();
 
@@ -164,15 +185,7 @@ const PageLoader: React.FC = () => {
     };
     animId = requestAnimationFrame(animate);
 
-    // 4. Events & Cleanup
-    const handleDismiss = () => {
-      setTimeout(() => {
-        setIsLoading(false);
-        localStorage.setItem('kcc_loader_seen', Date.now().toString());
-        window.dispatchEvent(new CustomEvent('kcc_loader_finished'));
-        setTimeout(() => setIsVisible(false), 800);
-      }, Math.max(0, CONFIG.minLoadTime - (Date.now() - startTime)));
-    };
+
 
     const onWheel = (e: WheelEvent) => {
       e.preventDefault(); isScrolling = true;
@@ -201,14 +214,17 @@ const PageLoader: React.FC = () => {
       renderer.dispose();
       containerRef.current?.removeChild(renderer.domElement);
     };
-  }, []);
+  }, [isVisible]);
 
   // Use the same handleDismiss logic inside the component scope for the onClick event
   const handleTapToDismiss = () => {
     setIsLoading(false);
     localStorage.setItem('kcc_loader_seen', Date.now().toString());
     window.dispatchEvent(new CustomEvent('kcc_loader_finished'));
-    setTimeout(() => setIsVisible(false), 800);
+    setTimeout(() => {
+      setIsVisible(false);
+      document.documentElement.classList.remove('kcc-loader-active');
+    }, 200);
   };
 
   if (!isVisible) return null;
@@ -216,66 +232,9 @@ const PageLoader: React.FC = () => {
   return (
     <div
       onClick={handleTapToDismiss}
-      className={`fixed inset-0 z-[100] flex flex-col items-center justify-center bg-black transition-opacity duration-800 ease-out cursor-pointer ${isLoading ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+      className={`kcc-loader-wrapper fixed inset-0 z-[99999] flex flex-col items-center justify-center bg-black transition-opacity duration-200 ease-out cursor-pointer ${isLoading ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
     >
-      <style>{`
-        @keyframes badge-appear {
-          0%   { opacity: 0; transform: scale(0.4); }
-          60%  { opacity: 1; transform: scale(1.1); }
-          100% { opacity: 1; transform: scale(1); }
-        }
-        .svg-badge {
-          width: 44px;
-          height: 44px;
-          border-radius: 50%;
-          background: rgba(255,255,255,0.08);
-          border: 1.5px solid rgba(255,255,255,0.18);
-          backdrop-filter: blur(6px);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          box-shadow: 0 4px 18px rgba(0,0,0,0.5), inset 0 1px 1px rgba(255,255,255,0.15);
-          overflow: hidden;
-          padding: 5px;
-          opacity: 0;
-          animation: badge-appear 0.5s cubic-bezier(0.34,1.56,0.64,1) forwards;
-        }
-        .svg-badge img {
-          width: 100%;
-          height: 100%;
-          object-fit: contain;
-        }
-        .badge-wrap:nth-child(1) .svg-badge { animation-delay: 0.3s; }
-        .badge-wrap:nth-child(3) .svg-badge { animation-delay: 0.5s; }
-        .badge-wrap:nth-child(5) .svg-badge { animation-delay: 0.7s; }
-        .badge-row {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 16px;
-          margin-bottom: 10px;
-        }
-        .badge-label {
-          font-family: 'Montserrat', sans-serif;
-          font-size: 8px;
-          font-weight: 700;
-          letter-spacing: 1.5px;
-          color: rgba(255,255,255,0.45);
-          text-transform: uppercase;
-          margin-top: 4px;
-          text-align: center;
-        }
-        .badge-wrap {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-        }
-        .badge-divider {
-          width: 1px;
-          height: 28px;
-          background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.2), transparent);
-        }
-      `}</style>
+
 
       <div ref={containerRef} className="absolute bottom-0 left-0 w-full overflow-hidden" />
 
@@ -327,29 +286,7 @@ const PageLoader: React.FC = () => {
           </svg>
         </div>
 
-        {/* Spinning SVG Badges */}
-        <div className="badge-row" style={{ marginTop: '-4px', marginBottom: '8px' }}>
-          <div className="badge-wrap">
-            <div className="svg-badge">
-              <img src="/proch.svg" alt="Porsche" draggable={false} />
-            </div>
-            <span className="badge-label">Porsche</span>
-          </div>
-          <div className="badge-divider" />
-          <div className="badge-wrap">
-            <div className="svg-badge">
-              <img src="/brazil.svg" alt="Brazil" draggable={false} />
-            </div>
-            <span className="badge-label">Brazil</span>
-          </div>
-          <div className="badge-divider" />
-          <div className="badge-wrap">
-            <div className="svg-badge">
-              <img src="/argie.svg" alt="Argentina" draggable={false} />
-            </div>
-            <span className="badge-label">Argentina</span>
-          </div>
-        </div>
+
 
         <div className="mt-4 w-full max-w-xs sm:max-w-sm">
           <div className="relative h-3 sm:h-4 bg-white/10 rounded-full overflow-hidden border border-white/30 shadow-lg">
