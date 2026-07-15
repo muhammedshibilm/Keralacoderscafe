@@ -23,8 +23,9 @@ const communityLinks = [
 
 const resourcesLinks = [
   { label: "GitHub", href: "https://github.com/KERALACODERSCAFE/Keralacoderscafe" },
-  { label: "WhatsApp", href: "/join" },
-  { label: "X", href: "https://x.com/Keralacoders" },
+  { label: "Contact Us", href: "/contact" },
+  { label: "Privacy Policy", href: "/privacy" },
+  { label: "Terms of Service", href: "/terms" },
   { label: "Freelance Enquiries", href: "mailto:keralacoderscafe@gmail.com?subject=Freelance%20Enquiry", highlight: true },
 ];
 
