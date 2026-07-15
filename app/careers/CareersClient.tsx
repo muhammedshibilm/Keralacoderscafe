@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
+import { GlyphMatrix } from "@/components/ui/glyph-matrix";
 
 interface Job {
   slug: string;
@@ -271,14 +272,16 @@ export default function CareersClient({ initialJobs }: CareersClientProps) {
 
           {/* Illustrative Hero Header */}
           <div className="border border-gray-100 bg-white p-8 md:p-12 rounded-[2.5rem] shadow-sm mb-12 grid md:grid-cols-[1.2fr_0.8fr] gap-8 relative items-center overflow-hidden">
+            <GlyphMatrix className="absolute inset-0 z-0 opacity-40 pointer-events-none" color="#00B9A5" />
+
             {/* Top Right Label */}
-            <div className="absolute top-8 right-8 hidden sm:block">
+            <div className="absolute top-8 right-8 hidden sm:block z-10">
               <span className="bg-[#1E293B] text-white text-[10px] font-black uppercase tracking-widest rounded-lg px-3 py-1">
                 LATEST OPPORTUNITIES
               </span>
             </div>
 
-            <div className="max-w-3xl">
+            <div className="max-w-3xl relative z-10">
               <span className="inline-flex items-center gap-1.5 bg-[#ECFDF5] text-[#10B981] border border-[#A7F3D0] px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-6">
                 <span className="w-2 h-2 rounded-full bg-[#10B981] animate-pulse" /> JOB PORTAL
               </span>
@@ -290,19 +293,26 @@ export default function CareersClient({ initialJobs }: CareersClientProps) {
                 Explore handpicked engineering, product, and design roles from forward-thinking companies. Empowering builders across Kerala's growing community.
               </p>
 
-              <div className="mt-8 flex flex-wrap gap-3">
+              <div className="mt-8 flex flex-wrap gap-3 relative z-20">
+                <a
+                  href="https://forms.gle/REVtkCeb7DdRkqoDA"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="no-underline inline-flex items-center gap-2 bg-[#00B9A5] hover:bg-[#008F80] px-5 py-3 font-bold text-white text-xs md:text-sm uppercase tracking-wider rounded-xl transition-all shadow-sm"
+                >
+                  Join Our Talent Pool 🚀
+                </a>
                 <a
                   href="mailto:keralacoderscafe@gmail.com?subject=Job%20Board%20Submission"
                   className="no-underline inline-flex items-center gap-2 bg-[#004D40] hover:bg-[#002C26] px-5 py-3 font-bold text-white text-xs md:text-sm uppercase tracking-wider rounded-xl transition-all shadow-sm"
                 >
                   I'm Hiring 👥
                 </a>
-
               </div>
             </div>
 
             {/* Illustrative graphic on the right */}
-            <div className="relative flex justify-center items-center">
+            <div className="relative flex justify-center items-center z-10">
               <img
                 src="/careers-hero.png"
                 alt="Careers Hero Illustration"
