@@ -38,7 +38,7 @@ interface PageProps {
 async function getJobDetails(slug: string): Promise<JobDetail | null> {
   try {
     const res = await fetch(`https://api.interviewkit.online/api/jobs/${slug}/`, {
-      next: { revalidate: 3600 } // cache for 1 hour
+      next: { revalidate: 60 } // cache for 1 minute
     });
     if (!res.ok) return null;
     return await res.json();
@@ -389,20 +389,14 @@ export default async function CareerDetailPage({ params }: PageProps) {
                 padding-left: 0;
                 margin-bottom: 1.5rem;
               }
-              @media (min-width: 768px) {
-                .prose-custom ul {
-                  column-count: 2;
-                  column-gap: 1.5rem;
-                }
-              }
               .prose-custom li {
-                position: relative;
-                padding-left: 1.75rem;
+                display: flex;
+                align-items: flex-start;
+                gap: 0.5rem;
                 font-weight: 500;
                 color: #475569;
-                line-height: 1.5;
-                margin-bottom: 0.5rem;
-                break-inside: avoid-column;
+                line-height: 1.6;
+                margin-bottom: 0.75rem;
               }
               .prose-custom li p,
               .prose-custom li div {
@@ -411,12 +405,11 @@ export default async function CareerDetailPage({ params }: PageProps) {
               }
               .prose-custom li::before {
                 content: "✓";
-                position: absolute;
-                left: 0;
-                top: 0.1rem;
                 color: #0D9488; /* teal-600 */
                 font-weight: 900;
                 font-size: 1.1rem;
+                line-height: 1.4;
+                flex-shrink: 0;
               }
             `}} />
             
