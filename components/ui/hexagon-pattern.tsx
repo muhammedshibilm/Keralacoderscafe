@@ -44,6 +44,7 @@ interface HexagonPatternProps extends React.SVGProps<SVGSVGElement> {
    */
   hexagons?: Array<[col: number, row: number]>
   className?: string
+  interactive?: boolean
   [key: string]: unknown
 }
 
@@ -230,6 +231,7 @@ export function HexagonPattern({
   direction = "horizontal",
   hexagons,
   className,
+  interactive = false,
   ...props
 }: HexagonPatternProps) {
   const id = useId()
@@ -240,6 +242,10 @@ export function HexagonPattern({
     ? null
     : collectUniqueHexEdges(centers, radius, direction)
 
+  // Large enough grid to cover full screens
+  const gridCols = 45
+  const gridRows = 25
+
   return (
     <svg
       aria-hidden="true"
@@ -249,6 +255,19 @@ export function HexagonPattern({
       )}
       {...props}
     >
+      {interactive && (
+        <style dangerouslySetInnerHTML={{ __html: `
+          .interactive-hex {
+            transition: fill 0.8s ease, stroke 0.8s ease;
+          }
+          .interactive-hex:hover {
+            fill: rgba(0, 185, 165, 0.12) !important;
+            stroke: rgba(0, 185, 165, 0.4) !important;
+            transition: all 0s !important;
+          }
+        `}} />
+      )}
+
       <defs>
         <pattern
           id={id}
@@ -281,7 +300,24 @@ export function HexagonPattern({
         </pattern>
       </defs>
 
-      <rect width="100%" height="100%" fill={`url(#${id})`} stroke="none" />
+      {interactive ? (
+        <svg aria-hidden="true" className="overflow-visible" x={x} y={y}>
+          {Array.from({ length: gridCols }).map((_, col) =>
+            Array.from({ length: gridRows }).map((_, row) => {
+              const [cx, cy] = hexCenter(col - 2, row - 2, radius, direction, gap)
+              return (
+                <polygon
+                  key={`${col}-${row}`}
+                  points={hexPoints(cx, cy, radius, direction)}
+                  className="interactive-hex fill-none stroke-gray-400/20 pointer-events-auto cursor-pointer"
+                />
+              )
+            })
+          )}
+        </svg>
+      ) : (
+        <rect width="100%" height="100%" fill={`url(#${id})`} stroke="none" />
+      )}
 
       {hexagons && hexagons.length > 0 && (
         <svg aria-hidden="true" className="overflow-visible" x={x} y={y}>

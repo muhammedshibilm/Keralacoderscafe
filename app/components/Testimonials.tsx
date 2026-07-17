@@ -227,11 +227,14 @@ export default function Testimonials() {
       `}} />
 
       <section className="relative overflow-hidden bg-[#FAF9F5] border-t-4 border-black py-24 px-6 md:px-12" id="testimonials">
-        {/* Hexagon Pattern Background */}
         <HexagonPattern
           radius={40}
-          strokeDasharray="4 4"
-          className="absolute inset-0 fill-none stroke-black/[0.04] [mask-image:radial-gradient(ellipse_at_center,white,transparent_85%)] z-0"
+          x={-1}
+          y={-1}
+          interactive
+          className={cn(
+            "[mask-image:linear-gradient(to_bottom_right,white,transparent,transparent)]"
+          )}
         />
         
         <div className="mx-auto max-w-[1280px] relative z-10">
