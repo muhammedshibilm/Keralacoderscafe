@@ -388,14 +388,11 @@ export default async function CareerDetailPage({ params }: PageProps) {
                 list-style: none;
                 padding-left: 0;
                 margin-bottom: 1.5rem;
-                display: grid;
-                grid-template-columns: 1fr;
-                gap: 0.75rem;
               }
               @media (min-width: 768px) {
                 .prose-custom ul {
-                  grid-template-columns: 1fr 1fr;
-                  gap: 1rem;
+                  column-count: 2;
+                  column-gap: 1.5rem;
                 }
               }
               .prose-custom li {
@@ -404,6 +401,13 @@ export default async function CareerDetailPage({ params }: PageProps) {
                 font-weight: 500;
                 color: #475569;
                 line-height: 1.5;
+                margin-bottom: 0.5rem;
+                break-inside: avoid-column;
+              }
+              .prose-custom li p,
+              .prose-custom li div {
+                display: inline;
+                margin: 0;
               }
               .prose-custom li::before {
                 content: "✓";
