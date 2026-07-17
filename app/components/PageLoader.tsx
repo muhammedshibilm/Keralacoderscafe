@@ -89,37 +89,54 @@ const PageLoader: React.FC = () => {
     const scene = new THREE.Scene();
     scene.fog = new THREE.Fog(0x000000, 200, 500);
 
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.outputColorSpace = THREE.SRGBColorSpace;
-    containerRef.current?.appendChild(renderer.domElement);
+    let renderer: THREE.WebGLRenderer | null = null;
+    let camera: THREE.PerspectiveCamera | null = null;
+    let assetGroup: THREE.Group | null = null;
 
-    const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
-    camera.rotation.x = 0.6;
-    camera.position.set(0, PS.h * 1.5, 100);
+    try {
+      renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.outputColorSpace = THREE.SRGBColorSpace;
+      containerRef.current?.appendChild(renderer.domElement);
 
-    scene.add(new THREE.PointLight(0xffffff, 3000, 600).translateY(PS.h * 1.5).translateZ(50));
-    scene.add(new THREE.AmbientLight(0xffffff, 0.6));
+      camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
+      camera.rotation.x = 0.6;
+      camera.position.set(0, PS.h * 1.5, 100);
 
-    const assetGroup = new THREE.Group();
-    assetGroup.position.set(-((PS.w * PS.cols) + (PS.pad * (PS.cols - 1))) / 2, START_Y, 0);
-    scene.add(assetGroup);
+      scene.add(new THREE.PointLight(0xffffff, 3000, 600).translateY(PS.h * 1.5).translateZ(50));
+      scene.add(new THREE.AmbientLight(0xffffff, 0.6));
+
+      assetGroup = new THREE.Group();
+      assetGroup.position.set(-((PS.w * PS.cols) + (PS.pad * (PS.cols - 1))) / 2, START_Y, 0);
+      scene.add(assetGroup);
+    } catch (e) {
+      console.warn("WebGL not supported, falling back to simple page loader:", e);
+    }
 
     const handleResize = () => {
+      if (!renderer || !camera) return;
       const w = window.innerWidth, h = w * (414 / 1075);
       camera.aspect = w / h;
       camera.updateProjectionMatrix();
       renderer.setSize(w, h);
     };
-    handleResize();
-    window.addEventListener('resize', handleResize);
+
+    if (renderer && camera) {
+      handleResize();
+      window.addEventListener('resize', handleResize);
+    }
 
     // 2. Data Loading
     const loadContent = async () => {
+      if (!renderer || !assetGroup) {
+        setProgress(100);
+        handleDismiss();
+        return;
+      }
       try {
         const config = await fetchWithCache('tmdb_config', `${CONFIG.apiUrl}/configuration?api_key=${CONFIG.apiKey}`);
         const base = config.images?.secure_base_url || 'https://image.tmdb.org/t/p/';
-        const size = config.images?.poster_sizes[PS.resIdx] || 'w342';
+        const size = config.images?.poster_sizes?.[PS.resIdx] || 'w342';
 
         const endpoints = ['tv/1', 'tv/2', 'movie/1', 'movie/2'];
         const results = await Promise.all(endpoints.map((ep, i) =>
@@ -128,6 +145,12 @@ const PageLoader: React.FC = () => {
         ));
 
         const assets = results.flat().filter((a: any) => a.poster_path).sort(() => 0.5 - Math.random()).slice(0, PS.cols * PS.rows);
+
+        if (assets.length === 0) {
+          setProgress(100);
+          handleDismiss();
+          return;
+        }
 
         // Single Geometry for all posters
         const shape = new THREE.Shape();
@@ -141,6 +164,7 @@ const PageLoader: React.FC = () => {
 
         let rowGroup: THREE.Group;
         assets.forEach((asset: any, i) => {
+          if (!assetGroup) return;
           if (i % PS.cols === 0) {
             rowGroup = new THREE.Group();
             rowGroup.position.y = (i / PS.cols) * (PS.h + PS.pad);
@@ -169,25 +193,31 @@ const PageLoader: React.FC = () => {
       const delta = (time - lastTime) / 1000;
       lastTime = time;
 
-      if (!isScrolling) {
+      if (assetGroup && !isScrolling) {
         assetGroup.position.y += 0.15 * delta * 60;
         if (assetGroup.position.y > PS.pad) assetGroup.position.y = START_Y;
       }
 
-      assetGroup.children.forEach(row => {
-        if (row.userData.baseY !== undefined) {
-          row.position.y = row.userData.baseY + Math.sin(time * row.userData.speed + row.userData.offset) * 0.5;
-        }
-      });
+      if (assetGroup) {
+        assetGroup.children.forEach(row => {
+          if (row.userData.baseY !== undefined) {
+            row.position.y = row.userData.baseY + Math.sin(time * row.userData.speed + row.userData.offset) * 0.5;
+          }
+        });
+      }
 
-      renderer.render(scene, camera);
-      animId = requestAnimationFrame(animate);
+      if (renderer && camera) {
+        renderer.render(scene, camera);
+        animId = requestAnimationFrame(animate);
+      }
     };
-    animId = requestAnimationFrame(animate);
-
-
+    
+    if (renderer && camera) {
+      animId = requestAnimationFrame(animate);
+    }
 
     const onWheel = (e: WheelEvent) => {
+      if (!assetGroup) return;
       e.preventDefault(); isScrolling = true;
       assetGroup.position.y += e.deltaY * 0.05;
       clearTimeout(scrollTimeout);
@@ -195,24 +225,34 @@ const PageLoader: React.FC = () => {
     };
     const onKey = (e: KeyboardEvent) => ['Escape', 'Enter', ' '].includes(e.key) && handleDismiss();
 
-    window.addEventListener('wheel', onWheel, { passive: false });
+    if (renderer && camera) {
+      window.addEventListener('wheel', onWheel, { passive: false });
+    }
     window.addEventListener('keydown', onKey);
     const timer = setTimeout(handleDismiss, CONFIG.loaderTimeout);
 
     return () => {
-      clearTimeout(timer); clearTimeout(scrollTimeout); cancelAnimationFrame(animId);
+      clearTimeout(timer); clearTimeout(scrollTimeout); 
+      if (animId) cancelAnimationFrame(animId);
       window.removeEventListener('resize', handleResize);
-      window.removeEventListener('wheel', onWheel); window.removeEventListener('keydown', onKey);
+      window.removeEventListener('wheel', onWheel); 
+      window.removeEventListener('keydown', onKey);
 
-      scene.traverse((obj: any) => {
-        if (obj.geometry) obj.geometry.dispose();
-        if (obj.material) {
-          Array.isArray(obj.material) ? obj.material.forEach((m: any) => m.dispose()) : obj.material.dispose();
-          if (obj.material.map) obj.material.map.dispose();
+      if (renderer) {
+        scene.traverse((obj: any) => {
+          if (obj.geometry) obj.geometry.dispose();
+          if (obj.material) {
+            Array.isArray(obj.material) ? obj.material.forEach((m: any) => m.dispose()) : obj.material.dispose();
+            if (obj.material.map) obj.material.map.dispose();
+          }
+        });
+        renderer.dispose();
+        if (containerRef.current && renderer.domElement) {
+          try {
+            containerRef.current.removeChild(renderer.domElement);
+          } catch {}
         }
-      });
-      renderer.dispose();
-      containerRef.current?.removeChild(renderer.domElement);
+      }
     };
   }, [isVisible]);
 

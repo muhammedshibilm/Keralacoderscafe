@@ -297,46 +297,54 @@ export default async function CareerDetailPage({ params }: PageProps) {
               </div>
             </div>
 
-            {/* Meta details grid */}
-            <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-4 mt-8">
-              <div className="border border-gray-100 bg-white p-4 rounded-2xl shadow-sm flex items-center gap-3">
-                <div className="w-10 h-10 bg-gray-50 rounded-full flex items-center justify-center text-slate-400 shrink-0">
-                  <MapPin className="w-4 h-4" />
+            {/* Meta details grid in a single card */}
+            <div className="mt-6 border border-slate-100 bg-slate-50/50 rounded-2xl p-5 md:p-6">
+              <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-4">
+                
+                {/* Location */}
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-white rounded-full border border-slate-100 flex items-center justify-center text-slate-400 shrink-0 shadow-sm">
+                    <MapPin className="w-4 h-4" />
+                  </div>
+                  <div className="min-w-0">
+                    <div className="text-[10px] font-bold uppercase text-slate-400 tracking-wider">Location</div>
+                    <div className="font-extrabold text-xs md:text-sm text-slate-700 truncate">{cleanLocation(job.location)}</div>
+                  </div>
                 </div>
-                <div className="min-w-0">
-                  <div className="text-[10px] font-bold uppercase text-slate-400">Location</div>
-                  <div className="font-extrabold text-xs md:text-sm text-slate-700 truncate">{cleanLocation(job.location)}</div>
-                </div>
-              </div>
 
-              <div className="border border-gray-100 bg-white p-4 rounded-2xl shadow-sm flex items-center gap-3">
-                <div className="w-10 h-10 bg-gray-50 rounded-full flex items-center justify-center text-slate-400 shrink-0">
-                  <Award className="w-4 h-4" />
+                {/* Experience */}
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-white rounded-full border border-slate-100 flex items-center justify-center text-slate-400 shrink-0 shadow-sm">
+                    <Award className="w-4 h-4" />
+                  </div>
+                  <div className="min-w-0">
+                    <div className="text-[10px] font-bold uppercase text-slate-400 tracking-wider">Experience</div>
+                    <div className="font-extrabold text-xs md:text-sm text-slate-700 truncate">{job.experience || "Not specified"}</div>
+                  </div>
                 </div>
-                <div className="min-w-0">
-                  <div className="text-[10px] font-bold uppercase text-slate-400">Experience</div>
-                  <div className="font-extrabold text-xs md:text-sm text-slate-700 truncate">{job.experience || "Not specified"}</div>
-                </div>
-              </div>
 
-              <div className="border border-gray-100 bg-white p-4 rounded-2xl shadow-sm flex items-center gap-3">
-                <div className="w-10 h-10 bg-gray-50 rounded-full flex items-center justify-center text-slate-400 shrink-0">
-                  <DollarSign className="w-4 h-4" />
+                {/* Salary */}
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-white rounded-full border border-slate-100 flex items-center justify-center text-slate-400 shrink-0 shadow-sm">
+                    <DollarSign className="w-4 h-4" />
+                  </div>
+                  <div className="min-w-0">
+                    <div className="text-[10px] font-bold uppercase text-slate-400 tracking-wider">Salary</div>
+                    <div className="font-extrabold text-xs md:text-sm text-slate-700 truncate">{job.salary}</div>
+                  </div>
                 </div>
-                <div className="min-w-0">
-                  <div className="text-[10px] font-bold uppercase text-slate-400">Salary</div>
-                  <div className="font-extrabold text-xs md:text-sm text-slate-700 truncate">{job.salary}</div>
-                </div>
-              </div>
 
-              <div className="border border-gray-100 bg-white p-4 rounded-2xl shadow-sm flex items-center gap-3">
-                <div className="w-10 h-10 bg-gray-50 rounded-full flex items-center justify-center text-slate-400 shrink-0">
-                  <Briefcase className="w-4 h-4" />
+                {/* Placement */}
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-white rounded-full border border-slate-100 flex items-center justify-center text-slate-400 shrink-0 shadow-sm">
+                    <Briefcase className="w-4 h-4" />
+                  </div>
+                  <div className="min-w-0">
+                    <div className="text-[10px] font-bold uppercase text-slate-400 tracking-wider">Placement</div>
+                    <div className="font-extrabold text-xs md:text-sm text-slate-700 truncate capitalize">{job.location_type}</div>
+                  </div>
                 </div>
-                <div className="min-w-0">
-                  <div className="text-[10px] font-bold uppercase text-slate-400">Placement</div>
-                  <div className="font-extrabold text-xs md:text-sm text-slate-700 truncate capitalize">{job.location_type}</div>
-                </div>
+
               </div>
             </div>
 
