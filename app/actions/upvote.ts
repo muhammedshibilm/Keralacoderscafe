@@ -51,3 +51,38 @@ export async function upvoteProject(projectId: number) {
     return { success: false, error: "Failed to upvote project" };
   }
 }
+
+const TEAM_REDIS_KEY = "team:votes";
+
+/**
+ * Fetch votes for a specific team member
+ */
+export async function getTeamVotes(memberId: string): Promise<number> {
+  if (!redis) {
+    return 0;
+  }
+  try {
+    const votes = await redis.hget(TEAM_REDIS_KEY, memberId);
+    return votes ? Number(votes) : 0;
+  } catch (error) {
+    console.error(`Error fetching votes for team member ${memberId}:`, error);
+    return 0;
+  }
+}
+
+/**
+ * Increment a team member's vote count
+ */
+export async function upvoteTeamMember(memberId: string) {
+  if (!redis) {
+    return { success: false, error: "Redis is not configured." };
+  }
+  try {
+    const newVotes = await redis.hincrby(TEAM_REDIS_KEY, memberId, 1);
+    revalidatePath("/teams");
+    return { success: true, votes: newVotes };
+  } catch (error) {
+    console.error(`Error upvoting team member ${memberId}:`, error);
+    return { success: false, error: "Failed to upvote team member" };
+  }
+}

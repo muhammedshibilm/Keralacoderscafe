@@ -1,5 +1,6 @@
 import Teams from "../components/Teams";
 import Footer from "../components/Footer";
+import { getTeamVotes } from "@/app/actions/upvote";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -7,11 +8,13 @@ export const metadata: Metadata = {
   description: "Meet the team behind Kerala Coders Cafe.",
 };
 
-export default function TeamsPage() {
+export default async function TeamsPage() {
+  const initialVotes = await getTeamVotes("akhil");
+
   return (
     <main className="relative z-10">
       <div className="pt-20">
-        <Teams />
+        <Teams initialVotes={initialVotes} />
       </div>
       <Footer />
     </main>

@@ -1,9 +1,58 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Github, Code, Mail, Linkedin, User, Send, ArrowRight } from "lucide-react";
+import { upvoteTeamMember } from "@/app/actions/upvote";
 
-export default function Teams() {
+export default function Teams({ initialVotes = 0 }: { initialVotes?: number }) {
+  const [votes, setVotes] = useState(initialVotes);
+  const [hasVoted, setHasVoted] = useState(false);
+  const [isVoting, setIsVoting] = useState(false);
+
+  useEffect(() => {
+    setVotes(initialVotes);
+  }, [initialVotes]);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const voted = localStorage.getItem("teamVoted:akhil");
+      if (voted) {
+        setHasVoted(true);
+      }
+    }
+  }, []);
+
+  const handleLike = async () => {
+    if (hasVoted || isVoting) return;
+    
+    // Optimistic Update
+    setVotes((prev) => prev + 1);
+    setHasVoted(true);
+    setIsVoting(true);
+
+    try {
+      const res = await upvoteTeamMember("akhil");
+      if (res.success && res.votes !== undefined) {
+        setVotes(res.votes);
+        localStorage.setItem("teamVoted:akhil", "true");
+      } else {
+        setVotes((prev) => prev - 1);
+        setHasVoted(false);
+      }
+    } catch (err) {
+      console.error("Failed to upvote:", err);
+      setVotes((prev) => prev - 1);
+      setHasVoted(false);
+    } finally {
+      setIsVoting(false);
+    }
+  };
+
+  const triggerCoffeeModal = () => {
+    window.dispatchEvent(new Event("open-coffee-modal"));
+  };
+
   return (
     <section
       id="teams"
@@ -56,6 +105,19 @@ export default function Teams() {
                 Founder ★
               </div>
 
+              {/* Support / Vote Count Button */}
+              <button
+                onClick={handleLike}
+                disabled={hasVoted || isVoting}
+                className={`absolute top-6 right-6 border-2 border-black px-3.5 py-1.5 rounded-full shadow-[2.5px_2.5px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[3.5px_3.5px_0px_0px_rgba(0,0,0,1)] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] transition-all cursor-pointer flex items-center gap-1.5 font-mono text-xs font-black select-none ${
+                  hasVoted ? "bg-[#C0FF00] text-black border-black" : "bg-white text-black hover:bg-amber-50"
+                }`}
+                title={hasVoted ? "Supported!" : "Support this team member"}
+              >
+                <span className="text-sm">🤝🏾</span>
+                <span>{votes}</span>
+              </button>
+
               {/* Avatar Image container */}
               <div className="w-36 h-36 rounded-full border-2 border-black bg-[#C0FF00] flex items-center justify-center mx-auto mt-2 overflow-hidden shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
                 <User className="h-20 w-20 text-black stroke-[2.5]" />
@@ -79,11 +141,13 @@ export default function Teams() {
               {/* Horizontal Line Divider */}
               <div className="border-t-2 border-black" />
 
-              {/* Connect Telegram Section */}
+              {/* Connect Section */}
               <div className="flex flex-col gap-2">
                 <span className="text-[10px] font-black uppercase tracking-wider text-black/60">
                   Connect
                 </span>
+                
+                {/* Telegram */}
                 <Link
                   href="https://t.me/kerala_coders_cafe_akhil"
                   target="_blank"
@@ -119,37 +183,22 @@ export default function Teams() {
               {/* Main Narrative Text */}
               <div className="font-mono text-xs md:text-sm leading-relaxed text-black/85 space-y-6 select-text">
                 <p>
-                  I graduated with a <strong className="font-black text-black">B.A. in History</strong> in 2020, right after the COVID pandemic. Like many others, I was unsure about my future. I spent nearly two years without a clear direction, and eventually financial pressure forced me to take a job at a small sales shop.
+                  I graduated with a <strong className="font-black text-black">B.A. in History</strong> in 2020. Unsure about my future, I spent two years working in a small sales shop, knowing I wasn't growing.
                 </p>
                 <p>
-                  Even after working there for almost three years, I knew I wasn't growing. I wanted something more from life. I decided to leave my job and completely change my career.
+                  Determined to change my career, I tried different programs and dropped out twice. I worked part-time during the day to support myself and taught myself web development at night.
                 </p>
                 <p>
-                  My first attempt was to join a Gulf recruitment program, but I dropped out. Then I enrolled in a web development institute, hoping that would be my path. Unfortunately, I dropped out there too. During the day I worked part-time to support myself, and at night I started teaching myself web development.
-                </p>
-                <p>
-                  That's when everything changed.
-                </p>
-                <p>
-                  I discovered Telegram developer communities. Those groups gave me something I never had before—guidance, support, friendships, and opportunities. Many experienced developers answered my questions, reviewed my work, and encouraged me to keep going. A few of those people became mentors and close friends.
-                </p>
-                <p>
-                  Through the connections I built in those communities, I eventually got my first opportunity in the IT industry.
-                </p>
-                <p>
-                  That experience taught me one important lesson:
+                  Everything changed when I discovered Telegram developer communities. They gave me the guidance, mentorship, and friendships I lacked. Through those connections, I finally landed my first job in the IT industry.
                 </p>
                 <p className="font-black text-black text-sm md:text-base">
                   Connections can change lives.
                 </p>
                 <p>
-                  Because of that, I started <strong className="font-black text-black">Kerala Coders Cafe</strong>. My goal wasn't just to create another developer group. I wanted to build the kind of community that once helped me—a place where people learn together, support each other, share opportunities, and grow without feeling alone.
+                  Because of that, I started <strong className="font-black text-black">Kerala Coders Cafe</strong>. I wanted to build the kind of community that once helped me—a place where developers learn, support each other, and grow together without feeling alone.
                 </p>
                 <p>
-                  Today, seeing members find jobs, make connections, learn new skills, and help each other reminds me why I started this journey.
-                </p>
-                <p>
-                  I'm truly grateful for everyone who supported me along the way. Your encouragement, feedback, and trust mean more than words can express.
+                  Today, seeing our members find jobs and help one another reminds me why I started this journey. I am deeply grateful to everyone who supported me.
                 </p>
                 <p className="font-black text-black text-sm md:text-base">
                   Thank you for being part of this journey. ❤️
