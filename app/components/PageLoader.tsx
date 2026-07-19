@@ -326,7 +326,172 @@ const PageLoader: React.FC = () => {
           </svg>
         </div>
 
+        {/* ⚽ Footballer Cards */}
+        <div className="mt-6 pointer-events-none flex gap-4 flex-wrap justify-center" style={{ fontFamily: "'Changa', sans-serif" }}>
+          <style>{`
+            @import url('https://fonts.googleapis.com/css?family=Changa');
+            @keyframes cardFloat {
+              0%, 100% { transform: translateY(0px); }
+              50% { transform: translateY(-8px); }
+            }
+            @keyframes cardIn {
+              from { opacity: 0; transform: translateY(20px) scale(0.95); }
+              to   { opacity: 1; transform: translateY(0)   scale(1); }
+            }
+            .kcc-fc-card {
+              animation: cardIn 0.6s ease forwards, cardFloat 3s ease-in-out infinite;
+              animation-delay: 0.8s, 1.4s;
+              opacity: 0;
+            }
+            .kcc-fc-card-2 {
+              animation: cardIn 0.6s ease forwards, cardFloat 3s ease-in-out infinite;
+              animation-delay: 1s, 1.8s;
+              opacity: 0;
+            }
+            .kcc-fc-name {
+              background: linear-gradient(to right, #bc4e9c, #f80759);
+              -webkit-background-clip: text;
+              -webkit-text-fill-color: transparent;
+              background-clip: text;
+            }
+            .kcc-fc-name-fr {
+              background: linear-gradient(to right, #1a78c2, #00c6fb);
+              -webkit-background-clip: text;
+              -webkit-text-fill-color: transparent;
+              background-clip: text;
+            }
+            .kcc-fc-num {
+              background: linear-gradient(to right, #bc4e9c, #f80759);
+              -webkit-background-clip: text;
+              -webkit-text-fill-color: transparent;
+              background-clip: text;
+              line-height: 1;
+            }
+            .kcc-fc-num-fr {
+              background: linear-gradient(to right, #1a78c2, #00c6fb);
+              -webkit-background-clip: text;
+              -webkit-text-fill-color: transparent;
+              background-clip: text;
+              line-height: 1;
+            }
+          `}</style>
+          <div
+            className="kcc-fc-card relative overflow-hidden"
+            style={{
+              background: '#ffffff',
+              backdropFilter: 'blur(12px)',
+              WebkitBackdropFilter: 'blur(12px)',
+              border: '1px solid rgba(255,255,255,0.25)',
+              borderRadius: 20,
+              height: 160,
+              width: 300,
+              boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
+            }}
+          >
+            {/* Player image */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/ff338495-b0e4-459b-9605-ecec2131df30/dc1779k-d4fd1633-85b1-4089-a1c1-63b6a0b98b8f.png/v1/fill/w_903,h_885,q_75,strp/messi_png_by_flashdsg-dc1779k.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwic3ViIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl0sIm9iaiI6W1t7InBhdGgiOiIvZi9mZjMzODQ5NS1iMGU0LTQ1OWItOTYwNS1lY2VjMjEzMWRmMzAvZGMxNzc5ay1kNGZkMTYzMy04NWIxLTQwODktYTFjMS02M2I2YTBiOThiOGYucG5nIiwid2lkdGgiOiI8PTkwMyIsImhlaWdodCI6Ijw9ODg1In1dXX0.t-u8I43gz7efLYxlb05pOCesXKofE1dMTEOWg4wU82o"
+              alt="Messi"
+              style={{
+                position: 'absolute',
+                width: '58%',
+                bottom: 0,
+                right: 0,
+                borderRadius: '0 0 20px 0',
+                objectFit: 'cover',
+              }}
+            />
+            {/* Name */}
+            <span
+              className="kcc-fc-name"
+              style={{
+                position: 'absolute',
+                top: 12,
+                left: 20,
+                fontWeight: 700,
+                fontSize: 22,
+                fontFamily: "'Changa', sans-serif",
+              }}
+            >
+              Messi
+            </span>
+            {/* Number */}
+            <span
+              className="kcc-fc-num"
+              style={{
+                position: 'absolute',
+                top: 30,
+                left: 20,
+                fontWeight: 700,
+                fontSize: 72,
+                fontFamily: "'Changa', sans-serif",
+              }}
+            >
+              10
+            </span>
+          </div>
 
+          {/* Mbappé — France */}
+          <div
+            className="kcc-fc-card-2 relative overflow-hidden"
+            style={{
+              background: '#ffffff',
+              backdropFilter: 'blur(12px)',
+              WebkitBackdropFilter: 'blur(12px)',
+              border: '1px solid rgba(255,255,255,0.25)',
+              borderRadius: 20,
+              height: 160,
+              width: 300,
+              boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
+            }}
+          >
+            {/* French flag stripe accent */}
+            <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: 4, background: 'linear-gradient(to right, #002395 33%, #fff 33% 66%, #ED2939 66%)', borderRadius: '20px 20px 0 0' }} />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/mbappe.jpg"
+              alt="Mbappé"
+              onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+              style={{
+                position: 'absolute',
+                width: '60%',
+                height: '100%',
+                bottom: 0,
+                right: 0,
+                borderRadius: '0 0 20px 0',
+                objectFit: 'cover',
+                objectPosition: 'top center',
+              }}
+            />
+            <span
+              className="kcc-fc-name-fr"
+              style={{
+                position: 'absolute',
+                top: 14,
+                left: 20,
+                fontWeight: 700,
+                fontSize: 22,
+                fontFamily: "'Changa', sans-serif",
+              }}
+            >
+              Mbappé
+            </span>
+            <span
+              className="kcc-fc-num-fr"
+              style={{
+                position: 'absolute',
+                top: 30,
+                left: 20,
+                fontWeight: 700,
+                fontSize: 72,
+                fontFamily: "'Changa', sans-serif",
+              }}
+            >
+              10
+            </span>
+          </div>
+        </div>
 
         <div className="mt-4 w-full max-w-xs sm:max-w-sm">
           <div className="relative h-3 sm:h-4 bg-white/10 rounded-full overflow-hidden border border-white/30 shadow-lg">
