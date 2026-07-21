@@ -70,12 +70,16 @@ export default function Contributors() {
   }, []);
 
   return (
-    <section id="contributors" className="scroll-mt-24 px-6 py-28 md:px-12 border-t-4 border-black">
+    <section id="contributors" className="scroll-mt-24 px-6 py-28 md:px-12 border-t-4 border-black bg-[#FAF9F5]">
       <style>{`
-      .group:hover .rank-badge {
-        background-color: #a5ffd6 !important;
-        background-image: none !important;
-      }`}
+      .scrollbar-none::-webkit-scrollbar {
+        display: none;
+      }
+      .scrollbar-none {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+      `}
       </style>
        <div className="mx-auto max-w-[1280px]">
         <div className="flex flex-col gap-12 lg:flex-row lg:items-end lg:justify-between">
@@ -111,74 +115,63 @@ export default function Contributors() {
           </div>
         </div>
 
-        <div className="mt-16 grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
-          {loading
-            ? Array.from({ length: 3 }).map((_, index) => (
-                <div
-                  key={index}
-                  className="border-4 border-black bg-white p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]"
-                >
-                  <div className="h-16 w-16 animate-pulse border-2 border-black bg-black/10" />
-                  <div className="mt-6 h-8 w-2/3 animate-pulse border-2 border-black bg-black/5" />
-                  <div className="mt-3 h-5 w-1/2 animate-pulse border-2 border-black bg-black/5" />
-                </div>
-              ))
-            : contributors.slice(0, 3).map((contributor, index) => (
-                  <Link
-                  key={contributor.id}
-                  href={contributor.html_url}
-                  target="_blank"
-                  rel="noopener"
-                  className="group relative bg-white p-5 rounded-sm shadow-[10px_10px_20px_rgba(0,0,0,0.5)] border-2 border-white/20 transition-all duration-300 hover:-translate-y-1 hover:shadow-[12px_12px_25px_rgba(0,0,0,0.6)] flex flex-col h-full overflow-hidden"
-                >
-                  {/* Rivets on outer concrete shell */}
-                  <div className="rivet top-2 left-2"></div>
-                  <div className="rivet top-2 right-2"></div>
-                  <div className="rivet bottom-2 left-2"></div>
-                  <div className="rivet bottom-2 right-2"></div>
+        <div className="relative mt-16">
+          {/* Subtle fade effect on edges for horizontal scroll indicator */}
+          <div className="absolute top-0 bottom-0 left-0 w-8 sm:w-16 bg-gradient-to-r from-[#FAF9F5] via-[#FAF9F5]/30 to-transparent z-10 pointer-events-none" />
+          <div className="absolute top-0 bottom-0 right-0 w-8 sm:w-16 bg-gradient-to-l from-[#FAF9F5] via-[#FAF9F5]/30 to-transparent z-10 pointer-events-none" />
 
-                  <div className="flex items-start justify-between gap-3 mb-4">
-                    {/* Metal Frame for Avatar */}
-                    <div className="relative bg-metal shadow-metal p-1 rounded-sm border border-black/30">
-                      <div className="rivet -top-1 -left-1 scale-[0.6]"></div>
-                      <div className="rivet -top-1 -right-1 scale-[0.6]"></div>
-                      <div className="rivet -bottom-1 -left-1 scale-[0.6]"></div>
-                      <div className="rivet -bottom-1 -right-1 scale-[0.6]"></div>
-                      <div className="relative h-16 w-16 shrink-0 overflow-hidden shadow-[inset_0px_2px_5px_rgba(0,0,0,0.9)] bg-black/80">
-                        <Image
-                          src={contributor.avatar_url}
-                          alt={contributor.login}
-                          fill
-                          className="object-cover opacity-90 mix-blend-luminosity group-hover:mix-blend-normal transition duration-300"
-                          sizes="64px"
-                        />
+          <div className="flex gap-4 overflow-x-auto pb-12 pt-4 px-2 sm:px-6 scrollbar-none snap-x snap-mandatory scroll-smooth">
+            {loading
+              ? Array.from({ length: 6 }).map((_, index) => (
+                  <div
+                    key={index}
+                    className="w-[240px] sm:w-[260px] h-[280px] sm:h-[310px] shrink-0 rounded-[20px] bg-neutral-200/60 animate-pulse relative flex flex-col justify-end snap-start overflow-hidden"
+                  >
+                    <div className="mx-3 mb-3 bg-white rounded-[14px] p-4 space-y-2">
+                      <div className="h-4 bg-neutral-200 rounded w-2/3" />
+                      <div className="h-3 bg-neutral-100 rounded w-1/2" />
+                    </div>
+                  </div>
+                ))
+              : contributors.slice(0, 15).map((contributor, index) => {
+                  const role = index === 0 
+                    ? "Lead Maintainer" 
+                    : contributor.contributions >= 15 
+                      ? "Core Contributor" 
+                      : contributor.contributions >= 5 
+                        ? "Top Contributor" 
+                        : "Contributor";
+
+                  return (
+                    <Link
+                      key={contributor.id}
+                      href={contributor.html_url}
+                      target="_blank"
+                      rel="noopener"
+                      className="group relative w-[240px] sm:w-[260px] h-[280px] sm:h-[310px] shrink-0 rounded-[20px] bg-[#EBEBEB] shadow-[0_8px_24px_rgba(0,0,0,0.07)] hover:shadow-[0_20px_50px_rgba(0,0,0,0.16)] transition-all duration-500 hover:-translate-y-2 overflow-hidden snap-start flex flex-col justify-end cursor-pointer"
+                    >
+                      {/* Full-bleed avatar */}
+                      <Image
+                        src={contributor.avatar_url}
+                        alt={contributor.login}
+                        fill
+                        className="object-cover object-top grayscale brightness-[0.97] group-hover:grayscale-0 group-hover:scale-[1.04] transition-all duration-700 ease-out"
+                        sizes="(max-width: 640px) 240px, 260px"
+                      />
+
+                      {/* Bottom label – white pill with tan/amber border on hover */}
+                      <div className="relative z-10 mx-3 mb-3 bg-white rounded-[14px] px-4 py-3 shadow-[0_4px_16px_rgba(0,0,0,0.08)] border border-transparent group-hover:border-[#C8A882] transition-colors duration-300">
+                        <h3 className="font-semibold text-black text-[0.95rem] leading-snug truncate">
+                          {contributor.login}
+                        </h3>
+                        <p className="text-gray-400 font-medium text-[0.78rem] mt-0.5 truncate">
+                          {role}
+                        </p>
                       </div>
-                    </div>
-
-                    <div className="shrink-0 bg-metal border border-black/30 shadow-metal px-3 py-1 text-xs font-black uppercase tracking-widest text-stamped text-black/80 rounded-sm rank-badge">
-                    #{String(index + 1).padStart(2, "0")}
-                    </div>
-                  </div>
-
-                  <div className="mt-2 min-w-0 flex-grow">
-                    <h3 className="text-[1.2rem] sm:text-[1.4rem] font-black uppercase tracking-[-0.04em] text-black/80 text-stamped truncate">
-                      {contributor.login}
-                    </h3>
-                  </div>
-
-                  {/* Metal Bar for Stats */}
-                  <div className="relative bg-metal shadow-metal w-full rounded-sm border border-black/30 flex flex-col gap-0 mt-4 overflow-hidden">
-                    <div className="flex items-center justify-between px-3 py-2 border-b border-black/20 bg-white/10">
-                      <span className="text-[10px] font-black uppercase text-black/50 text-stamped tracking-widest">Commits</span>
-                      <span className="text-sm font-black text-black/80 text-stamped">{contributor.contributions}</span>
-                    </div>
-                    <div className="flex items-center justify-between px-3 py-2 bg-black/5">
-                      <span className="text-[10px] font-black uppercase text-black/50 text-stamped tracking-widest">Impact</span>
-                      <span className="text-sm font-black text-[#931515] text-stamped">{contributor.contributions * 15}</span>
-                    </div>
-                  </div>
-                </Link>
-              ))}
+                    </Link>
+                  );
+                })}
+          </div>
         </div>
 
         {!loading && contributors.length === 0 ? (

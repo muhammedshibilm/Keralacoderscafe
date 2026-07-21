@@ -7,8 +7,10 @@ import { heroMalayalam } from "../../lib/fonts";
 import { useState, useEffect, useRef } from "react";
 
 const highlights = [
-  "From 1-day beginners to 10+ years experienced developers",
-  "Open source, meetups, peer learning, and real collaboration",
+  "3000+ developers from Kerala & beyond",
+  "Gen AI, Web3, DevOps & full-stack topics",
+  "Careers, jobs & internship opportunities",
+  "Open contribution — anyone can join & build",
 ];
 
 const fallbackContributors = [
@@ -138,7 +140,7 @@ export default function Hero() {
               ))}
             </div>
 
-            <div className="mt-22 flex flex-col gap-6 animate-fade-in-up delay-300 sm:flex-row">
+            <div className="mt-22 flex flex-col gap-4 animate-fade-in-up delay-300 sm:flex-row">
               <Link
                 href="https://github.com/KERALACODERSCAFE/Keralacoderscafe"
                 target="_blank"
@@ -148,16 +150,38 @@ export default function Hero() {
                 <Github className="h-5 w-5 stroke-[3]" />
                 View on GitHub
               </Link>
+
+              {/* WhatsApp Channel CTA */}
+              <Link
+                href="https://whatsapp.com/channel/0029Vb7rrWPA2pLKAUOz4F29"
+                target="_blank"
+                rel="noopener"
+                className="inline-flex h-16 items-center justify-center gap-3 border-3 border-black bg-[#25D366] px-8 text-base font-black uppercase text-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all"
+              >
+                {/* WhatsApp icon */}
+                <svg className="h-5 w-5 shrink-0" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                </svg>
+                Join Channel
+              </Link>
             </div>
 
-            <div className="mt-22 flex flex-wrap items-center gap-6 text-[0.95rem] font-bold uppercase animate-fade-in-up delay-400">
-              <div className="inline-flex items-center gap-2 border-2 border-black bg-white px-3 py-1 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]">
-                <span className="h-3 w-3 border-2 border-black bg-kcc-green" />
-                700+ ACTIVE DEVS
+            <div className="mt-22 flex flex-wrap items-center gap-3 text-[0.85rem] font-bold uppercase animate-fade-in-up delay-400">
+              <div className="inline-flex items-center gap-2 border-2 border-black bg-kcc-green px-3 py-1.5 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]">
+                <span className="h-2.5 w-2.5 rounded-full bg-black" />
+                3000+ DEVELOPERS
               </div>
-              <div className="inline-flex items-center gap-2 border-2 border-black bg-white px-3 py-1 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]">
+              <div className="inline-flex items-center gap-2 border-2 border-black bg-kcc-gold px-3 py-1.5 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]">
+                <span className="text-base leading-none">🤖</span>
+                GEN AI
+              </div>
+              <div className="inline-flex items-center gap-2 border-2 border-black bg-white px-3 py-1.5 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]">
+                <span className="text-base leading-none">💼</span>
+                CAREERS
+              </div>
+              <div className="inline-flex items-center gap-2 border-2 border-black bg-white px-3 py-1.5 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]">
                 <ArrowUpRight className="h-4 w-4 stroke-[3]" />
-                OPEN TO ALL
+                OPEN CONTRIBUTION
               </div>
             </div>
           </div>
@@ -287,7 +311,7 @@ export default function Hero() {
                   </div>
                   <div className="flex-1 h-[2px] bg-black/10" />
                   <div className="text-[0.55rem] font-bold text-black/30 uppercase tracking-tighter">
-                    Ref: KCC-OSS-2024
+                    Ref: KCC-OSS-2025
                   </div>
                 </div>
 
@@ -296,26 +320,35 @@ export default function Hero() {
                   <div className="update-item live">
                     <div className="status-dot live"></div>
                     <div className="update-content">
-                      <div className="update-title">3D Model Viewer</div>
-                      <div className="update-desc">Toddy Shop Finder prototype integrated with interactive lighting.</div>
+                      <div className="update-title">3000+ Developers</div>
+                      <div className="update-desc">Kerala&apos;s largest dev community — growing every day with builders across all stacks.</div>
                     </div>
                   </div>
 
-                  {/* Item 2: Completed / Recent */}
+                  {/* Item 2: Gen AI */}
                   <div className="update-item completed">
                     <div className="status-dot completed"></div>
                     <div className="update-content">
-                      <div className="update-title">14 Community Ideas</div>
-                      <div className="update-desc">Projects from Leo, Sathish, Aswin & others moved to idea stage.</div>
+                      <div className="update-title">Gen AI & LLM Discussions</div>
+                      <div className="update-desc">Active channels on Gemini, GPT, local models, agents & prompt engineering.</div>
                     </div>
                   </div>
 
-                  {/* Item 3: Completed */}
+                  {/* Item 3: Careers */}
                   <div className="update-item completed">
                     <div className="status-dot completed"></div>
                     <div className="update-content">
-                      <div className="update-title">AR Support Added</div>
-                      <div className="update-desc">Google Scene Viewer intent integration completed for Android.</div>
+                      <div className="update-title">Careers & Job Board</div>
+                      <div className="update-desc">Referrals, internships & openings shared daily by Kerala-based companies.</div>
+                    </div>
+                  </div>
+
+                  {/* Item 4: Open Contribution */}
+                  <div className="update-item live">
+                    <div className="status-dot live"></div>
+                    <div className="update-content">
+                      <div className="update-title">Open Contribution</div>
+                      <div className="update-desc">Contribute to open-source projects, get featured on the site &amp; build your portfolio.</div>
                     </div>
                   </div>
                 </div>
@@ -323,10 +356,10 @@ export default function Hero() {
                 {/* CTA Button */}
                 <div className="mt-6">
                   <Link
-                    href="/events"
+                    href="/contributors"
                     className="group relative inline-flex items-center justify-center w-full bg-black text-white border-2 border-[#6dfe9c] py-3 px-6 font-black uppercase text-xs tracking-widest shadow-[6px_6px_0px_0px_rgba(109,254,156,0.3)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[8px_8px_0px_0px_rgba(109,254,156,0.5)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all duration-100"
                   >
-                    <span>Explore All Projects</span>
+                    <span>Start Contributing</span>
                     <ArrowUpRight className="ml-2 w-4 h-4 stroke-[3] group-hover:rotate-45 transition-transform" />
                   </Link>
                 </div>
